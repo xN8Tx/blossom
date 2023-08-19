@@ -1,0 +1,19 @@
+:root {
+  /* COLORS */
+  /* base */
+  --blue-base-color: #5051f9;
+  --dark-blue-base-color: #23236f;
+  --red-base-color: #d34141;
+  --dark-red-base-color: #650606;
+  --green-base-color: #41d37e;
+  /* changeable  */
+  --bg-change-color: #131517;
+  --second-bg-change-color: #212229;
+  --msg-bg-change-color: #1e1f25;
+  --user-msg-bg-change-color: #5051f9;
+  --msg-change-color: #a9abad;
+  --user-msg-change-color: #eeeeee;
+
+  /* TRANSITION */
+  --main-transition: all ease 0.3s;
+}

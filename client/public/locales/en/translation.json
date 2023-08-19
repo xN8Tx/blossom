@@ -1,0 +1,38 @@
+{
+  "title": {
+    "messages": "Messages",
+    "contacts": "Contacts",
+    "settings": "Settings"
+  },
+  "homePageText": {
+    "messagesHomePage": "Select chat to start messaging",
+    "contactHomePage": "Select contact to see information",
+    "settingsHomePage": "Select the option you want to change"
+  },
+  "status": {
+    "online": "Online",
+    "offline": "Offline"
+  },
+  "date": {
+    "yesterday": "Yesterday",
+    "today": "Today"
+  },
+  "profile": {
+    "back": "Back",
+    "edit": "Edit",
+    "toMessage": "Message",
+    "files": "Files",
+    "media": "Media",
+    "Links": "Links"
+  },
+  "settingsName": {
+    "generalSettings": "general",
+    "privacy": "Privacy",
+    "devices": "Devices",
+    "appearance": "Appearance",
+    "language": "Language"
+  },
+  "etc": {
+    "inDevelopment": "This feature will be soon!"
+  }
+}

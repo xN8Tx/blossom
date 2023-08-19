@@ -1,0 +1,14 @@
+/* paragraph mixin */
+@mixin parMixin {
+  font-family: "DM Sans", sans-serif;
+
+  &[data-color="green"] {
+    color: var(--green-base-color);
+  }
+  &[data-color="message"] {
+    color: var(--msg-change-color);
+  }
+  &[data-color="user"] {
+    color: var(--user-msg-change-color);
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "title": {
+    "messages": "Сообщения",
+    "contacts": "Контакты",
+    "settings": "Настройки"
+  },
+  "homePageText": {
+    "messagesHomePage": "Выберите чат, чтобы начать переписку",
+    "contactHomePage": "Выберете контакт, чтобы узнать информацию",
+    "settingsHomePage": "Выберете параметр, который хотите изменить"
+  },
+  "status": {
+    "online": "Онлайн",
+    "offline": "Оффлайн"
+  },
+  "date": {
+    "yesterday": "Вчера",
+    "today": "Сегодня"
+  },
+  "profile": {
+    "back": "Назад",
+    "edit": "Изменить",
+    "toMessage": "Написать",
+    "files": "Файлы",
+    "media": "Медиа",
+    "Links": "Ссылки"
+  },
+  "settingsName": {
+    "generalSettings": "Основные",
+    "privacy": "Приватные",
+    "devices": "Девайсы",
+    "appearance": "Внешний вид",
+    "language": "Языки"
+  },
+  "etc": {
+    "inDevelopment": "Данная возможность скоро будет!"
+  }
+}
