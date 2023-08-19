@@ -1,0 +1,10 @@
+.HeadingTwo {
+  font-family: "DM Sans", sans-serif;
+  font-weight: 500;
+  font-size: 30px;
+  color: var(--user-msg-change-color);
+
+  @media (min-width: 320px) and (max-width: 769px) {
+    font-size: 20px;
+  }
+}

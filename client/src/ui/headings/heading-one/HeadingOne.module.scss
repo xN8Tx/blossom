@@ -1,0 +1,10 @@
+.HeadingOne {
+  font-family: "DM Sans", sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--user-msg-change-color);
+
+  @media (min-width: 320px) and (max-width: 768px) {
+    font-size: 20px;
+  }
+}

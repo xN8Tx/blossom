@@ -1,0 +1,49 @@
+.Paragraph {
+  font-family: "DM Sans", sans-serif;
+
+  &[data-color="green"] {
+    color: var(--green-base-color);
+  }
+  &[data-color="message"] {
+    color: var(--msg-change-color);
+  }
+  &[data-color="user"] {
+    color: var(--user-msg-change-color);
+  }
+
+  &[data-size="xs"] {
+    font-size: 13px;
+    font-weight: 400;
+  }
+  &[data-size="s"] {
+    font-size: 13px;
+    font-weight: medium;
+  }
+  &[data-size="m"] {
+    font-size: 14px;
+    font-weight: 400;
+  }
+  &[data-size="l"] {
+    font-size: 14px;
+    font-weight: 500;
+  }
+  &[data-size="xl"] {
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  @media (min-width: 320px) and (max-width: 767px) {
+    &[data-size="xs"] {
+      font-size: 11px;
+      font-weight: 400;
+    }
+    &[data-size="s"] {
+      font-size: 11px;
+      font-weight: medium;
+    }
+    &[data-size="l"] {
+      font-size: 12px;
+      font-weight: 500;
+    }
+  }
+}
