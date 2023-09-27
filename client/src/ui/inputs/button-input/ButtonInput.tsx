@@ -1,4 +1,4 @@
-import type { BtnInputProps } from '../../../models/uiModel';
+import type { BtnInputProps } from '../../../models/uiProps';
 
 import style from './ButtonInput.module.scss';
 

@@ -1,4 +1,4 @@
-import type { HeadingsProps } from '../../models/uiModel';
+import type { HeadingsProps } from '../../models/uiProps';
 
 import style from './Heading.module.scss';
 

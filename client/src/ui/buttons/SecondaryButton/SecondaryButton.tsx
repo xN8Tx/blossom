@@ -1,4 +1,4 @@
-import type { ButtonProps } from '../../../models/uiModel';
+import type { ButtonProps } from '../../../models/uiProps';
 
 import style from './SecondaryButton.module.scss';
 

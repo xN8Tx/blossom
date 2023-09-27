@@ -1,4 +1,4 @@
-import type { InputProps } from '../../../models/uiModel';
+import type { InputProps } from '../../../models/uiProps';
 
 import style from './MainInput.module.scss';
 

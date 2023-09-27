@@ -1,4 +1,4 @@
-import type { ParagraphProps } from '../../models/uiModel';
+import type { ParagraphProps } from '../../models/uiProps';
 
 import style from './Paragraph.module.scss';
 

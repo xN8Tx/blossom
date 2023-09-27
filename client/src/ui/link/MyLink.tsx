@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import type { LinkProps } from '../../models/uiModel';
+import type { LinkProps } from '../../models/uiProps';
 
 import style from './MyLink.module.scss';
 
