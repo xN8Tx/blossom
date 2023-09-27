@@ -1,15 +1,13 @@
-import type { ParagraphModel } from "../../models/uiModel";
+import type { ParagraphProps } from '../../models/uiModel';
 
-import style from "./Paragraph.module.scss";
+import style from './Paragraph.module.scss';
 
 export default function Paragraph({
   children,
-  color = "message",
-  size = "s",
-}: ParagraphModel) {
-  return (
-    <p className={style.Paragraph} data-color={color} data-size={size}>
-      {children}
-    </p>
-  );
+  color = 'message',
+  size = 's',
+}: ParagraphProps) {
+  const className = `${style.Paragraph} ${style[color]} ${style[size]}`;
+
+  return <p className={className}>{children}</p>;
 }

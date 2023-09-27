@@ -1,49 +1,49 @@
 .Paragraph {
-  font-family: "DM Sans", sans-serif;
+  font-family: 'DM Sans', sans-serif;
+}
 
-  &[data-color="green"] {
-    color: var(--green-base-color);
-  }
-  &[data-color="message"] {
-    color: var(--msg-change-color);
-  }
-  &[data-color="user"] {
-    color: var(--user-msg-change-color);
-  }
+.green {
+  color: var(--green-base-color);
+}
+.message {
+  color: var(--msg-change-color);
+}
+.user {
+  color: var(--user-msg-change-color);
+}
 
-  &[data-size="xs"] {
-    font-size: 13px;
-    font-weight: 400;
-  }
-  &[data-size="s"] {
-    font-size: 13px;
-    font-weight: medium;
-  }
-  &[data-size="m"] {
-    font-size: 14px;
-    font-weight: 400;
-  }
-  &[data-size="l"] {
-    font-size: 14px;
-    font-weight: 500;
-  }
-  &[data-size="xl"] {
-    font-size: 14px;
-    font-weight: 700;
-  }
+.xs {
+  font-size: 13px;
+  font-weight: 400;
+}
+.s {
+  font-size: 13px;
+  font-weight: medium;
 
   @media (min-width: 320px) and (max-width: 767px) {
-    &[data-size="xs"] {
-      font-size: 11px;
-      font-weight: 400;
-    }
-    &[data-size="s"] {
-      font-size: 11px;
-      font-weight: medium;
-    }
-    &[data-size="l"] {
-      font-size: 12px;
-      font-weight: 500;
-    }
+    font-size: 11px;
+    font-weight: medium;
+  }
+}
+.m {
+  font-size: 14px;
+  font-weight: 400;
+}
+.l {
+  font-size: 14px;
+  font-weight: 500;
+
+  @media (min-width: 320px) and (max-width: 767px) {
+    font-size: 12px;
+    font-weight: 500;
+  }
+}
+.x {
+  font-size: 14px;
+  font-weight: 700;
+
+  @media (min-width: 320px) and (max-width: 767px) {
+    font-size: 11px;
+    font-weight: 400;
   }
 }

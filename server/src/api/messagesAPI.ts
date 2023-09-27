@@ -1,4 +1,4 @@
-import databasePool from '../database';
+import databasePool from '../database/postgresql';
 import type { MessagesDB } from '../typings/database';
 
 class MessagesAPI {

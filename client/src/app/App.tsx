@@ -1,9 +1,13 @@
-import { Suspense } from "react";
+import { Suspense } from 'react';
+
+import Router from '../routes/Router';
+import Modal from '../modules/modal/Modal';
 
 function App() {
   return (
-    <Suspense fallback="Loading...">
-      <h1>Hello world!</h1>
+    <Suspense fallback='Loading...'>
+      <Modal />
+      <Router />
     </Suspense>
   );
 }

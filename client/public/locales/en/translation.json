@@ -23,7 +23,7 @@
     "toMessage": "Message",
     "files": "Files",
     "media": "Media",
-    "Links": "Links"
+    "links": "Links"
   },
   "settingsName": {
     "generalSettings": "general",
@@ -31,6 +31,27 @@
     "devices": "Devices",
     "appearance": "Appearance",
     "language": "Language"
+  },
+  "auth": {
+    "email": "Email",
+    "password": "Password",
+    "username": "Username",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "sendCode": "Send code",
+    "confirmCode": "Confirm code",
+    "createAccount": "Create account",
+    "signIn": "Sign in",
+    "code": "Code",
+    "forgotPassword": "Forgot password",
+    "shortPassword": "Short password",
+    "incorrectEmail": "Enter correct email",
+    "checkEmail": "Check your email and password",
+    "codeSending": "Sending code...",
+    "codeSuccess": "Code send",
+    "codeWrong": "Wrong code",
+    "codeRight": "You are logged in",
+    "allField": "All fields must be completed"
   },
   "etc": {
     "inDevelopment": "This feature will be soon!"

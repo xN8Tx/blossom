@@ -1,4 +1,4 @@
-import databasePool from '../database';
+import databasePool from '../database/postgresql';
 import { ChatDB } from '../typings/database';
 
 type ChatId = Pick<ChatDB, 'id'>;

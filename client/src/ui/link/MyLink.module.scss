@@ -1,0 +1,16 @@
+.link {
+  font-family: DM Sans;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--msg-change-color);
+
+  transition: var(--main-transition);
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &:focus {
+    text-decoration: underline;
+  }
+}

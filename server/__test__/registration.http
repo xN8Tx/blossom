@@ -1,0 +1,36 @@
+POST http://localhost:8080/api/auth/registration-code
+Content-Type: application/json
+
+{
+  "email": "theeldern8t@ya.ru"
+}
+
+###
+POST http://localhost:8080/api/auth/registration
+Content-Type: application/json
+
+{
+  "email": "theeldern8t@ya.ru",
+  "code": "6532",
+  "password": "0000",
+  "firstName": "No",
+  "secondName": "Name",
+  "username": "uki"
+}
+
+###
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "3201302103021",
+  "code": "3153"
+}
+
+###
+DELETE  http://localhost:8080/api/auth/logout
+Content-Type: application/json
+
+###
+GET http://localhost:8080/api/auth/refresh

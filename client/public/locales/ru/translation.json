@@ -23,7 +23,7 @@
     "toMessage": "Написать",
     "files": "Файлы",
     "media": "Медиа",
-    "Links": "Ссылки"
+    "links": "Ссылки"
   },
   "settingsName": {
     "generalSettings": "Основные",
@@ -31,6 +31,27 @@
     "devices": "Девайсы",
     "appearance": "Внешний вид",
     "language": "Языки"
+  },
+  "auth": {
+    "email": "Почта",
+    "password": "Пароль",
+    "username": "Логин",
+    "firstName": "Имя",
+    "lastName": "Фамилия",
+    "sendCode": "Отправить код",
+    "confirmCode": "Подтвердить код",
+    "createAccount": "Создать аккаунт",
+    "signIn": "Войти",
+    "code": "Код",
+    "forgotPassword": "Забыли пароль",
+    "shortPassword": "Слишком короткий пароль",
+    "incorrectEmail": "Введите корректную почту",
+    "checkEmail": "Проверьте вашу почту и пароль",
+    "codeSending": "Отправляем код...",
+    "codeSuccess": "Код отправлен",
+    "codeWrong": "Неправильный код",
+    "codeRight": "Вы авторизованы",
+    "allField": "Все поля должны быть заполнены"
   },
   "etc": {
     "inDevelopment": "Данная возможность скоро будет!"

@@ -1,4 +1,4 @@
-import databasePool from '../database';
+import databasePool from '../database/postgresql';
 import type { MembersDB } from '../typings/database';
 
 class MembersAPI {

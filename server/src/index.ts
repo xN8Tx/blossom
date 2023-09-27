@@ -6,6 +6,8 @@ import cookieParser from 'cookie-parser';
 import type { Express } from 'express';
 import type { CorsOptions } from 'cors';
 
+import routesConfiguration from './routes/index';
+
 dotenv.config();
 
 const app: Express = express();
@@ -18,6 +20,8 @@ const corsConfig: CorsOptions = {
 app.use(json());
 app.use(cookieParser());
 app.use(cors(corsConfig));
+
+routesConfiguration(app);
 
 app.listen(PORT, () => {
   console.log('Server listening on port: ' + PORT);

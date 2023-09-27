@@ -1,5 +1,6 @@
 .PrimaryButton {
   width: 100%;
+  min-height: 42px;
   padding: 13px 0;
   border-radius: 8px;
 
@@ -7,7 +8,7 @@
   align-items: center;
   justify-content: center;
 
-  font-family: "DM Sans", sans-serif;
+  font-family: 'DM Sans', sans-serif;
   font-size: 16px;
   font-weight: 400;
   color: var(--user-msg-change-color);
@@ -20,6 +21,15 @@
   }
   &.red {
     background-color: var(--red-base-color);
+  }
+
+  &:focus {
+    &.blue {
+      background-color: var(--dark-blue-base-color);
+    }
+    &.red {
+      background-color: var(--dark-red-base-color);
+    }
   }
 
   @media (hover: hover) {

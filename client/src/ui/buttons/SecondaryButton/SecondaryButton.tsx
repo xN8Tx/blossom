@@ -1,12 +1,12 @@
-import type { ButtonModel } from "../../../models/uiModel";
+import type { ButtonProps } from '../../../models/uiModel';
 
-import style from "./SecondaryButton.module.scss";
+import style from './SecondaryButton.module.scss';
 
 export default function SecondaryButton({
   onClick,
   children,
   image,
-}: ButtonModel) {
+}: ButtonProps) {
   const isImage: boolean = image !== undefined;
 
   return (
@@ -15,7 +15,7 @@ export default function SecondaryButton({
       onClick={onClick}
       contains-image={`${isImage}`}
     >
-      {isImage && <img src={image!} alt="Icon" />}
+      {isImage && <img src={image!} alt='Icon' />}
       <span>{children}</span>
     </button>
   );
