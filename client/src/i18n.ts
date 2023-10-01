@@ -4,8 +4,8 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 import XHR from 'i18next-http-backend';
 
 const options = {
-  order: ['querystring', 'navigator'],
-  lookupQuerystring: 'lng',
+  order: ['localStorage', 'navigator'],
+  lookupQuerystring: 'i18nextLng',
 };
 
 i18n

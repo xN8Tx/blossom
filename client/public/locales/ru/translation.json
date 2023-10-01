@@ -26,11 +26,12 @@
     "links": "Ссылки"
   },
   "settingsName": {
-    "generalSettings": "Основные",
+    "general": "Основные",
     "privacy": "Приватные",
     "devices": "Девайсы",
     "appearance": "Внешний вид",
-    "language": "Языки"
+    "language": "Языки",
+    "profile": "Профиль"
   },
   "auth": {
     "email": "Почта",
@@ -54,6 +55,7 @@
     "allField": "Все поля должны быть заполнены"
   },
   "etc": {
-    "inDevelopment": "Данная возможность скоро будет!"
+    "inDevelopment": "Данная возможность скоро будет!",
+    "search": "Поиск"
   }
 }

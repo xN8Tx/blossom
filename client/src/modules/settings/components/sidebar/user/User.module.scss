@@ -1,0 +1,52 @@
+.wrapper {
+  width: 100%;
+
+  padding: 10px 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  transition: all ease-in 0.5s;
+  border-radius: 20px;
+
+  &:hover {
+    background-color: var(--bg-change-color);
+  }
+}
+
+.active {
+  background-color: var(--bg-change-color);
+  border-radius: 20px;
+
+  & > .icon {
+    display: none;
+  }
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar {
+  object-fit: cover;
+
+  width: 75px;
+  height: 75px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: rgb(254, 229, 167);
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}

@@ -1,0 +1,40 @@
+.wrapper {
+  width: 100%;
+
+  position: sticky;
+  left: 0;
+  bottom: 0;
+
+  padding: 10px 0px;
+  background-color: var(--second-bg-change-color);
+  border-top: 1px solid var(--bg-change-color);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+}
+
+.link {
+  & > svg {
+    transform: scale(1);
+    transition: all ease-in 0.5s;
+
+    & > path,
+    circle {
+      fill: var(--msg-change-color);
+    }
+  }
+}
+
+.active {
+  & > svg {
+    transform: scale(1.2);
+    transition: all ease-in 0.5s;
+
+    & > path,
+    circle {
+      fill: var(--user-msg-change-color);
+    }
+  }
+}

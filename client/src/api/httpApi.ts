@@ -1,7 +1,7 @@
 import axios from 'axios';
 import config from '../config';
-// import store from '../store';
-// import { resetUser } from '../store/auth/authSlice';
+import store from '../store';
+import { resetUser } from '../store/auth/authSlice';
 
 const $http = axios.create({
   withCredentials: true,
@@ -28,8 +28,8 @@ $http.interceptors.response.use(
         localStorage.setItem('accessToken', response.data.message);
         return $http.request(originRequest);
       } catch (error) {
-        // localStorage.removeItem('accessToken');
-        // store.dispatch(resetUser());
+        localStorage.removeItem('accessToken');
+        store.dispatch(resetUser());
       }
     }
     throw new Error();

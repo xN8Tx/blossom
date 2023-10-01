@@ -8,6 +8,7 @@ export default function SecondaryButton({
   image,
 }: ButtonProps) {
   const isImage: boolean = image !== undefined;
+  const isImageString = typeof image === 'string';
 
   return (
     <button
@@ -15,7 +16,7 @@ export default function SecondaryButton({
       onClick={onClick}
       contains-image={`${isImage}`}
     >
-      {isImage && <img src={image!} alt='Icon' />}
+      {isImage && (isImageString ? <img src={image} alt='Icon' /> : image!())}
       <span>{children}</span>
     </button>
   );

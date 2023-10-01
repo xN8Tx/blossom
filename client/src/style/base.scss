@@ -1,14 +1,28 @@
 /* paragraph mixin */
 @mixin parMixin {
-  font-family: "DM Sans", sans-serif;
+  font-family: 'DM Sans', sans-serif;
 
-  &[data-color="green"] {
+  &[data-color='green'] {
     color: var(--green-base-color);
   }
-  &[data-color="message"] {
+  &[data-color='message'] {
     color: var(--msg-change-color);
   }
-  &[data-color="user"] {
+  &[data-color='user'] {
     color: var(--user-msg-change-color);
+  }
+}
+
+@mixin home-page {
+  width: calc(100% - 333px);
+}
+
+.page-wrapper {
+  display: flex;
+}
+
+.svg-fill-color {
+  & > path {
+    fill: var(--user-msg-change-color);
   }
 }

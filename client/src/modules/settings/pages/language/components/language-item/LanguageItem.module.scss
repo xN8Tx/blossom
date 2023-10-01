@@ -1,0 +1,20 @@
+.wrapper {
+  width: 260px;
+
+  padding: 15px;
+  padding-left: 30px;
+
+  border-radius: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &[is-active='true'] {
+    background-color: var(--blue-base-color);
+  }
+
+  &[is-active='false'] {
+    background-color: var(--second-bg-change-color);
+  }
+}

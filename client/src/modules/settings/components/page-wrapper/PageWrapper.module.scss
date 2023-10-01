@@ -1,0 +1,22 @@
+@import '../../Settings.module.scss';
+
+.wrapper {
+  width: calc(100% - 333px);
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+
+  padding: 35px;
+}
+
+.heading {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  & > div {
+    width: 94px;
+  }
+}

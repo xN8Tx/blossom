@@ -1,7 +1,8 @@
 type ButtonProps = {
   children: React.ReactNode;
   onClick: () => void;
-  image?: string | undefined;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  image?: string | (() => JSX.Element) | undefined;
   color?: 'red' | 'blue';
   tabIndex?: number;
 };

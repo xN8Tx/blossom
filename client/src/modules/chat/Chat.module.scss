@@ -1,21 +1,3 @@
-.container {
-  width: 100%;
-  height: 100vh;
-
+.wrapper {
   background-color: var(--bg-change-color);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 20px;
-
-  & > p > span {
-    color: var(--blue-base-color);
-  }
-
-  & > div {
-    margin-top: 100px;
-    width: 200px;
-  }
 }

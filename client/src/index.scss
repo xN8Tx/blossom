@@ -1,5 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap');
 
-@import "./style/nulling.scss";
-@import "./style/variables.scss";
-@import "./style/base.scss";
+@import './style/nulling.scss';
+@import './style/variables.scss';
+@import './style/base.scss';
+
+body {
+  background-color: var(--bg-change-color);
+}

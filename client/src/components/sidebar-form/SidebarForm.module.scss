@@ -1,0 +1,20 @@
+.wrapper {
+  position: relative;
+
+  width: 333px;
+  min-height: 100vh;
+
+  background-color: var(--second-bg-change-color);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.container {
+  padding: 31px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}

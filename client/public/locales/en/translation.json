@@ -26,11 +26,12 @@
     "links": "Links"
   },
   "settingsName": {
-    "generalSettings": "general",
+    "general": "General",
     "privacy": "Privacy",
     "devices": "Devices",
     "appearance": "Appearance",
-    "language": "Language"
+    "language": "Language",
+    "profile": "Profile"
   },
   "auth": {
     "email": "Email",
@@ -54,6 +55,7 @@
     "allField": "All fields must be completed"
   },
   "etc": {
-    "inDevelopment": "This feature will be soon!"
+    "inDevelopment": "This feature will be soon!",
+    "search": "Search"
   }
 }
