@@ -30,19 +30,25 @@
   gap: 10px;
 }
 
-.avatar {
-  object-fit: cover;
-
+.avatarContainer {
   width: 75px;
   height: 75px;
+
+  border-radius: 50%;
+  overflow: hidden;
+
+  background-color: rgb(132, 100, 21);
 
   display: flex;
   align-items: center;
   justify-content: center;
+}
 
-  background-color: rgb(254, 229, 167);
-  border-radius: 50%;
-  overflow: hidden;
+.avatar {
+  object-fit: cover;
+
+  width: 100%;
+  height: 100%;
 }
 
 .text {

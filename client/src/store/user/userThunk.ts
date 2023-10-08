@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import $http from '../../api/httpApi';
 
-import type { GetUserTitle, User } from './index';
+import type { EditUserTitle, GetUserTitle, User } from './index';
 
 const getUser = createAsyncThunk(
   '@@user/getUser',
@@ -17,4 +17,16 @@ const getUser = createAsyncThunk(
   }
 );
 
-export { getUser };
+const editUser = createAsyncThunk(
+  '@@user/editUser',
+  async (title: EditUserTitle) => {
+    const url = `/user/`;
+
+    const res = await $http.put(url, title);
+    const data: User = await res.data.message;
+
+    return data;
+  }
+);
+
+export { getUser, editUser };

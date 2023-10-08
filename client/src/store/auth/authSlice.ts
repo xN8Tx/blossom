@@ -53,7 +53,7 @@ const authSlice = createSlice({
       };
       state.authType = authType!;
     },
-    resetUser: (state) => {
+    resetAuth: (state) => {
       state.isAuth = 'notAuth';
       state.authType = null;
       state.codeLoading = 'idle';
@@ -118,7 +118,7 @@ const authSlice = createSlice({
 });
 
 const authReducer = authSlice.reducer;
-const { addDataOnLogin, addDataOnRegistration, resetUser } = authSlice.actions;
+const { addDataOnLogin, addDataOnRegistration, resetAuth } = authSlice.actions;
 
 export default authReducer;
-export { addDataOnLogin, addDataOnRegistration, resetUser };
+export { addDataOnLogin, addDataOnRegistration, resetAuth };

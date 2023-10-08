@@ -10,8 +10,8 @@ type PageWrapperProps = {
 };
 
 export default function PageWrapper({ children }: PageWrapperProps) {
-  const location = useLocation();
   const { t } = useTranslation();
+  const location = useLocation();
 
   const url = location.pathname.split('/').pop();
 

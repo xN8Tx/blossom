@@ -23,7 +23,8 @@
     "toMessage": "Message",
     "files": "Files",
     "media": "Media",
-    "links": "Links"
+    "links": "Links",
+    "logOut": "Log out"
   },
   "settingsName": {
     "general": "General",

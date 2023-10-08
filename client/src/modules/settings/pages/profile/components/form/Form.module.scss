@@ -1,0 +1,19 @@
+.container {
+  max-width: 389px;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.wrapper {
+  display: flex;
+  gap: 15px;
+
+  @media (min-width: 320px) and (max-width: 760px) {
+    flex-direction: column;
+    gap: 25px;
+    align-items: center;
+  }
+}

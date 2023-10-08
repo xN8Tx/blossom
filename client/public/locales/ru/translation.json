@@ -23,7 +23,8 @@
     "toMessage": "Написать",
     "files": "Файлы",
     "media": "Медиа",
-    "links": "Ссылки"
+    "links": "Ссылки",
+    "logOut": "Выйти"
   },
   "settingsName": {
     "general": "Основные",

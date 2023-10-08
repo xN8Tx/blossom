@@ -12,9 +12,17 @@ type User = {
 
 type InitialState = {
   loading: LoadingType;
+  isEditLoaded: LoadingType;
   data: User;
 };
 
 type GetUserTitle = Pick<User, 'id'>;
 
-export type { User, InitialState, GetUserTitle };
+type EditUserTitle = {
+  id: number | null;
+  firstName: string | null;
+  lastName: string | null;
+  username: string | null;
+};
+
+export type { User, InitialState, GetUserTitle, EditUserTitle };

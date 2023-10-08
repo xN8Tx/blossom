@@ -1,6 +1,7 @@
-import { createSlice, isAnyOf } from '@reduxjs/toolkit';
-import { InitialState, User } from './index';
-import { getUser } from './userThunk';
+import { createSlice } from '@reduxjs/toolkit';
+import { editUser, getUser } from './userThunk';
+
+import type { InitialState, User } from './index';
 
 const initialData: User = {
   id: null,
@@ -14,6 +15,7 @@ const initialData: User = {
 
 const initialState: InitialState = {
   loading: 'idle',
+  isEditLoaded: 'idle',
   data: initialData,
 };
 
@@ -23,6 +25,7 @@ const userSlice = createSlice({
   reducers: {
     resetUser: (state) => {
       state.loading = 'idle';
+      state.isEditLoaded = 'idle';
       state.data = initialData;
     },
   },
@@ -32,11 +35,24 @@ const userSlice = createSlice({
         state.loading = 'success';
         state.data = action.payload;
       })
-      .addMatcher(isAnyOf(getUser.rejected), (state) => {
+      .addCase(getUser.rejected, (state) => {
         state.loading = 'error';
       })
-      .addMatcher(isAnyOf(getUser.pending), (state) => {
+      .addCase(getUser.pending, (state) => {
         state.loading = 'loading';
+      })
+      .addCase(editUser.fulfilled, (state, action) => {
+        const { firstName, lastName, username } = action.payload;
+        state.isEditLoaded = 'success';
+        state.data.firstName = firstName;
+        state.data.lastName = lastName;
+        state.data.username = username;
+      })
+      .addCase(editUser.rejected, (state) => {
+        state.isEditLoaded = 'error';
+      })
+      .addCase(editUser.pending, (state) => {
+        state.isEditLoaded = 'loading';
       });
   },
 });

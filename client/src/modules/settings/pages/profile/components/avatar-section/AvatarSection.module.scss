@@ -1,0 +1,71 @@
+.wrapper {
+  position: relative;
+
+  width: 110px;
+  height: 110px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  overflow: hidden;
+
+  & > img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+  }
+
+  & > label {
+    position: absolute;
+  }
+
+  & > input {
+    position: absolute;
+    z-index: 10;
+
+    width: 100%;
+    height: 100%;
+
+    opacity: 0;
+
+    &:hover,
+    &:focus {
+      & + label {
+        background-color: rgba(0, 0, 0, 0.189);
+      }
+    }
+
+    & + label {
+      position: absolute;
+
+      width: 100%;
+      height: 100%;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      cursor: pointer;
+    }
+  }
+}
+
+.avatarContainer {
+  width: 100%;
+  height: 100%;
+
+  border-radius: 50%;
+  overflow: hidden;
+
+  background-color: rgb(132, 100, 21);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  & > h1 {
+    font-size: 64px;
+  }
+}

@@ -7,6 +7,7 @@ import type {
 } from './authTypes';
 
 import $http from '../../api/httpApi';
+import { resetUser } from '../user/userSlice';
 
 const sendLoginCode = createAsyncThunk(
   '@@auth/loginCode',
@@ -50,8 +51,9 @@ const registration = createAsyncThunk(
     localStorage.setItem('accessToken', accessToken);
   }
 );
-const logout = createAsyncThunk('@@auth/logout', async () => {
+const logout = createAsyncThunk('@@auth/logout', async (_, { dispatch }) => {
   await $http.delete('auth/logout');
+  dispatch(resetUser());
 
   localStorage.removeItem('accessToken');
 });

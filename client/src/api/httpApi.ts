@@ -1,7 +1,9 @@
 import axios from 'axios';
 import config from '../config';
 import store from '../store';
-import { resetUser } from '../store/auth/authSlice';
+
+import { resetUser } from '../store/user/userSlice';
+import { resetAuth } from '../store/auth/authSlice';
 
 const $http = axios.create({
   withCredentials: true,
@@ -30,6 +32,7 @@ $http.interceptors.response.use(
       } catch (error) {
         localStorage.removeItem('accessToken');
         store.dispatch(resetUser());
+        store.dispatch(resetAuth());
       }
     }
     throw new Error();

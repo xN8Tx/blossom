@@ -1,0 +1,10 @@
+.wrapper {
+  width: calc(100% - 110px);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  @media (min-width: 320px) and (max-width: 760px) {
+    width: 100%;
+  }
+}
