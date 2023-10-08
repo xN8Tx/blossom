@@ -2,71 +2,100 @@ import databasePool from '../database/postgresql';
 import type { UsersDB } from '../typings/database';
 
 class UsersAPI {
-  async getById(id: string): Promise<UsersDB> {
-    const user = await databasePool.query<UsersDB>(
-      'SELECT users.id, "users.firstName", "users.secondName", users.username FROM users WHERE id = $1',
-      [id],
-    );
+  async getById(id: string): Promise<UsersDB | void> {
+    try {
+      const user = await databasePool.query<UsersDB>(
+        'SELECT users.id, "users.firstName", "users.lastName", users.username FROM users WHERE id = $1',
+        [id],
+      );
 
-    return user.rows[0];
+      return user.rows[0];
+    } catch (error) {
+      console.log(error);
+    }
   }
-  async getAllById(id: string): Promise<UsersDB> {
-    const user = await databasePool.query<UsersDB>(
-      'SELECT * FROM users WHERE id = $1',
-      [id],
-    );
+  async getAllById(id: string): Promise<UsersDB | void> {
+    try {
+      const user = await databasePool.query<UsersDB>(
+        'SELECT id, "firstName", "lastName", username, email, status, avatar FROM users WHERE id = $1',
+        [id],
+      );
 
-    return user.rows[0];
+      return user.rows[0];
+    } catch (error) {
+      console.log(error);
+    }
   }
-  async getByUsername(username: string): Promise<UsersDB> {
-    const user = await databasePool.query<UsersDB>(
-      'SELECT users.id, users.firstName, users.secondName, users.username FROM users WHERE username = $1',
-      [username],
-    );
+  async getByUsername(username: string): Promise<UsersDB | void> {
+    try {
+      const user = await databasePool.query<UsersDB>(
+        'SELECT id, "firstName", "lastName", username, avatar, status FROM users WHERE username = $1',
+        [username],
+      );
 
-    return user.rows[0];
+      return user.rows[0];
+    } catch (error) {
+      console.log(error);
+    }
   }
   async post(
     firstName: string,
-    secondName: string,
+    lastName: string,
     username: string,
     password: string,
     email: string,
   ) {
-    const user = await databasePool.query<UsersDB>(
-      'INSERT INTO users ("firstName", "secondName", username, password, email) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-      [firstName, secondName, username, password, email],
-    );
+    try {
+      const user = await databasePool.query<UsersDB>(
+        'INSERT INTO users ("firstName", "lastName", username, password, email) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+        [firstName, lastName, username, password, email],
+      );
 
-    return user.rows[0];
+      return user.rows[0];
+    } catch (error) {
+      console.log(error);
+    }
   }
-  async editName(
+  async edit(
     firstName: string,
-    secondName: string,
+    lastName: string,
+    username: string,
     id: number,
-  ): Promise<UsersDB> {
-    const user = await databasePool.query<UsersDB>(
-      'UPDATE users SET "firstName" = $1, "secondName" = $2 WHERE id = $3 RETURNING *',
-      [firstName, secondName, id],
-    );
+  ): Promise<UsersDB | void> {
+    try {
+      const user = await databasePool.query<UsersDB>(
+        'UPDATE users SET "firstName" = $1, "lastName" = $2, username = $3 WHERE id = $4 RETURNING *',
+        [firstName, lastName, username, id],
+      );
 
-    return user.rows[0];
+      return user.rows[0];
+    } catch (error) {
+      console.log(error);
+    }
   }
-  async editEmail(email: string, id: number): Promise<UsersDB> {
-    const user = await databasePool.query<UsersDB>(
-      'UPDATE users SET email = $1 WHERE id = $2 RETURNING *',
-      [email, id],
-    );
+  async editEmail(email: string, id: number): Promise<UsersDB | void> {
+    try {
+      const user = await databasePool.query<UsersDB>(
+        'UPDATE users SET email = $1 WHERE id = $2 RETURNING *',
+        [email, id],
+      );
 
-    return user.rows[0];
+      return user.rows[0];
+    } catch (error) {
+      console.log(error);
+    }
   }
-  async getAllByEmail(email: string): Promise<UsersDB[]> {
-    const users = await databasePool.query<UsersDB>(
-      'SELECT * FROM users WHERE email = $1',
-      [email],
-    );
+  async getAllByEmail(email: string): Promise<UsersDB[] | void> {
+    try {
+      const users = await databasePool.query<UsersDB>(
+        'SELECT * FROM users WHERE email = $1',
+        [email],
+      );
 
-    return users.rows;
+      return users.rows;
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
 
