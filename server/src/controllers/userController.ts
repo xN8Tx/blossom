@@ -1,7 +1,12 @@
+import messagesAPI from '../api/messagesAPI';
 import usersAPI from '../api/usersAPI';
-import checkId from '../utils/checkId';
 
 import type { Request, Response } from 'express';
+import type { UserProfileDB, MessagesDB } from 'typings/database';
+
+type UserWithMessages = UserProfileDB & {
+  messages: MessagesDB[];
+};
 
 class UserController {
   async getById(req: Request, res: Response) {
@@ -18,10 +23,6 @@ class UserController {
   async getAllById(req: Request, res: Response) {
     try {
       const { id } = req.params;
-
-      if (!checkId(id, req)) {
-        res.status(500).json({ message: 'Invalid request' });
-      }
 
       const user = await usersAPI.getAllById(id);
 
@@ -45,12 +46,24 @@ class UserController {
     try {
       const { firstName, lastName, username, id } = req.body;
 
-      // CHECK
-      if (!checkId(id, req)) {
-        res.status(500).json({ message: 'Invalid request' });
-      }
-
       const user = await usersAPI.edit(firstName, lastName, username, id);
+      res.status(200).json({ message: user });
+    } catch (error) {
+      res.status(500).json({ message: (error as Error).message });
+    }
+  }
+  async getByIdWithMessages(req: Request, res: Response) {
+    try {
+      const { id, secondUserId } = req.params; // id - it's user id | secondUserId - it's profile id which we want to get
+
+      const user = await usersAPI.getById(secondUserId);
+      const messages = await messagesAPI.getByUserId(
+        Number(id),
+        Number(secondUserId),
+      );
+
+      (user as UserWithMessages).messages = messages as MessagesDB[];
+
       res.status(200).json({ message: user });
     } catch (error) {
       res.status(500).json({ message: (error as Error).message });

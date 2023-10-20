@@ -53,7 +53,7 @@ class AuthController {
       );
 
       // Generate tokens
-      const { accessToken, refreshToken } = jwtGenerate(user.id, user.email);
+      const { accessToken, refreshToken } = jwtGenerate(user!.id, user!.email);
 
       // Send tokens
       res.cookie('refreshToken', refreshToken, {
@@ -80,11 +80,11 @@ class AuthController {
 
       const users = await usersAPI.getAllByEmail(email);
 
-      if (users.length === 0) {
+      if (users!.length === 0) {
         return res.status(400).json({ message: 'Check your email/password' });
       }
 
-      const { email: emailDB, password: passwordDB } = users[0];
+      const { email: emailDB, password: passwordDB } = users![0];
 
       const isPasswordValid = await bcrypt.compare(password, passwordDB);
       const isEmailValid =
@@ -95,8 +95,8 @@ class AuthController {
       }
 
       const { accessToken, refreshToken } = jwtGenerate(
-        users[0].id,
-        users[0].email,
+        users![0].id,
+        users![0].email,
       );
 
       res.cookie('refreshToken', refreshToken, {
@@ -117,11 +117,11 @@ class AuthController {
 
       const users = await usersAPI.getAllByEmail(email);
 
-      if (users.length === 0) {
+      if (users!.length === 0) {
         return res.status(400).json({ message: 'Check your email/password' });
       }
 
-      const { email: emailDB, password: passwordDB } = users[0];
+      const { email: emailDB, password: passwordDB } = users![0];
 
       const isPasswordValid = await bcrypt.compare(password, passwordDB);
       const isEmailValid =

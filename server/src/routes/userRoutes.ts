@@ -1,13 +1,19 @@
 import { Router } from 'express';
 
 import tokenVerify from '../middleware/tokenVerify';
+import checkId from '../middleware/checkId';
 import userController from '../controllers/userController';
 
 const router = Router();
 
 router.get('/:id', tokenVerify, userController.getById);
-router.get('/all/:id', tokenVerify, userController.getAllById);
+router.get('/all/:id', tokenVerify, checkId, userController.getAllById);
 router.get('/user/:username', tokenVerify, userController.getByUsername);
-router.put('/', tokenVerify, userController.edit);
+router.get(
+  '/profile/:id/:secondUserId',
+  tokenVerify,
+  userController.getByIdWithMessages,
+);
+router.put('/:id', tokenVerify, checkId, userController.edit);
 
 export default router;

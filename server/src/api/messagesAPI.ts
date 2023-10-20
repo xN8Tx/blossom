@@ -1,4 +1,5 @@
 import databasePool from '../database/postgresql';
+
 import type { MessagesDB } from '../typings/database';
 
 class MessagesAPI {
@@ -34,6 +35,23 @@ class MessagesAPI {
   }
   async delete(id: number): Promise<void> {
     await databasePool.query('DELETE FROM messages WHERE id = $1', [id]);
+  }
+  async getByUserId(
+    userId: number,
+    secondUserId: number,
+  ): Promise<MessagesDB[] | void> {
+    try {
+      const query = `SELECT * FROM messages WHERE "chatId" = (SELECT "chatId" FROM "members" WHERE "chatId" = (SELECT "chatId" FROM "members" WHERE "userId" = $2) AND "userId" = $1)`;
+
+      const messages = await databasePool.query<MessagesDB>(query, [
+        userId,
+        secondUserId,
+      ]);
+
+      return messages.rows;
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
 

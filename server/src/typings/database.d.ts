@@ -22,11 +22,42 @@ type MessagesDB = {
 type UsersDB = {
   id: number;
   firstName: string;
-  secondName: string;
+  lastName: string;
   username: string;
+  avatar: string | null;
   email: string;
   password: string;
   status: boolean;
 };
 
-export type { ChatDB, MembersDB, MessagesDB, UsersDB };
+type UserProfileDB = {
+  id: number;
+  firstName: string;
+  lastName: string;
+  username: string;
+  avatar: string | null;
+  status: boolean;
+};
+
+type ContactDB = {
+  id: number;
+  userId: number;
+  contactId: number;
+};
+
+type ContactUserDB = Omit<ContactDB, 'userId'> & {
+  firstName: string;
+  secondName: string;
+  username: string;
+  avatar: string | null;
+};
+
+export type {
+  ChatDB,
+  MembersDB,
+  MessagesDB,
+  UsersDB,
+  ContactDB,
+  ContactUserDB,
+  UserProfileDB,
+};

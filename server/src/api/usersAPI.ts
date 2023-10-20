@@ -1,11 +1,13 @@
 import databasePool from '../database/postgresql';
-import type { UsersDB } from '../typings/database';
+import type { UserProfileDB, UsersDB } from '../typings/database';
+
+type UserWithoutPassword = Omit<UsersDB, 'password'>;
 
 class UsersAPI {
-  async getById(id: string): Promise<UsersDB | void> {
+  async getById(id: string): Promise<UserProfileDB | void> {
     try {
-      const user = await databasePool.query<UsersDB>(
-        'SELECT users.id, "users.firstName", "users.lastName", users.username FROM users WHERE id = $1',
+      const user = await databasePool.query<UserProfileDB>(
+        'SELECT users.id, users."firstName", users."lastName", users.username, users.avatar, users.status FROM users WHERE id = $1',
         [id],
       );
 
@@ -14,9 +16,9 @@ class UsersAPI {
       console.log(error);
     }
   }
-  async getAllById(id: string): Promise<UsersDB | void> {
+  async getAllById(id: string): Promise<UserWithoutPassword | void> {
     try {
-      const user = await databasePool.query<UsersDB>(
+      const user = await databasePool.query<UserWithoutPassword>(
         'SELECT id, "firstName", "lastName", username, email, status, avatar FROM users WHERE id = $1',
         [id],
       );
@@ -26,14 +28,14 @@ class UsersAPI {
       console.log(error);
     }
   }
-  async getByUsername(username: string): Promise<UsersDB | void> {
+  async getByUsername(username: string): Promise<UserProfileDB[] | void> {
     try {
-      const user = await databasePool.query<UsersDB>(
-        'SELECT id, "firstName", "lastName", username, avatar, status FROM users WHERE username = $1',
-        [username],
+      const user = await databasePool.query<UserProfileDB>(
+        'SELECT id, "firstName", "lastName", username, avatar, status FROM users WHERE LOWER(username) LIKE $1',
+        [`%${username.toLowerCase()}%`],
       );
 
-      return user.rows[0];
+      return user.rows;
     } catch (error) {
       console.log(error);
     }
@@ -44,10 +46,10 @@ class UsersAPI {
     username: string,
     password: string,
     email: string,
-  ) {
+  ): Promise<UserWithoutPassword | void> {
     try {
-      const user = await databasePool.query<UsersDB>(
-        'INSERT INTO users ("firstName", "lastName", username, password, email) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+      const user = await databasePool.query<UserWithoutPassword>(
+        'INSERT INTO users ("firstName", "lastName", username, password, email) VALUES ($1, $2, $3, $4, $5) RETURNING id, "firstName", "lastName", username, email, avatar, status',
         [firstName, lastName, username, password, email],
       );
 
@@ -61,10 +63,10 @@ class UsersAPI {
     lastName: string,
     username: string,
     id: number,
-  ): Promise<UsersDB | void> {
+  ): Promise<UserWithoutPassword | void> {
     try {
-      const user = await databasePool.query<UsersDB>(
-        'UPDATE users SET "firstName" = $1, "lastName" = $2, username = $3 WHERE id = $4 RETURNING *',
+      const user = await databasePool.query<UserWithoutPassword>(
+        'UPDATE users SET "firstName" = $1, "lastName" = $2, username = $3 WHERE id = $4 RETURNING id, "firstName", "lastName", username, email, avatar, status',
         [firstName, lastName, username, id],
       );
 
@@ -73,10 +75,13 @@ class UsersAPI {
       console.log(error);
     }
   }
-  async editEmail(email: string, id: number): Promise<UsersDB | void> {
+  async editEmail(
+    email: string,
+    id: number,
+  ): Promise<UserWithoutPassword | void> {
     try {
-      const user = await databasePool.query<UsersDB>(
-        'UPDATE users SET email = $1 WHERE id = $2 RETURNING *',
+      const user = await databasePool.query<UserWithoutPassword>(
+        'UPDATE users SET email = $1 WHERE id = $2 RETURNING id, "firstName", "lastName", username, email, avatar, status',
         [email, id],
       );
 
