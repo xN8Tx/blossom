@@ -3,6 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import $http from '../../api/httpApi';
 
 import type { EditUserTitle, GetUserTitle, User } from './index';
+import { RootState } from '..';
 
 const getUser = createAsyncThunk(
   '@@user/getUser',
@@ -19,8 +20,12 @@ const getUser = createAsyncThunk(
 
 const editUser = createAsyncThunk(
   '@@user/editUser',
-  async (title: EditUserTitle) => {
-    const url = `/user/`;
+  async (title: EditUserTitle, thunkAPI) => {
+    const { getState } = thunkAPI;
+    const state = getState();
+    const id = (state as RootState).user.data.id;
+
+    const url = `/user/${id}`;
 
     const res = await $http.put(url, title);
     const data: User = await res.data.message;

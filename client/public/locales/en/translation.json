@@ -55,8 +55,21 @@
     "codeRight": "You are logged in",
     "allField": "All fields must be completed"
   },
+  "contact": {
+    "globalSearch": "Global search",
+    "delete": "Delete",
+    "add": "Add",
+    "block": "Block",
+    "unblock": "Unblock",
+    "message": "Message"
+  },
+  "users": {
+    "error": "User not found"
+  },
   "etc": {
     "inDevelopment": "This feature will be soon!",
-    "search": "Search"
+    "search": "Search",
+    "loading": "Loading",
+    "close": "Close"
   }
 }

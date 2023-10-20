@@ -1,5 +1,5 @@
 import type { EmptyObject } from '@reduxjs/toolkit';
-import type { LoadingType } from '../../models';
+import type { LoadingType } from '../../models/data';
 
 type DataType = {
   email: string;

@@ -14,7 +14,8 @@ type HeadingsProps = Omit<ParagraphProps, 'size'> & {
 type ParagraphProps = {
   children: React.ReactNode;
   color?: 'green' | 'user' | 'message';
-  size?: 'xs' | 's' | 'm' | 'l';
+  size?: 'xs' | 'x' | 's' | 'm' | 'l';
+  onClick?: () => void;
 };
 
 type InputProps = {

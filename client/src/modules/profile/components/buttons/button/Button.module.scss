@@ -1,0 +1,39 @@
+.wrapper {
+  width: 110px;
+  height: 70px;
+
+  border-radius: 15px;
+  background-color: var(--second-bg-change-color);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+
+  padding: 0px 10px;
+
+  transition: all ease-in 0.3s;
+
+  &:focus {
+    background-color: var(--bg-change-color);
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: var(--bg-change-color);
+    }
+  }
+
+  & > svg {
+    width: 24px !important;
+    height: 24px !important;
+
+    & > path {
+      fill: var(--user-msg-change-color);
+    }
+    & > circle {
+      fill: var(--user-msg-change-color);
+    }
+  }
+}

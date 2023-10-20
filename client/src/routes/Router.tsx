@@ -8,6 +8,9 @@ import Chat from '../modules/chat/Chat';
 import Settings from '../modules/settings/Settings';
 
 import settingRoutes from './SettingsRoutes';
+import Contact from '../modules/contact/Contact';
+import Home from '../modules/contact/pages/home/Home';
+import Profile from '../modules/profile/Profile';
 
 export default function Router() {
   return (
@@ -23,9 +26,12 @@ export default function Router() {
           if (elm.path === '/') {
             return <Route index element={elm.element} key={ind} />;
           }
-
           return <Route path={elm.path} element={elm.element} key={ind} />;
         })}
+      </Route>
+      <Route path='contacts' element={<Contact />}>
+        <Route index element={<Home />} />
+        <Route path='user/:id' element={<Profile />} />
       </Route>
     </Routes>
   );

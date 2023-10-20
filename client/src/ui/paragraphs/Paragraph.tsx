@@ -6,8 +6,13 @@ export default function Paragraph({
   children,
   color = 'message',
   size = 's',
+  onClick,
 }: ParagraphProps) {
   const className = `${style.Paragraph} ${style[color]} ${style[size]}`;
 
-  return <p className={className}>{children}</p>;
+  return (
+    <p className={className} onClick={onClick}>
+      {children}
+    </p>
+  );
 }

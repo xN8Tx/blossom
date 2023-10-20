@@ -1,0 +1,12 @@
+.wrapper {
+  width: calc(100% - 333px);
+  height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @media (min-width: 320px) and (max-width: 769px) {
+    display: none;
+  }
+}
