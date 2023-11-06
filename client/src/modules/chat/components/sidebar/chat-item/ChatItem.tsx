@@ -1,48 +1,52 @@
+import { Link } from 'react-router-dom';
 import Avatar from '../../../../../components/avatar/Avatar';
 import Heading from '../../../../../ui/headings/Heading';
 import Paragraph from '../../../../../ui/paragraphs/Paragraph';
 
-import type { Messages } from '../../../models';
+import type { Messages, User } from '../../../../../models/data';
 
 import style from './ChatItem.module.scss';
+import Text from './text/Text';
 
 type ChatItemProps = {
-  userId: number;
-  lastName: string;
-  firstName: string;
-  avatar: string;
-  lastMessage: Messages;
+  chatId: number;
+  title: string;
+  avatar: string | null;
+  user: User;
+  messages: Messages[];
 };
 
 export default function ChatItem({
-  userId,
-  lastName,
-  firstName,
-  lastMessage,
+  chatId,
+  title,
   avatar,
+  user,
+  messages,
 }: ChatItemProps) {
-  const link = `/chat/user/${userId}`;
-  const name = `${firstName} ${lastName}`;
-  const parseDate = new Date(lastMessage.date);
-  const time = `${parseDate.getHours()}:${parseDate.getMinutes()}`;
+  const linkToChat = `/chat/c/${chatId}`;
 
-  const message = lastMessage.message;
-  // const messageFrom = lastMessage.userId;
+  const chatAvatar = avatar !== null ? avatar : user.avatar;
+  const name =
+    title.length !== 0 ? title : `${user.firstName} ${user.lastName}`;
+
+  const lastMessage = messages[messages.length - 1];
+
+  const parseDate = new Date(Number(lastMessage?.date));
+  console.log(parseDate);
+  const time = `${parseDate?.getHours()}:${parseDate?.getMinutes()}`;
 
   return (
-    <div className={style.wrapper}>
-      <Avatar to={link} avatar={avatar} size='s' />
-      <div className={style.title}>
-        <Heading size='s'>{name}</Heading>
-        <Paragraph size='s' color='message'>
-          {time}
-        </Paragraph>
+    <Link to={linkToChat} className={style.wrapper}>
+      <Avatar isLink={false} avatar={chatAvatar} firstName={name} size='s' />
+      <div className={style.body}>
+        <div className={style.title}>
+          <Heading size='s'>{name}</Heading>
+          <Paragraph size='s' color='message'>
+            {time}
+          </Paragraph>
+        </div>
+        <Text messages={messages} />
       </div>
-      <div className={style.text}>
-        <Paragraph size='m' color='user'>
-          {message}
-        </Paragraph>
-      </div>
-    </div>
+    </Link>
   );
 }

@@ -1,0 +1,51 @@
+.header {
+  width: 100%;
+
+  padding: 15px 35px;
+
+  background-color: var(--msg-bg-change-color);
+
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.container {
+  display: flex;
+  gap: 20px;
+
+  & > button {
+    display: none;
+  }
+
+  @media (min-width: 320px) and (max-width: 768px) {
+    & > button {
+      display: flex;
+    }
+  }
+}
+
+.wrapper {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.search {
+  & > svg {
+    width: 25px;
+    height: 25px;
+
+    & > path,
+    circle {
+      stroke: var(--user-msg-change-color);
+    }
+  }
+}

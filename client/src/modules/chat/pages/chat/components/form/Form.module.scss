@@ -1,0 +1,99 @@
+.wrapper {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  width: 100%;
+
+  padding: 15px 35px;
+
+  background-color: var(--msg-bg-change-color);
+
+  min-height: 80px;
+}
+
+.form {
+  position: relative;
+  width: 100%;
+  min-height: 50px;
+
+  padding: 0px 24px;
+
+  border-radius: 25px;
+  background-color: var(--second-bg-change-color);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  & > p {
+    position: absolute;
+    left: 24px;
+    transform: translateX(0);
+    opacity: 1;
+    transition: all ease 0.3s;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    pointer-events: none;
+  }
+}
+
+.buttons {
+  display: flex;
+  gap: 20px;
+}
+
+.button {
+  background-color: transparent;
+
+  & > svg {
+    width: 20px;
+    height: 20px;
+
+    & > path {
+      transition: all ease-in 0.3s;
+      fill: var(--user-msg-change-color);
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        & > path {
+          fill: var(--msg-change-color);
+        }
+      }
+    }
+  }
+}
+
+.input {
+  width: 100%;
+  min-height: 50px;
+
+  padding: 15px 0;
+
+  white-space: pre-wrap;
+
+  background-color: transparent;
+
+  font-family: 'DM Sans', sans-serif;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  color: var(--user-msg-change-color);
+
+  resize: none;
+
+  &::-webkit-scrollbar {
+    width: 0;
+  }
+
+  &:focus,
+  &[is-content='true'] {
+    & ~ p {
+      transform: translateX(10px);
+      opacity: 0;
+    }
+  }
+}

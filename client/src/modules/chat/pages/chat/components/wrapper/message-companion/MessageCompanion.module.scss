@@ -1,0 +1,23 @@
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.wrapper {
+  max-width: 344px;
+
+  padding: 12px 10px;
+
+  display: flex;
+  align-items: center;
+
+  & > p {
+    white-space: wrap;
+    word-break: break-all;
+    white-space: pre-line;
+  }
+
+  border-radius: 2px 10px 10px 10px;
+  background-color: var(--msg-bg-change-color);
+}

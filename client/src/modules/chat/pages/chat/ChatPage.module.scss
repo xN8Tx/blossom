@@ -1,0 +1,11 @@
+.wrapper {
+  position: relative;
+
+  width: calc(100% - 333px);
+  height: 100vh;
+  overflow-y: hidden;
+
+  @media (min-width: 320px) and (max-width: 769px) {
+    width: 100%;
+  }
+}

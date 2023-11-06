@@ -63,6 +63,9 @@
     "unblock": "Unblock",
     "message": "Message"
   },
+  "chat": {
+    "writeMessage": "Write Message"
+  },
   "users": {
     "error": "User not found"
   },

@@ -2,7 +2,6 @@ type LoadingType = 'idle' | 'loading' | 'success' | 'error';
 
 type User = {
   id: number;
-  contactId: number;
   firstName: string;
   lastName: string;
   username: string;
@@ -15,6 +14,7 @@ type Contact = User & {
 
 type Messages = {
   id: number;
+  chatId: string;
   userId: number;
   message: string;
   date: string;
@@ -24,11 +24,17 @@ type Messages = {
 
 type Chat = {
   id: number;
-  users: User;
-  messages: Messages[];
+  title: string;
+  avatar: string | null;
 };
 
 type Profile = User & {
+  messages: Message[];
+};
+
+type ChatWithInfo = Chat & {
+  isLoaded: LoadingType;
+  user: User;
   messages: Message[];
 };
 
@@ -45,4 +51,5 @@ export type {
   Chat,
   InitialState,
   Profile,
+  ChatWithInfo,
 };

@@ -13,7 +13,7 @@ import languageIcon from '../assets/svg/setting-page-icons/languageIcon.svg';
 import privacyIcon from '../assets/svg/setting-page-icons/privacyIcon.svg';
 
 const settingRoutes = [
-  { name: 'home', path: '/', element: <Home />, isShow: false },
+  { name: 'home', path: 'index', element: <Home />, isShow: false },
   { name: 'profile', path: 'profile', element: <Profile />, isShow: false },
   {
     name: 'general',

@@ -1,0 +1,13 @@
+.wrapper {
+  width: 100%;
+  height: calc(100% - 90px - 80px);
+
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+  background-color: var(--bg-change-color);
+
+  &::-webkit-scrollbar {
+    width: 0;
+  }
+}

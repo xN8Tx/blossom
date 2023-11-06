@@ -1,0 +1,20 @@
+.wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.body {
+  width: calc(100% - 50px);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.title {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

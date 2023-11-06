@@ -11,6 +11,8 @@ import settingRoutes from './SettingsRoutes';
 import Contact from '../modules/contact/Contact';
 import Home from '../modules/contact/pages/home/Home';
 import Profile from '../modules/profile/Profile';
+import routesComeback from '../utils/routesComeback';
+import chatRoutes from './ChatRoutes';
 
 export default function Router() {
   return (
@@ -20,14 +22,11 @@ export default function Router() {
         <Route path='registration' element={<Registration />} />
         <Route path='code' element={<Code />} />
       </Route>
-      <Route path='chat' element={<Chat />} />
+      <Route path='chat' element={<Chat />}>
+        {routesComeback(chatRoutes)}
+      </Route>
       <Route path='settings' element={<Settings />}>
-        {settingRoutes.map((elm, ind) => {
-          if (elm.path === '/') {
-            return <Route index element={elm.element} key={ind} />;
-          }
-          return <Route path={elm.path} element={elm.element} key={ind} />;
-        })}
+        {routesComeback(settingRoutes)}
       </Route>
       <Route path='contacts' element={<Contact />}>
         <Route index element={<Home />} />
