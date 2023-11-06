@@ -1,5 +1,5 @@
 import databasePool from '../database/postgresql';
-import { ChatDB } from '../typings/database';
+import { ChatDB, ChatsWithInfoDB } from '../typings/database';
 
 type ChatId = Pick<ChatDB, 'id'>;
 
@@ -13,13 +13,17 @@ class ChatAPI {
     return chatId.rows[0];
   }
 
-  async getById(id: number): Promise<ChatDB> {
-    const chat = await databasePool.query<ChatDB>(
-      'SELECT * FROM chats WHERE id = $1',
-      [id],
-    );
+  async getByUserId(id: number): Promise<ChatsWithInfoDB[] | void> {
+    try {
+      const query = `SELECT chats.id, chats.title, chats.avatar, ('idle') as "isLoaded", json_build_object('id', mem2."userId",'firstName', users."firstName",'lastName', users."lastName",'username', users.username,'avatar', users.avatar) as user,json_agg(json_build_object('id', mes.id,'userId', mes."userId",'message', mes.message,'status', mes.status,'date', mes.date,'isEdit', mes."isEdit")) as messages FROM members as mem1 JOIN chats ON chats.id = mem1."chatId" JOIN members as mem2 ON chats.id = mem2."chatId" AND mem2."userId" != $1 JOIN users ON users.id = mem2."userId" JOIN (SELECT DISTINCT ON ("chatId") * FROM messages ORDER BY "chatId", id DESC) mes ON mes."chatId" = chats.id WHERE mem1."userId" = $1 GROUP BY chats.id, chats.title, chats.avatar, mem2."userId", users."firstName", users."lastName", users.username, users.avatar, mes.id ORDER BY mes.id`;
+      const chatsWithInfo = await databasePool.query<ChatsWithInfoDB>(query, [
+        id,
+      ]);
 
-    return chat.rows[0];
+      return chatsWithInfo.rows;
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async deleteById(id: number): Promise<void> {

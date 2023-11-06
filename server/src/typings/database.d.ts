@@ -17,6 +17,7 @@ type MessagesDB = {
   message: string;
   status: boolean;
   date: Date;
+  isEdit: boolean;
 };
 
 type UsersDB = {
@@ -52,6 +53,12 @@ type ContactUserDB = Omit<ContactDB, 'userId'> & {
   avatar: string | null;
 };
 
+type ChatsWithInfoDB = ChatDB & {
+  isLoading: 'idle';
+  user: UserProfileDB;
+  messages: Omit<MessagesDB, 'chatId'>[];
+};
+
 export type {
   ChatDB,
   MembersDB,
@@ -60,4 +67,5 @@ export type {
   ContactDB,
   ContactUserDB,
   UserProfileDB,
+  ChatsWithInfoDB,
 };

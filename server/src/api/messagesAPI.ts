@@ -3,13 +3,17 @@ import databasePool from '../database/postgresql';
 import type { MessagesDB } from '../typings/database';
 
 class MessagesAPI {
-  async getByChatId(chatId: string): Promise<MessagesDB[]> {
-    const messages = await databasePool.query<MessagesDB>(
-      'SELECT * FROM messages WHERE chatId = $1',
-      [chatId],
-    );
+  async getByChatId(chatId: string): Promise<MessagesDB[] | void> {
+    try {
+      const messages = await databasePool.query<MessagesDB>(
+        'SELECT * FROM messages WHERE "chatId" = $1 ORDER BY id ASC',
+        [chatId],
+      );
 
-    return messages.rows;
+      return messages.rows;
+    } catch (error) {
+      console.log(error);
+    }
   }
   async post(
     chatId: number,
@@ -17,13 +21,17 @@ class MessagesAPI {
     message: string,
     status: boolean,
     date: Date,
-  ): Promise<MessagesDB> {
-    const _message = await databasePool.query<MessagesDB>(
-      'INSERT INTO chat (chatId, userId, message, status, date) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-      [chatId, userId, message, status, date],
-    );
+  ): Promise<MessagesDB | void> {
+    try {
+      const _message = await databasePool.query<MessagesDB>(
+        'INSERT INTO messages ("chatId", "userId", message, status, date) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+        [chatId, userId, message, status, date],
+      );
 
-    return _message.rows[0];
+      return _message.rows[0];
+    } catch (error) {
+      console.log(error);
+    }
   }
   async edit(message: string, id: number): Promise<MessagesDB> {
     const _message = await databasePool.query<MessagesDB>(

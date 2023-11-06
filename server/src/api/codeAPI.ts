@@ -18,7 +18,11 @@ class CodeAPI {
       const _code = await redisClient.get(email);
       await redisClient.disconnect();
 
-      if (code !== Number(_code)) return false;
+      console.log('Code: ' + code);
+      console.log('_Code: ' + _code);
+      console.log(Number(code) !== Number(_code));
+
+      if (Number(code) !== Number(_code)) return false;
       return true;
     } catch (error) {
       return false;

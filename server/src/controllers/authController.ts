@@ -1,5 +1,5 @@
+import CryptoJS from 'crypto-js';
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
 
 import usersAPI from '../api/usersAPI';
 import codeAPI from '../api/codeAPI';
@@ -41,7 +41,10 @@ class AuthController {
       }
 
       // Crypt password
-      const hashPassword: string = await bcrypt.hash(password, 15);
+      const hashPassword: string = CryptoJS.AES.encrypt(
+        password,
+        process.env.PASSWORD_CRYPT!,
+      ).toString();
 
       // Add to database
       const user = await usersAPI.post(
@@ -73,8 +76,10 @@ class AuthController {
       if (!code) {
         return res.status(400).json({ message: 'Code is wrong' });
       }
-      const isCodeCorrect = codeAPI.check(email, code);
+      const isCodeCorrect = await codeAPI.check(email, code);
+      console.log('Login: ', isCodeCorrect);
       if (!isCodeCorrect) {
+        console.log('Hello');
         return res.status(400).json({ message: 'Code is wrong' });
       }
 
@@ -86,7 +91,11 @@ class AuthController {
 
       const { email: emailDB, password: passwordDB } = users![0];
 
-      const isPasswordValid = await bcrypt.compare(password, passwordDB);
+      const decryptPassword = CryptoJS.AES.decrypt(
+        passwordDB,
+        process.env.PASSWORD_CRYPT!,
+      ).toString(CryptoJS.enc.Utf8);
+      const isPasswordValid = decryptPassword === password;
       const isEmailValid =
         emailDB.toLocaleLowerCase() === emailDB.toLocaleLowerCase();
 
@@ -123,7 +132,11 @@ class AuthController {
 
       const { email: emailDB, password: passwordDB } = users![0];
 
-      const isPasswordValid = await bcrypt.compare(password, passwordDB);
+      const decryptPassword = CryptoJS.AES.decrypt(
+        passwordDB,
+        process.env.PASSWORD_CRYPT!,
+      ).toString(CryptoJS.enc.Utf8);
+      const isPasswordValid = decryptPassword === password;
       const isEmailValid =
         emailDB.toLocaleLowerCase() === emailDB.toLocaleLowerCase();
 

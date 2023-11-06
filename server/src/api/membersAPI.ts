@@ -4,12 +4,29 @@ import type { MembersDB } from '../typings/database';
 class MembersAPI {
   async getByChatId(chatId: number): Promise<MembersDB[]> {
     const members = await databasePool.query<MembersDB>(
-      'SELECT * FROM members WHERE chatId = $1',
+      'SELECT * FROM members WHERE "chatId" = $1',
       [chatId],
     );
 
     return members.rows;
   }
+
+  async getByChatIdAndUserId(
+    chatId: number,
+    userId: number,
+  ): Promise<MembersDB[] | void> {
+    try {
+      const members = await databasePool.query<MembersDB>(
+        'SELECT * FROM members WHERE "chatId" = $1 and "userId" = $2',
+        [chatId, userId],
+      );
+
+      return members.rows;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   async put(chatId: number, userId: number): Promise<void> {
     await databasePool.query(
       'INSERT INTO members (chatId, userId) VALUES ($1, $2)',
