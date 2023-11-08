@@ -1,5 +1,5 @@
-import messagesAPI from '../api/messagesAPI';
-import usersAPI from '../api/usersAPI';
+import messagesAPI from '../../api/messagesAPI';
+import usersAPI from '../../api/usersAPI';
 
 import type { Request, Response } from 'express';
 import type { UserProfileDB, MessagesDB } from 'typings/database';

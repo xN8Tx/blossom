@@ -1,4 +1,4 @@
-import chatAPI from '../api/chatAPI';
+import chatAPI from '../../api/chatAPI';
 
 import type { Request, Response } from 'express';
 

@@ -4,7 +4,7 @@ import verifyConnection from './middleware/verifyConnection';
 import onGetMessage from './handlers/onGetMessage';
 import onMessage from './handlers/onMessage';
 
-import type { WebsocketType, Event } from '../typings/socket';
+import type { WebsocketType, Event } from './socket';
 import type { IncomingMessage } from 'http';
 
 const wssStart = () => {

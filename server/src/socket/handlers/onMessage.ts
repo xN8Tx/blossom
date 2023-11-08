@@ -4,7 +4,7 @@ import type {
   Message,
   WebsocketType,
   MessageBodyRes,
-} from '../../typings/socket';
+} from '../socket';
 import broadcastMessage from '../utils/broadcastMessage';
 import messagesAPI from '../../api/messagesAPI';
 

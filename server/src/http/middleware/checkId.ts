@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 
 import type { NextFunction, Request, Response } from 'express';
 import type { JwtPayload } from 'jsonwebtoken';
-import type { MyRequest } from '../typings/express';
+import type { MyRequest } from '../../typings/express';
 
 const checkId = (req: Request, res: Response, next: NextFunction) => {
   const { id } = req.params;

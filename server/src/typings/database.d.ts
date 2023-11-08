@@ -55,6 +55,7 @@ type ContactUserDB = Omit<ContactDB, 'userId'> & {
 
 type ChatsWithInfoDB = ChatDB & {
   isLoading: 'idle';
+  notifications: number;
   user: UserProfileDB;
   messages: Omit<MessagesDB, 'chatId'>[];
 };

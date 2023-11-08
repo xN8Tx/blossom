@@ -2,7 +2,7 @@ import express, { json } from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 
-import routesConfiguration from '../routes/index';
+import routesConfiguration from './routes/index';
 
 import type { Express } from 'express';
 import type { CorsOptions } from 'cors';

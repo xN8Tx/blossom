@@ -1,10 +1,6 @@
 import ws from 'ws';
 
-import type {
-  Message,
-  MessageBodyRes,
-  WebsocketType,
-} from '../../typings/socket';
+import type { Message, MessageBodyRes, WebsocketType } from '../socket';
 
 const broadcastMessage = (
   wss: ws.Server,

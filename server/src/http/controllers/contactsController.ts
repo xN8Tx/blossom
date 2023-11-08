@@ -1,4 +1,4 @@
-import contactsAPI from '../api/contactsAPI';
+import contactsAPI from '../../api/contactsAPI';
 
 import type { Request, Response } from 'express';
 

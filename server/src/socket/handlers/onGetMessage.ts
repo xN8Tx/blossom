@@ -6,7 +6,7 @@ import type {
   GetChatMessagesBodyRes,
   Message,
   WebsocketType,
-} from '../../typings/socket';
+} from '../socket';
 
 const onGetMessage = async (
   message: Message<GetChatMessagesBody>,

@@ -1,4 +1,4 @@
-import wsKeyAPI from '../api/WsKeyAPI';
+import wsKeyAPI from '../../api/WsKeyAPI';
 
 import type { Request, Response } from 'express';
 

@@ -1,9 +1,9 @@
 import CryptoJS from 'crypto-js';
 import jwt from 'jsonwebtoken';
 
-import usersAPI from '../api/usersAPI';
-import codeAPI from '../api/codeAPI';
-import mailAPI from '../api/mailAPI';
+import usersAPI from '../../api/usersAPI';
+import codeAPI from '../../api/codeAPI';
+import mailAPI from '../../api/mailAPI';
 import jwtGenerate from '../utils/jwtGenerate';
 import checkEmailUnique from '../utils/checkEmailUnique';
 
@@ -52,7 +52,7 @@ class AuthController {
         lastName,
         username,
         hashPassword,
-        email,
+        email.toLowerCase(),
       );
 
       // Generate tokens
@@ -77,9 +77,8 @@ class AuthController {
         return res.status(400).json({ message: 'Code is wrong' });
       }
       const isCodeCorrect = await codeAPI.check(email, code);
-      console.log('Login: ', isCodeCorrect);
+
       if (!isCodeCorrect) {
-        console.log('Hello');
         return res.status(400).json({ message: 'Code is wrong' });
       }
 
@@ -95,6 +94,7 @@ class AuthController {
         passwordDB,
         process.env.PASSWORD_CRYPT!,
       ).toString(CryptoJS.enc.Utf8);
+
       const isPasswordValid = decryptPassword === password;
       const isEmailValid =
         emailDB.toLocaleLowerCase() === emailDB.toLocaleLowerCase();
@@ -121,14 +121,14 @@ class AuthController {
     try {
       const { email, password } = req.body;
 
-      const code = await codeAPI.create(email);
-      await mailAPI.send(email, code);
-
-      const users = await usersAPI.getAllByEmail(email);
+      const users = await usersAPI.getAllByEmail(email.toLowerCase());
 
       if (users!.length === 0) {
         return res.status(400).json({ message: 'Check your email/password' });
       }
+
+      const code = await codeAPI.create(email);
+      await mailAPI.send(email, code);
 
       const { email: emailDB, password: passwordDB } = users![0];
 

@@ -1,4 +1,4 @@
-import usersAPI from '../api/usersAPI';
+import usersAPI from '../../api/usersAPI';
 
 const checkEmailUnique = async (email: string) => {
   const users = await usersAPI.getAllByEmail(email);

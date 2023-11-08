@@ -1,6 +1,6 @@
 import wsKeyAPI from '../../api/WsKeyAPI';
 
-import type { WebsocketType } from '../../typings/socket';
+import type { WebsocketType } from '../socket';
 import type { IncomingMessage } from 'http';
 
 const verifyConnection = async (ws: WebsocketType, req: IncomingMessage) => {
