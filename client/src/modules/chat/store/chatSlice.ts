@@ -10,6 +10,7 @@ import type {
   Message,
   GetChatMessagesBodyRes,
 } from '../../../models/socket';
+import audioNotification from '../utils/audioNotification';
 
 const initialState: InitialState<ChatWithInfo[]> = {
   loading: 'idle',
@@ -35,11 +36,22 @@ const chatSlice = createSlice({
       state,
       action: PayloadAction<Message<MessageBodyRes>>
     ) => {
-      const index = state.data!.findIndex(
+      // PREPARE
+      const indexOfChat = state.data!.findIndex(
         (chat) => `${chat.id}` === action.payload.body.chatId
       );
 
-      state.data![index].messages.push(action.payload.body.message);
+      const chatUserId = state.data![indexOfChat].user.id;
+
+      const messageUserId = action.payload.body.message.userId;
+
+      if (Number(chatUserId) === Number(messageUserId)) {
+        audioNotification();
+      }
+
+      // REDUCER
+      state.data![indexOfChat].messages.push(action.payload.body.message);
+      state.data![indexOfChat].notification++;
     },
     getChatMessages: {
       reducer: (state, action: PayloadAction<string>) => {

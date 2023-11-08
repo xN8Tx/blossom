@@ -12,37 +12,44 @@ import style from './Text.module.scss';
 
 type TextProps = {
   messages: Messages[];
+  notification: number;
 };
 
-export default function Text({ messages }: TextProps) {
+export default function Text({ messages, notification }: TextProps) {
   const lastMessage = messages[messages.length - 1];
   const userId = useAppSelector((state) => state.user.data.id);
 
-  const messageText = lastMessage.message;
+  let messageText: string = lastMessage.message;
+  if (lastMessage.message.length > 27) {
+    const newMess = lastMessage.message.slice(0, 25);
+    messageText = newMess + '...';
+  }
 
   const isUserMessage = Number(userId) === lastMessage.userId;
 
-  const isUserMessageRead = isUserMessage && lastMessage.status === true;
-  const isUserMessageSend = isUserMessage && lastMessage.status === false;
+  const isCompanionRead = Number(notification) > 0;
+  const isUserMessageRead =
+    !isCompanionRead && isUserMessage && lastMessage.status === true;
+  const isUserMessageSend =
+    !isCompanionRead && isUserMessage && lastMessage.status === false;
   const isUserMessageLoading =
-    isUserMessage && lastMessage.status === 'loading';
-  const isCompanionRead = !isUserMessage && lastMessage.status === false;
+    !isCompanionRead && isUserMessage && lastMessage.status === 'loading';
 
   return (
     <div className={style.text}>
       <Paragraph size='m' color='message'>
         {messageText}
       </Paragraph>
-      {isUserMessageRead && <img src={ReadIcon} alt='' />}
-      {isUserMessageSend && <img src={SendedIcon} alt='' />}
-      {isUserMessageLoading && <img src={LoadingIcon} alt='' />}
       {isCompanionRead && (
         <div className={style.icon}>
           <Paragraph size='s' color='user'>
-            {messages.length}
+            {notification}
           </Paragraph>
         </div>
       )}
+      {isUserMessageRead && <img src={ReadIcon} alt='' />}
+      {isUserMessageSend && <img src={SendedIcon} alt='' />}
+      {isUserMessageLoading && <img src={LoadingIcon} alt='' />}
     </div>
   );
 }

@@ -13,16 +13,19 @@ import type {
 } from '../../../models/socket';
 import type { Messages } from '../../../models/data';
 
-const getChats = createAsyncThunk('@@chats/get', async (_, { getState }) => {
-  const userId = (getState() as RootState).user.data.id;
-  const url = `/chats/${userId}`;
+const getChats = createAsyncThunk(
+  '@@chats/getChats',
+  async (_, { getState }) => {
+    const userId = (getState() as RootState).user.data.id;
+    const url = `/chats/${userId}`;
 
-  const chats = await $http.get(url);
+    const chats = await $http.get(url);
 
-  return chats.data.message;
-});
+    return chats.data.message;
+  }
+);
 const startWebsocket = createAsyncThunk(
-  '@@chats/start',
+  '@@chats/startWebsocket',
   async (_, { getState, dispatch }) => {
     const userId = (getState() as RootState).user.data.id;
 

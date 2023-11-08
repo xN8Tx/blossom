@@ -1,10 +1,11 @@
 import { useAppSelector } from '../../../../../store';
+import { sortChatsByLastMessageDate } from '../../../store/chatSelector';
 import ChatItem from '../chat-item/ChatItem';
 
 import style from './ChatList.module.scss';
 
 export default function ChatList() {
-  const data = useAppSelector((state) => state.chat.data);
+  const data = useAppSelector((state) => sortChatsByLastMessageDate(state));
 
   return (
     <div className={style.wrapper}>
@@ -16,6 +17,7 @@ export default function ChatList() {
           avatar={chat.avatar!}
           user={chat.user}
           messages={chat.messages}
+          notification={chat.notification}
         />
       ))}
     </div>

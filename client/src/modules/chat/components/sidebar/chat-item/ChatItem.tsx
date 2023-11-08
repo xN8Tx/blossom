@@ -12,6 +12,7 @@ type ChatItemProps = {
   chatId: number;
   title: string;
   avatar: string | null;
+  notification: number;
   user: User;
   messages: Messages[];
 };
@@ -22,6 +23,7 @@ export default function ChatItem({
   avatar,
   user,
   messages,
+  notification,
 }: ChatItemProps) {
   const linkToChat = `/chat/c/${chatId}`;
 
@@ -32,7 +34,6 @@ export default function ChatItem({
   const lastMessage = messages[messages.length - 1];
 
   const parseDate = new Date(Number(lastMessage?.date));
-  console.log(parseDate);
   const time = `${parseDate?.getHours()}:${parseDate?.getMinutes()}`;
 
   return (
@@ -45,7 +46,7 @@ export default function ChatItem({
             {time}
           </Paragraph>
         </div>
-        <Text messages={messages} />
+        <Text messages={messages} notification={notification} />
       </div>
     </Link>
   );

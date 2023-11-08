@@ -1,3 +1,5 @@
+import { Messages } from './data';
+
 type Event = 'MESSAGE' | 'GET_CHAT_MESSAGE';
 
 type Message<T> = {
@@ -10,18 +12,18 @@ type GetChatMessagesBody = {
 };
 
 type GetChatMessagesBodyRes = GetChatMessagesBody & {
-  messages: MessagesDB[];
+  messages: Messages[];
 };
 
 type MessageBody = {
   userId: string;
   companionId: string;
-  message: Omit<MessagesDB, 'id'>;
+  message: Omit<Messages, 'id'>;
 };
 
 type MessageBodyRes = {
   chatId: string;
-  message: MessagesDB;
+  message: Messages;
 };
 
 export {
