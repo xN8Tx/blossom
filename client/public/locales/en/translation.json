@@ -83,7 +83,8 @@
     "message": "Message"
   },
   "chat": {
-    "writeMessage": "Write Message"
+    "writeMessage": "Write Message",
+    "edited": "Edited"
   },
   "users": {
     "error": "User not found"

@@ -1,6 +1,6 @@
 import { Messages } from './data';
 
-type Event = 'MESSAGE' | 'GET_CHAT_MESSAGE';
+type Event = 'MESSAGE' | 'GET_CHAT_MESSAGE' | 'READ_MESSAGE';
 
 type Message<T> = {
   event: Event;
@@ -26,10 +26,23 @@ type MessageBodyRes = {
   message: Messages;
 };
 
+type ReadMessageBody = {
+  userId: string;
+  chatId: string;
+  companionId: string;
+};
+
+type ReadMessageBodyRes = {
+  chatId: string;
+  messages: Messages[];
+};
+
 export {
   Message,
   MessageBody,
   GetChatMessagesBody,
   GetChatMessagesBodyRes,
   MessageBodyRes,
+  ReadMessageBodyRes,
+  ReadMessageBody,
 };

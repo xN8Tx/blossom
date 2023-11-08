@@ -7,6 +7,7 @@ import type { Messages, User } from '../../../../../models/data';
 
 import style from './ChatItem.module.scss';
 import Text from './text/Text';
+import timeHandler from '../../../pages/chat/utils/timeHandler';
 
 type ChatItemProps = {
   chatId: number;
@@ -33,8 +34,7 @@ export default function ChatItem({
 
   const lastMessage = messages[messages.length - 1];
 
-  const parseDate = new Date(Number(lastMessage?.date));
-  const time = `${parseDate?.getHours()}:${parseDate?.getMinutes()}`;
+  const time = timeHandler(lastMessage.date);
 
   return (
     <Link to={linkToChat} className={style.wrapper}>

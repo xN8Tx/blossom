@@ -4,6 +4,8 @@ import sendedIcon from '../../../../../assets/SendedIcon.svg';
 import readIcon from '../../../../../assets/ReadIcon.svg';
 
 import style from './MessageUser.module.scss';
+import { useTranslation } from 'react-i18next';
+import timeHandler from '../../../utils/timeHandler';
 
 type MessageUserProps = {
   message: string;
@@ -20,8 +22,9 @@ export default function MessageUser({
   status,
   isEdit,
 }: MessageUserProps) {
-  const parseDate = new Date(Number(date));
-  const time = `${parseDate.getHours()}:${parseDate.getMinutes()}`;
+  const { t } = useTranslation();
+
+  const time = timeHandler(date!);
 
   const statusUrl = status ? readIcon : sendedIcon;
 
@@ -44,7 +47,7 @@ export default function MessageUser({
         {isEdit && (
           <div className={style.info}>
             <Paragraph size='xs' color='message'>
-              Edit
+              {t('chat.edited')}
             </Paragraph>
           </div>
         )}

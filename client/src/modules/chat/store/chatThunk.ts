@@ -2,7 +2,11 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import $http from '../../../api/httpApi';
 import websocketAPI from '../../../api/WebsocketAPI';
-import { addMessagesToChat, addMessageToChat } from './chatSlice';
+import {
+  addMessagesToChat,
+  addMessageToChat,
+  addReadMessages,
+} from './chatSlice';
 
 import type { RootState } from '../../../store';
 import type {
@@ -10,6 +14,8 @@ import type {
   Message,
   MessageBody,
   MessageBodyRes,
+  ReadMessageBody,
+  ReadMessageBodyRes,
 } from '../../../models/socket';
 import type { Messages } from '../../../models/data';
 
@@ -47,6 +53,8 @@ const websocketConnector = createAsyncThunk(
       case 'MESSAGE':
         dispatch(addMessageToChat(data as Message<MessageBodyRes>));
         break;
+      case 'READ_MESSAGE':
+        dispatch(addReadMessages(data as Message<ReadMessageBodyRes>));
     }
   }
 );
@@ -70,4 +78,30 @@ const sendMessage = createAsyncThunk(
     websocketAPI.sendMessage(title);
   }
 );
-export { getChats, startWebsocket, sendMessage };
+const readMessage = createAsyncThunk(
+  '@@chats/readMessage',
+  async (chatId: string, { getState }) => {
+    const userId = (getState() as RootState).user.data.id;
+    const chat = (getState() as RootState).chat.data?.find(
+      (chat) => Number(chat.id) === Number(chatId)
+    );
+    const index = (getState() as RootState).chat.data?.findIndex(
+      (chat) => Number(chat.id) === Number(chatId)
+    );
+
+    const title: Message<ReadMessageBody> = {
+      event: 'READ_MESSAGE',
+      body: {
+        userId: userId!.toString(),
+        companionId: chat!.user.id.toString(),
+        chatId: chatId,
+      },
+    };
+
+    websocketAPI.sendMessage(title);
+
+    return index;
+  }
+);
+
+export { getChats, startWebsocket, sendMessage, readMessage };

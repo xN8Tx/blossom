@@ -1,6 +1,8 @@
+import { useTranslation } from 'react-i18next';
 import Paragraph from '../../../../../../../ui/paragraphs/Paragraph';
 
 import style from './MessageCompanion.module.scss';
+import timeHandler from '../../../utils/timeHandler';
 
 type MessageCompanionProps = {
   message: string;
@@ -15,8 +17,9 @@ export default function MessageCompanion({
   isDate,
   isEdit,
 }: MessageCompanionProps) {
-  const parseDate = new Date(Number(date));
-  const time = `${parseDate.getHours()}:${parseDate.getMinutes()}`;
+  const { t } = useTranslation();
+
+  const time = timeHandler(date!);
 
   return (
     <div className={style.container}>
@@ -34,7 +37,7 @@ export default function MessageCompanion({
         {isEdit && (
           <div className={style.info}>
             <Paragraph size='xs' color='message'>
-              Edit
+              {t('chat.edited')}
             </Paragraph>
           </div>
         )}

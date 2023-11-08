@@ -29,14 +29,14 @@ type Chat = {
 };
 
 type Profile = User & {
-  messages: Message[];
+  messages: Messages[];
 };
 
 type ChatWithInfo = Chat & {
   isLoaded: LoadingType;
   notification: number;
   user: User;
-  messages: Message[];
+  messages: Messages[];
 };
 
 type InitialState<T> = {
