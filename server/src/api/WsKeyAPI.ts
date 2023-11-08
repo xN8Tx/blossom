@@ -23,11 +23,12 @@ class WsKeyAPI {
   }
   async checkKey(key: string) {
     try {
-      const message = JSON.parse(
-        CryptoJS.AES.decrypt(key, process.env.WS_CRYPT!).toString(
-          CryptoJS.enc.Utf8,
-        ),
-      );
+      const decryptKey = CryptoJS.AES.decrypt(
+        key,
+        process.env.WS_CRYPT!,
+      ).toString(CryptoJS.enc.Utf8);
+
+      const message = JSON.parse(decryptKey);
 
       await redisClient.connect();
       const data = await redisClient.hGet('code', message.id);
@@ -39,6 +40,7 @@ class WsKeyAPI {
       return false;
     } catch (error) {
       console.log(error);
+      return false;
     }
   }
 }

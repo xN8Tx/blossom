@@ -13,6 +13,7 @@ const onMessage = async (
   ws: WebsocketType,
   wss: ws.Server,
 ) => {
+  if (Number(ws.id) !== Number(message.body.userId)) ws.close();
   const { chatId, userId, message: _mes, date } = message.body.message;
   const newMessage = await messagesAPI.post(chatId, userId, _mes, false, date);
 

@@ -3,6 +3,7 @@ import ws from 'ws';
 import verifyConnection from './middleware/verifyConnection';
 import onGetMessage from './handlers/onGetMessage';
 import onMessage from './handlers/onMessage';
+import onReadMessage from './handlers/onReadMessage';
 
 import type { WebsocketType, Event } from './socket';
 import type { IncomingMessage } from 'http';
@@ -30,6 +31,10 @@ const wssStart = () => {
         }
         case 'MESSAGE': {
           onMessage(message, ws, wss);
+          break;
+        }
+        case 'READ_MESSAGE': {
+          onReadMessage(message, ws, wss);
           break;
         }
       }

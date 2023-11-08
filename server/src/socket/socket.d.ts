@@ -5,7 +5,7 @@ type WebsocketType = ws & {
   id: string;
 };
 
-type Event = 'MESSAGE' | 'GET_CHAT_MESSAGE';
+type Event = 'MESSAGE' | 'GET_CHAT_MESSAGE' | 'READ_MESSAGE';
 
 type Message<T> = {
   event: Event;
@@ -36,8 +36,21 @@ type OpenBody = {
   key: string;
 };
 
+type ReadMessageBody = {
+  userId: string;
+  chatId: string;
+  companionId: string;
+};
+
+type ReadMessageBodyRes = {
+  chatId: string;
+  messages: MessagesDB[];
+};
+
 export {
   WebsocketType,
+  ReadMessageBody,
+  ReadMessageBodyRes,
   Message,
   MessageBody,
   OpenBody,

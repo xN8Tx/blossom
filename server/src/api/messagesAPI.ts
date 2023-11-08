@@ -61,6 +61,17 @@ class MessagesAPI {
       console.log(error);
     }
   }
+
+  async changeMessagesStatus(userId: string, chatId: string): Promise<void> {
+    try {
+      await databasePool.query<MessagesDB>(
+        'UPDATE messages SET status=true WHERE ("userId" != $1 AND "chatId" = $2 AND status = false)',
+        [userId, chatId],
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
 
 const messagesAPI = new MessagesAPI();

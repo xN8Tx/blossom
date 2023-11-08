@@ -1,10 +1,10 @@
 import ws from 'ws';
 
-import type { Message, MessageBodyRes, WebsocketType } from '../socket';
+import type { Message, WebsocketType } from '../socket';
 
 const broadcastMessage = (
   wss: ws.Server,
-  title: Message<MessageBodyRes>,
+  title: Message<unknown>,
   companionId: string,
 ) => {
   wss.clients.forEach((client) => {
