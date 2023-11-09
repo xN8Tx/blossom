@@ -1,13 +1,13 @@
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useAppSelector } from '../../../store';
 
 import useModal from '../../modal/hooks/useModal';
-import { useAppSelector } from '../../../store';
-import { useEffect } from 'react';
 
 const useCodeLoading = (type: 'codeLoading' | 'authLoading') => {
   const modal = useModal();
-
   const { t } = useTranslation();
+
   const loading = useAppSelector((state) => state.auth[type]);
 
   const errorText =
@@ -21,6 +21,7 @@ const useCodeLoading = (type: 'codeLoading' | 'authLoading') => {
     } else if (loading === 'success') {
       modal('success', successText);
     } else if (loading === 'error') {
+      console.log('Hello');
       modal('error', errorText);
     }
     return () => {};

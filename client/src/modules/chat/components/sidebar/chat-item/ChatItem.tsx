@@ -26,7 +26,7 @@ export default function ChatItem({
   messages,
   notification,
 }: ChatItemProps) {
-  const linkToChat = `/chat/c/${chatId}`;
+  const linkToChat = `/chat/${chatId}`;
 
   const chatAvatar = avatar !== null ? avatar : user.avatar;
   const name =

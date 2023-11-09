@@ -26,6 +26,7 @@ export default function Code() {
   const onCodeChange = (event: InputEventType) => {
     const code = [...event.target.value];
     const codeLastLetter = code[code.length - 1];
+
     if (/[0-9]/.test(codeLastLetter) && code.length !== 5) {
       setCode(event.target.value);
     }
@@ -53,8 +54,8 @@ export default function Code() {
 
   return (
     <>
-      {isAuthAndLoaded && <Navigate to='/chat' />}
-      {isNotAuth && <Navigate to='/auth' />}
+      {isAuthAndLoaded && <Navigate to='/' />}
+      {isNotAuth && <Navigate to='/' />}
       {isCode && (
         <Form>
           <MainInput

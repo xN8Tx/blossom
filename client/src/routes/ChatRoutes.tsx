@@ -4,8 +4,8 @@ import Profile from '../modules/profile/Profile';
 
 const chatRoutes = [
   { path: 'index', element: <Home /> },
-  { path: 'u/:id', element: <Profile /> },
-  { path: 'c/:id', element: <ChatPage /> },
+  { path: 'user/:id', element: <Profile /> },
+  { path: 'chat/:id', element: <ChatPage /> },
 ];
 
 export default chatRoutes;

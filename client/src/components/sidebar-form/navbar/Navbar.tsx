@@ -4,8 +4,9 @@ import ContactIcon from '../../../assets/svg/ContactIcon';
 import ChatIcon from '../../../assets/svg/ChatIcon';
 import SettingsIcon from '../../../assets/svg/SettingsIcon';
 
+import type { ClassNameType } from '../../../models';
+
 import style from './Navbar.module.scss';
-import { ClassNameType } from '../../../models';
 
 export default function Navbar() {
   const className = ({ isActive }: ClassNameType) =>
@@ -16,7 +17,7 @@ export default function Navbar() {
       <NavLink to='/contacts' className={className}>
         <ContactIcon />
       </NavLink>
-      <NavLink to='/chat' className={className}>
+      <NavLink to='/' className={className}>
         <ChatIcon />
       </NavLink>
       <NavLink to='/settings' className={className}>

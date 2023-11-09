@@ -30,7 +30,7 @@ export default function AppInit() {
 
     const token = localStorage.getItem('accessToken');
 
-    if (token === null) return () => navigate('/auth');
+    if (token === null) return () => navigate('/');
     const { id } = decodeJWT(token!);
 
     const title = {

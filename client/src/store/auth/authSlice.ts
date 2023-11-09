@@ -102,7 +102,6 @@ const authSlice = createSlice({
       .addMatcher(
         isAnyOf(login.rejected, registration.rejected),
         (state, action) => {
-          state.isAuth = 'auth';
           state.authLoading = 'error';
           state.error = (action.payload as ActionPayload)?.message;
         }

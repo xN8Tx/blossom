@@ -16,7 +16,7 @@ export default function Header() {
 
   const { user } = useAppSelector((state) => selectById(state, Number(id))!);
 
-  const profileUrl = `/chat/u/${user.id}`;
+  const profileUrl = `/user/${user.id}`;
   const name = user.firstName + ' ' + user.lastName;
 
   return (

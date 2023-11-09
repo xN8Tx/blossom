@@ -6,7 +6,6 @@ import type { Messages } from '../../../../../../models/data';
 
 import ReadIcon from '../../../../assets/ReadIcon.svg';
 import SendedIcon from '../../../../assets/SendedIcon.svg';
-import LoadingIcon from '../../../../assets/LoadingIcon.svg';
 
 import style from './Text.module.scss';
 
@@ -25,15 +24,11 @@ export default function Text({ messages, notification }: TextProps) {
     messageText = newMess + '...';
   }
 
-  const isUserMessage = Number(userId) === lastMessage.userId;
-
   const isCompanionRead = Number(notification) > 0;
-  const isUserMessageRead =
-    !isCompanionRead && isUserMessage && lastMessage.status === true;
-  const isUserMessageSend =
-    !isCompanionRead && isUserMessage && lastMessage.status === false;
-  const isUserMessageLoading =
-    !isCompanionRead && isUserMessage && lastMessage.status === 'loading';
+  const isUserMessage = Number(userId) === Number(lastMessage.userId);
+
+  const isUserMessageRead = isUserMessage && lastMessage.status === true;
+  const isUserMessageSend = isUserMessage && lastMessage.status === false;
 
   return (
     <div className={style.text}>
@@ -49,7 +44,6 @@ export default function Text({ messages, notification }: TextProps) {
       )}
       {isUserMessageRead && <img src={ReadIcon} alt='' />}
       {isUserMessageSend && <img src={SendedIcon} alt='' />}
-      {isUserMessageLoading && <img src={LoadingIcon} alt='' />}
     </div>
   );
 }

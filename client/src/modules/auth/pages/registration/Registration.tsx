@@ -86,8 +86,8 @@ export default function Registration() {
 
   return (
     <>
-      {_isAuth && <Navigate to='/chat' />}
-      {isCodeAndLoaded && <Navigate to='/auth/code' />}
+      {_isAuth && <Navigate to='/' />}
+      {isCodeAndLoaded && <Navigate to='/code' />}
       {isNotAuth && (
         <Form inputMode={passwordInputType}>
           <MainInput
@@ -124,7 +124,7 @@ export default function Registration() {
             <PrimaryButton onClick={onSendCode}>
               {t('auth.sendCode')}
             </PrimaryButton>
-            <MyLink to='/auth'>{t('auth.signIn')}</MyLink>
+            <MyLink to='/'>{t('auth.signIn')}</MyLink>
           </ButtonsForm>
         </Form>
       )}{' '}

@@ -4,13 +4,12 @@ import { useParams } from 'react-router-dom';
 import { useAppSelector } from '../../../../../../../store';
 import selectById from '../../../../../store/chatSelector';
 
-import MessageUser from '../message-user/MessageUser';
-import MessageCompanion from '../message-companion/MessageCompanion';
+import MessageDate from '../message-date/MessageDate';
+import Message from '../message/Message';
 
 import type { Messages } from '../../../../../../../models/data';
 
 import style from './MessageList.module.scss';
-import MessageDate from '../message-date/MessageDate';
 
 const MessageList = forwardRef<HTMLDivElement>((_, ref) => {
   const { id } = useParams();
@@ -28,33 +27,24 @@ const MessageList = forwardRef<HTMLDivElement>((_, ref) => {
           if (Number(message.userId) === Number(userId)) {
             return (
               <>
-                <MessageDate
-                  date={message.date}
-                  key={Math.floor((Date.now() / 10) * (index + 1))}
-                />
-                <MessageUser
-                  key={message.id}
-                  message={message.message}
-                  date={message.date}
+                <MessageDate date={message.date} key={'DateKey' + index} />
+                <Message
+                  isUser={true}
                   isDate={true}
-                  isEdit={message.isEdit}
-                  status={message.status}
+                  messageObj={message}
+                  key={message.id}
                 />
               </>
             );
           } else {
             return (
               <>
-                <MessageDate
-                  date={message.date}
-                  key={Math.floor((Date.now() / 10) * (index + 1))}
-                />
-                <MessageCompanion
-                  key={message.id}
-                  isEdit={message.isEdit}
-                  message={message.message}
-                  date={message.date}
+                <MessageDate date={message.date} key={'DateKey' + index} />
+                <Message
+                  isUser={false}
                   isDate={true}
+                  messageObj={message}
+                  key={message.id}
                 />
               </>
             );
@@ -75,12 +65,11 @@ const MessageList = forwardRef<HTMLDivElement>((_, ref) => {
               if (messageDate === prevMessageDate) {
                 //  ОДНО ВРЕМЯ
                 return (
-                  <MessageUser
-                    key={message.id}
-                    message={message.message}
+                  <Message
+                    isUser={true}
                     isDate={false}
-                    isEdit={message.isEdit}
-                    status={message.status}
+                    messageObj={message}
+                    key={message.id}
                   />
                 );
               } else {
@@ -89,28 +78,24 @@ const MessageList = forwardRef<HTMLDivElement>((_, ref) => {
                   return (
                     <>
                       <MessageDate
-                        key={Math.floor((Date.now() / 10) * (index + 1))}
+                        key={'DateKey' + index}
                         date={message.date}
                       />
-                      <MessageUser
-                        key={message.id}
-                        message={message.message}
+                      <Message
+                        isUser={true}
                         isDate={true}
-                        date={message.date}
-                        isEdit={message.isEdit}
-                        status={message.status}
+                        messageObj={message}
+                        key={message.id}
                       />
                     </>
                   );
                 }
                 return (
-                  <MessageUser
-                    key={message.id}
-                    message={message.message}
+                  <Message
+                    isUser={true}
                     isDate={true}
-                    date={message.date}
-                    isEdit={message.isEdit}
-                    status={message.status}
+                    messageObj={message}
+                    key={message.id}
                   />
                 );
               }
@@ -119,29 +104,22 @@ const MessageList = forwardRef<HTMLDivElement>((_, ref) => {
               if (messageDay !== prevMessageDay) {
                 return (
                   <>
-                    <MessageDate
-                      date={message.date}
-                      key={Math.floor((Date.now() / 10) * (index + 1))}
-                    />
-                    <MessageUser
-                      key={message.id}
-                      message={message.message}
+                    <MessageDate date={message.date} key={'DateKey' + index} />
+                    <Message
+                      isUser={true}
                       isDate={true}
-                      date={message.date}
-                      isEdit={message.isEdit}
-                      status={message.status}
+                      messageObj={message}
+                      key={message.id}
                     />
                   </>
                 );
               }
               return (
-                <MessageUser
-                  key={message.id}
-                  message={message.message}
+                <Message
+                  isUser={true}
                   isDate={true}
-                  date={message.date}
-                  isEdit={message.isEdit}
-                  status={message.status}
+                  messageObj={message}
+                  key={message.id}
                 />
               );
             }
@@ -150,11 +128,11 @@ const MessageList = forwardRef<HTMLDivElement>((_, ref) => {
               if (messageDate === prevMessageDate) {
                 //  ОДНО ВРЕМЯ
                 return (
-                  <MessageCompanion
-                    isEdit={message.isEdit}
-                    key={message.id}
-                    message={message.message}
+                  <Message
+                    isUser={false}
                     isDate={false}
+                    messageObj={message}
+                    key={message.id}
                   />
                 );
               } else {
@@ -164,25 +142,23 @@ const MessageList = forwardRef<HTMLDivElement>((_, ref) => {
                     <>
                       <MessageDate
                         date={message.date}
-                        key={Math.floor((Date.now() / 10) * (index + 1))}
+                        key={'DateKey' + index}
                       />
-                      <MessageCompanion
-                        isEdit={message.isEdit}
-                        key={message.id}
-                        message={message.message}
+                      <Message
+                        isUser={false}
                         isDate={true}
-                        date={message.date}
+                        messageObj={message}
+                        key={message.id}
                       />
                     </>
                   );
                 }
                 return (
-                  <MessageCompanion
-                    key={message.id}
-                    message={message.message}
-                    isEdit={message.isEdit}
+                  <Message
+                    isUser={false}
                     isDate={true}
-                    date={message.date}
+                    messageObj={message}
+                    key={message.id}
                   />
                 );
               }
@@ -191,27 +167,22 @@ const MessageList = forwardRef<HTMLDivElement>((_, ref) => {
               if (messageDay !== prevMessageDay) {
                 return (
                   <>
-                    <MessageDate
-                      date={message.date}
-                      key={Math.floor((Date.now() / 10) * (index + 1))}
-                    />
-                    <MessageCompanion
-                      isEdit={message.isEdit}
-                      key={message.id}
-                      message={message.message}
+                    <MessageDate date={message.date} key={'DateKey' + index} />
+                    <Message
+                      isUser={false}
                       isDate={true}
-                      date={message.date}
+                      messageObj={message}
+                      key={message.id}
                     />
                   </>
                 );
               }
               return (
-                <MessageCompanion
-                  isEdit={message.isEdit}
-                  key={message.id}
-                  message={message.message}
+                <Message
+                  isUser={false}
                   isDate={true}
-                  date={message.date}
+                  messageObj={message}
+                  key={message.id}
                 />
               );
             }

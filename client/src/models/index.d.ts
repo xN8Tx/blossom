@@ -1,3 +1,3 @@
 type ClassNameType = { isActive: boolean };
 
-export type { ClassNameTyp, WindowType };
+export type { ClassNameType, WindowType };

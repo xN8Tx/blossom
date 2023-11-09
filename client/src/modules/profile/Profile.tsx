@@ -29,6 +29,8 @@ export default function Profile() {
     contactLoading === 'success' &&
     loading === 'success';
 
+  console.log(id);
+
   useEffect(() => {
     if (userLoading === 'success' && contactLoading === 'success') {
       dispatch(getProfile(Number(id!)));

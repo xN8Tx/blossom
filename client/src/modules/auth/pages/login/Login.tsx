@@ -57,8 +57,8 @@ export default function Login() {
 
   return (
     <>
-      {_isAuth && <Navigate to='/chat' />}
-      {isCodeAndLoaded && <Navigate to='/auth/code' />}
+      {_isAuth && <Navigate to='/' />}
+      {isCodeAndLoaded && <Navigate to='/code' />}
       {isNotAuth && (
         <Form inputMode={passwordInputType}>
           <MainInput
@@ -77,8 +77,8 @@ export default function Login() {
             <PrimaryButton onClick={onSendCode}>
               {t('auth.sendCode')}
             </PrimaryButton>
-            <MyLink to='/auth/forgot'>{t('auth.forgotPassword')}</MyLink>
-            <MyLink to='/auth/registration'>{t('auth.createAccount')}</MyLink>
+            <MyLink to='/forgot'>{t('auth.forgotPassword')}</MyLink>
+            <MyLink to='/registration'>{t('auth.createAccount')}</MyLink>
           </ButtonsForm>
         </Form>
       )}
