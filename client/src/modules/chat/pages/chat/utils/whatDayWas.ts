@@ -22,7 +22,7 @@ const whatDayWas = (_date: string, t: TFunction<'translation', undefined>) => {
     ${t(`date.${dateParse.getMonth()}Month`)} 
     ${dateParse.getDate()}`;
   } else {
-    return `${t(`date.${dateParse.getDate()}Day`)}, 
+    return `${t(`date.${dateParse.getDay()}Day`)}, 
       ${t(`date.${dateParse.getMonth()}Month`)} 
       ${dateParse.getDate()}`;
   }
