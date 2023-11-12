@@ -1,5 +1,9 @@
 import { RefObject, forwardRef, useContext, useEffect, useRef } from 'react';
+import { useParams } from 'react-router-dom';
 
+import { useAppDispatch, useAppSelector } from '../../../../../../../store';
+import { selectMessage } from '../../../../../store/chatSelector';
+import { deleteMessage } from '../../../../../store/chatThunk';
 import MenuContext from '../../../../../context/MenuContext';
 
 import MenuItem from '../menu-item/MenuItem';
@@ -10,10 +14,6 @@ import EditIcon from '../../../../../assets/EditIcon';
 import DeleteIcon from '../../../../../assets/DeleteIcon';
 
 import style from './MenuList.module.scss';
-import { useAppDispatch, useAppSelector } from '../../../../../../../store';
-import { selectMessage } from '../../../../../store/chatSelector';
-import { useParams } from 'react-router-dom';
-import { deleteMessage } from '../../../../../store/chatThunk';
 
 type MenuItemProps = {
   name: string;
@@ -61,6 +61,7 @@ const MenuList = forwardRef<HTMLDivElement>((_, ref) => {
     if (containerHeight - posY < 185) {
       setPosY(containerHeight - 185);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [posX, posY]);
 
   // LAST MESSAGE ID MADE FRO DELETE ALLOCATION OF PREV MESSAGE
@@ -88,6 +89,7 @@ const MenuList = forwardRef<HTMLDivElement>((_, ref) => {
   };
   // CHANGE COLOR MESSAGE FN
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => changeColorOfSelectedMessage(), [selectedMessageId]);
 
   // ITEMS HANDLERS
