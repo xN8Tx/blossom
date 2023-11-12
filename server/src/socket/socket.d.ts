@@ -5,7 +5,12 @@ type WebsocketType = ws & {
   id: string;
 };
 
-type Event = 'MESSAGE' | 'GET_CHAT_MESSAGE' | 'READ_MESSAGE';
+type Event =
+  | 'MESSAGE'
+  | 'GET_CHAT_MESSAGE'
+  | 'READ_MESSAGE'
+  | 'EDIT_MESSAGE'
+  | 'DELETE_MESSAGE';
 
 type Message<T> = {
   event: Event;
@@ -47,6 +52,43 @@ type ReadMessageBodyRes = {
   messages: MessagesDB[];
 };
 
+type EditMessageBody = {
+  userId: string;
+  chatId: string;
+  companionId: string;
+  messages: {
+    id: string;
+    message: string;
+  };
+};
+
+type EditMessageBodyRes = {
+  userId: string;
+  chatId: string;
+  messages: {
+    id: string;
+    message: string;
+    isEdit: boolean;
+  };
+};
+
+type DeleteMessageBody = {
+  userId: string;
+  chatId: string;
+  companionId: string;
+  messages: {
+    id: string;
+  };
+};
+
+type DeleteMessageBodyRes = {
+  userId: string;
+  chatId: string;
+  messages: {
+    id: string;
+  };
+};
+
 export {
   WebsocketType,
   ReadMessageBody,
@@ -58,4 +100,8 @@ export {
   Event,
   GetChatMessagesBodyRes,
   MessageBodyRes,
+  EditMessageBody,
+  EditMessageBodyRes,
+  DeleteMessageBody,
+  DeleteMessageBodyRes,
 };

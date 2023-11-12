@@ -7,6 +7,8 @@ import onReadMessage from './handlers/onReadMessage';
 
 import type { WebsocketType, Event } from './socket';
 import type { IncomingMessage } from 'http';
+import onEdit from './handlers/onEdit';
+import onDelete from './handlers/onDelete';
 
 const wssStart = () => {
   const wss = new ws.Server(
@@ -35,6 +37,14 @@ const wssStart = () => {
         }
         case 'READ_MESSAGE': {
           onReadMessage(message, ws, wss);
+          break;
+        }
+        case 'EDIT_MESSAGE': {
+          onEdit(message, ws, wss);
+          break;
+        }
+        case 'DELETE_MESSAGE': {
+          onDelete(message, ws, wss);
           break;
         }
       }
