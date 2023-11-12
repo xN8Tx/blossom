@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { getChats, readMessage } from './chatThunk';
+import { deleteMessage, editMessage, getChats, readMessage } from './chatThunk';
 
 import type { ChatWithInfo, InitialState } from '../../../models/data';
 import reducers from './chatReducers';
@@ -28,6 +28,30 @@ const chatSlice = createSlice({
       })
       .addCase(readMessage.fulfilled, (state, action) => {
         state.data![action.payload!].notification = 0;
+      })
+      .addCase(editMessage.fulfilled, (state, action) => {
+        const indexOfChat = state.data!.findIndex(
+          (chat) => Number(chat.id) === Number(action.payload!.chatId)
+        );
+        const indexOfMessage = state.data![indexOfChat].messages.findIndex(
+          (mes) => Number(mes.id) === Number(action.payload!.message.id)
+        );
+
+        state.data![indexOfChat].messages[indexOfMessage].message =
+          action.payload!.message.message!;
+
+        state.data![indexOfChat].messages[indexOfMessage].isEdit = true;
+      })
+      .addCase(deleteMessage.fulfilled, (state, action) => {
+        const indexOfChat = state.data!.findIndex(
+          (chat) => Number(chat.id) === Number(action.payload!.chatId)
+        );
+
+        const indexOfMessage = state.data![indexOfChat].messages.findIndex(
+          (message) => Number(message.id) === Number(action.payload!.message.id)
+        );
+
+        state.data![indexOfChat].messages.splice(indexOfMessage, 1);
       });
   },
 });
@@ -38,6 +62,8 @@ const {
   addMessagesToChat,
   addMessageToChat,
   addReadMessages,
+  addEditMessage,
+  addDeleteMessage,
 } = chatSlice.actions;
 
 export default chatReducer;
@@ -46,4 +72,6 @@ export {
   addMessagesToChat,
   addMessageToChat,
   addReadMessages,
+  addEditMessage,
+  addDeleteMessage,
 };

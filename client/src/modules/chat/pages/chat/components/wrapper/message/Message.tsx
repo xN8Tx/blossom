@@ -1,8 +1,9 @@
+import { memo } from 'react';
+
 import Wrapper from './wrapper/Wrapper';
 import Time from './time/Time';
 
 import type { Messages } from '../../../../../../../models/data';
-import type { MouseEvent } from 'react';
 
 import style from './Message.module.scss';
 
@@ -12,18 +13,15 @@ type MessageProps = {
   messageObj: Messages;
 };
 
-export default function Message({ isDate, isUser, messageObj }: MessageProps) {
-  const { message, date, status, isEdit } = messageObj;
-
-  const onClick = (event: MouseEvent<HTMLDivElement>) => {
-    event.preventDefault();
-  };
+const Message = memo(({ isDate, isUser, messageObj }: MessageProps) => {
+  const { id, message, date, status, isEdit } = messageObj;
 
   return (
     <div
       className={style.container}
       is-user={isUser.toString()}
-      onContextMenu={onClick}
+      data-id={id}
+      is-active='false'
     >
       {isDate && <Time date={date} />}
       <Wrapper
@@ -35,4 +33,6 @@ export default function Message({ isDate, isUser, messageObj }: MessageProps) {
       />
     </div>
   );
-}
+});
+
+export default Message;

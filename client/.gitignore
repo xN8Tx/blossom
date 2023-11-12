@@ -12,7 +12,8 @@ dist
 dist-ssr
 *.local
 src/config.ts
-
+blossom-privateKey.key
+blossom.crt
 
 # Editor directories and files
 .vscode/*

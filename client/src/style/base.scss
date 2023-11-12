@@ -22,7 +22,14 @@
 }
 
 .svg-fill-color {
-  & > path {
+  & > path,
+  rect {
     fill: var(--user-msg-change-color);
+  }
+}
+.svg-stroke-color {
+  & > path,
+  circle {
+    stroke: var(--user-msg-change-color);
   }
 }

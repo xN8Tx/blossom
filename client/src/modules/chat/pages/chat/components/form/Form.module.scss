@@ -1,8 +1,16 @@
-.wrapper {
+.container {
+  width: 100%;
+
   position: absolute;
   bottom: 0;
   left: 0;
 
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+}
+
+.wrapper {
   width: 100%;
 
   padding: 15px 35px;
@@ -94,6 +102,63 @@
     & ~ p {
       transform: translateX(10px);
       opacity: 0;
+    }
+  }
+}
+
+.changeWrapper {
+  width: 100%;
+
+  padding: 15px 35px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background-color: var(--msg-bg-change-color);
+}
+
+.changeWrapperText {
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid var(--msg-change-color);
+  padding-left: 10px;
+  gap: 5px;
+  max-width: 50%;
+}
+
+.changeClose {
+  width: 20px;
+  height: 20px;
+
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-right: 10px;
+
+  & > span {
+    width: 20px;
+    height: 2px;
+
+    display: block;
+
+    background-color: var(--msg-change-color);
+    transform: rotate(45deg);
+
+    &::after {
+      content: '';
+      display: block;
+
+      position: absolute;
+
+      width: 20px;
+      height: 2px;
+      background-color: var(--msg-change-color);
+
+      transform: rotate(-90deg);
     }
   }
 }

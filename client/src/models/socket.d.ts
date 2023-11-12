@@ -1,6 +1,11 @@
 import { Messages } from './data';
 
-type Event = 'MESSAGE' | 'GET_CHAT_MESSAGE' | 'READ_MESSAGE';
+type Event =
+  | 'MESSAGE'
+  | 'GET_CHAT_MESSAGE'
+  | 'READ_MESSAGE'
+  | 'EDIT_MESSAGE'
+  | 'DELETE_MESSAGE';
 
 type Message<T> = {
   event: Event;
@@ -37,6 +42,43 @@ type ReadMessageBodyRes = {
   messages: Messages[];
 };
 
+type EditMessageBody = {
+  userId: string;
+  chatId: string;
+  companionId: string;
+  messages: {
+    id: string;
+    message: string;
+  };
+};
+
+type EditMessageBodyRes = {
+  userId: string;
+  chatId: string;
+  messages: {
+    id: string;
+    message: string;
+    isEdit: boolean;
+  };
+};
+
+type DeleteMessageBody = {
+  userId: string;
+  chatId: string;
+  companionId: string;
+  messages: {
+    id: string;
+  };
+};
+
+type DeleteMessageBodyRes = {
+  userId: string;
+  chatId: string;
+  messages: {
+    id: string;
+  };
+};
+
 export {
   Message,
   MessageBody,
@@ -45,4 +87,8 @@ export {
   MessageBodyRes,
   ReadMessageBodyRes,
   ReadMessageBody,
+  EditMessageBody,
+  EditMessageBodyRes,
+  DeleteMessageBody,
+  DeleteMessageBodyRes,
 };

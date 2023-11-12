@@ -1,14 +1,18 @@
 import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../../../store';
+
+import selectById from '../../store/chatSelector';
+import { getChatMessages } from '../../store/chatSlice';
+
+import MenuProvider from '../../context/MenuProvider';
 
 import Header from './components/heading/Header';
 import Form from './components/form/Form';
+import Wrapper from './components/wrapper/Wrapper';
+import Menu from './components/menu/Menu';
 
 import style from './ChatPage.module.scss';
-import Wrapper from './components/wrapper/Wrapper';
-import { useParams } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../../../store';
-import selectById from '../../store/chatSelector';
-import { getChatMessages } from '../../store/chatSlice';
 
 export default function ChatPage() {
   const { id } = useParams();
@@ -24,9 +28,12 @@ export default function ChatPage() {
 
   return (
     <section className={style.wrapper}>
-      <Header />
-      {data!.isLoaded === 'success' && <Wrapper />}
-      <Form />
+      <MenuProvider>
+        <Header />
+        {data!.isLoaded === 'success' && <Wrapper />}
+        <Menu />
+        <Form />
+      </MenuProvider>
     </section>
   );
 }

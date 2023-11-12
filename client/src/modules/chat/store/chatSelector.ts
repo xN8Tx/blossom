@@ -1,8 +1,26 @@
-import type { ChatWithInfo } from '../../../models/data';
+import type { ChatWithInfo, Messages } from '../../../models/data';
 import type { RootState } from '../../../store';
 
 const selectById = (state: RootState, id: number) => {
   return state.chat.data?.filter((chat) => Number(chat.id) === id)[0];
+};
+
+const selectMessage = (
+  state: RootState,
+  messageId: number,
+  chatId: number
+): Messages | 0 => {
+  if (isNaN(messageId) || isNaN(chatId)) return 0;
+
+  const indexOfChat = state.chat.data!.findIndex(
+    (chat) => Number(chat.id) === chatId
+  );
+
+  if (indexOfChat === -1) return 0;
+
+  return state.chat.data![indexOfChat!].messages.filter(
+    (message) => Number(message.id) === messageId
+  )[0];
 };
 
 const sortChatsByLastMessageDate = (state: RootState) => {
@@ -38,4 +56,4 @@ const sortChatsByLastMessageDate = (state: RootState) => {
 };
 
 export default selectById;
-export { sortChatsByLastMessageDate };
+export { sortChatsByLastMessageDate, selectMessage };

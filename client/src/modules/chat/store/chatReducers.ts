@@ -4,6 +4,8 @@ import websocketAPI from '../../../api/WebsocketAPI';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { ChatWithInfo, InitialState } from '../../../models/data';
 import type {
+  DeleteMessageBodyRes,
+  EditMessageBodyRes,
   GetChatMessagesBody,
   GetChatMessagesBodyRes,
   Message,
@@ -54,6 +56,39 @@ const reducers = {
       (chat) => Number(chat.id) === Number(action.payload.body.chatId)
     );
     state.data![indexOfChat].messages = action.payload.body.messages;
+  },
+  addEditMessage: (
+    state: InitialState<ChatWithInfo[]>,
+    action: PayloadAction<Message<EditMessageBodyRes>>
+  ) => {
+    const indexOfChat = state.data!.findIndex(
+      (chat) => Number(chat.id) === Number(action.payload.body.chatId)
+    );
+
+    const indexOfMessage = state.data![indexOfChat].messages.findIndex(
+      (message) =>
+        Number(message.id) === Number(action.payload.body.messages.id)
+    );
+
+    state.data![indexOfChat].messages[indexOfMessage].message =
+      action.payload.body.messages.message;
+    state.data![indexOfChat].messages[indexOfMessage].isEdit =
+      action.payload.body.messages.isEdit;
+  },
+  addDeleteMessage: (
+    state: InitialState<ChatWithInfo[]>,
+    action: PayloadAction<Message<DeleteMessageBodyRes>>
+  ) => {
+    const indexOfChat = state.data!.findIndex(
+      (chat) => Number(chat.id) === Number(action.payload.body.chatId)
+    );
+
+    const indexOfMessage = state.data![indexOfChat].messages.findIndex(
+      (message) =>
+        Number(message.id) === Number(action.payload.body.messages.id)
+    );
+
+    state.data![indexOfChat].messages.splice(indexOfMessage, 1);
   },
   getChatMessages: {
     reducer: (

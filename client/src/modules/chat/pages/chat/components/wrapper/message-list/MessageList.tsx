@@ -1,4 +1,4 @@
-import { forwardRef } from 'react';
+import { MouseEvent, forwardRef, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { useAppSelector } from '../../../../../../../store';
@@ -10,15 +10,48 @@ import Message from '../message/Message';
 import type { Messages } from '../../../../../../../models/data';
 
 import style from './MessageList.module.scss';
+import MenuContext from '../../../../../context/MenuContext';
 
 const MessageList = forwardRef<HTMLDivElement>((_, ref) => {
   const { id } = useParams();
+  const { setPosX, setPosY, isOpen, setIsOpen, setSelectedMessageId } =
+    useContext(MenuContext);
 
   const data = useAppSelector((state) => selectById(state, Number(id))!);
   const userId = useAppSelector((state) => state.user.data.id);
 
+  const onContextMenu = (event: MouseEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    if (!isOpen) setIsOpen(true);
+
+    if (document.documentElement.clientWidth > 768) {
+      setPosX(event.clientX - 333 + 50);
+      setPosY(event.clientY - 90 + 50);
+    } else {
+      setPosX(event.clientY - 20 + 50);
+      setPosY(event.clientY - 90 + 50);
+    }
+
+    const id = (event.target as HTMLDivElement).getAttribute('data-id');
+    if (typeof id === 'string') {
+      setSelectedMessageId(id);
+    }
+  };
+
+  const onClick = () => {
+    if (isOpen) {
+      setIsOpen(false);
+      setSelectedMessageId('');
+    }
+  };
+
   return (
-    <div className={style.list} ref={ref}>
+    <div
+      className={style.list}
+      ref={ref}
+      onContextMenu={onContextMenu}
+      onClick={onClick}
+    >
       {data.messages.map((message, index) => {
         const prevMessage: Messages | null =
           index === 0 ? null : data.messages[index - 1];

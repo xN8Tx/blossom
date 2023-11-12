@@ -5,6 +5,8 @@
   flex-direction: column;
   gap: 5px;
 
+  transition: all ease-in 0.3s;
+
   &[is-user='true'] {
     align-items: flex-end;
     justify-content: flex-end;
@@ -50,10 +52,17 @@
       justify-content: flex-start;
     }
   }
+
+  &[is-active='true'] {
+    background-color: var(--second-bg-change-color);
+    border-radius: 10px;
+  }
 }
 
 .time {
   margin-top: 30px;
+
+  pointer-events: none;
 }
 
 .wrapper {
@@ -70,6 +79,8 @@
     word-break: break-all;
     white-space: pre-line;
   }
+
+  pointer-events: none;
 }
 
 .body {
@@ -82,6 +93,8 @@
     word-break: break-all;
     white-space: pre-line;
   }
+
+  pointer-events: none;
 }
 
 .info {
@@ -90,4 +103,6 @@
   display: flex;
   align-items: center;
   gap: 3px;
+
+  pointer-events: none;
 }

@@ -84,10 +84,18 @@
   },
   "chat": {
     "writeMessage": "Write Message",
-    "edited": "Edited"
+    "edited": "Edited",
+    "editMessage": "Edit message"
   },
   "users": {
     "error": "User not found"
+  },
+  "menu": {
+    "forward": "Forward",
+    "edit": "Edit",
+    "select": "Select",
+    "delete": "Delete",
+    "copy": "Copy"
   },
   "etc": {
     "inDevelopment": "This feature will be soon!",

@@ -1,0 +1,28 @@
+.list {
+  position: absolute;
+
+  top: 50px;
+  left: 50px;
+
+  width: 150px;
+  padding: 10px 0;
+
+  display: flex;
+  flex-direction: column;
+
+  background-color: var(--second-bg-change-color);
+  border-radius: 10px;
+
+  opacity: 1;
+  pointer-events: all;
+  visibility: visible;
+  cursor: pointer;
+  transition: var(--main-transition);
+
+  &[is-open='false'] {
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+    cursor: none;
+  }
+}

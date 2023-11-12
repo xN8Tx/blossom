@@ -3,6 +3,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import $http from '../../../api/httpApi';
 import websocketAPI from '../../../api/WebsocketAPI';
 import {
+  addDeleteMessage,
+  addEditMessage,
   addMessagesToChat,
   addMessageToChat,
   addReadMessages,
@@ -10,6 +12,10 @@ import {
 
 import type { RootState } from '../../../store';
 import type {
+  DeleteMessageBody,
+  DeleteMessageBodyRes,
+  EditMessageBody,
+  EditMessageBodyRes,
   GetChatMessagesBodyRes,
   Message,
   MessageBody,
@@ -18,6 +24,14 @@ import type {
   ReadMessageBodyRes,
 } from '../../../models/socket';
 import type { Messages } from '../../../models/data';
+
+type EditDeleteMessageMessage = {
+  chatId: string;
+  message: {
+    id: string;
+    message?: string;
+  };
+};
 
 const getChats = createAsyncThunk(
   '@@chats/getChats',
@@ -41,21 +55,6 @@ const startWebsocket = createAsyncThunk(
 
     websocketAPI.setConnector((data) => dispatch(websocketConnector(data)));
     websocketAPI.start(key);
-  }
-);
-const websocketConnector = createAsyncThunk(
-  '@@chat/connector',
-  async (data: Message<unknown>, { dispatch }) => {
-    switch (data.event) {
-      case 'GET_CHAT_MESSAGE':
-        dispatch(addMessagesToChat(data as Message<GetChatMessagesBodyRes>));
-        break;
-      case 'MESSAGE':
-        dispatch(addMessageToChat(data as Message<MessageBodyRes>));
-        break;
-      case 'READ_MESSAGE':
-        dispatch(addReadMessages(data as Message<ReadMessageBodyRes>));
-    }
   }
 );
 const sendMessage = createAsyncThunk(
@@ -103,5 +102,91 @@ const readMessage = createAsyncThunk(
     return index;
   }
 );
+const editMessage = createAsyncThunk(
+  '@@chats/editMessage',
+  async (message: EditDeleteMessageMessage, { getState }) => {
+    const userId = (getState() as RootState).user.data.id;
+    const chat = (getState() as RootState).chat.data?.find(
+      (chat) => Number(chat.id) === Number(message.chatId)
+    );
 
-export { getChats, startWebsocket, sendMessage, readMessage };
+    const title: Message<EditMessageBody> = {
+      event: 'EDIT_MESSAGE',
+      body: {
+        userId: userId!.toString(),
+        chatId: chat!.id.toString(),
+        companionId: chat!.user.id.toString(),
+        messages: {
+          id: message.message.id,
+          message: message.message.message!,
+        },
+      },
+    };
+
+    websocketAPI.sendMessage(title);
+    return message;
+  }
+);
+const deleteMessage = createAsyncThunk(
+  '@@chats/deleteMessage',
+  async (message: EditDeleteMessageMessage, { getState }) => {
+    const userId = (getState() as RootState).user.data.id;
+    const chat = (getState() as RootState).chat.data?.find(
+      (chat) => Number(chat.id) === Number(message.chatId)
+    );
+
+    const title: Message<DeleteMessageBody> = {
+      event: 'DELETE_MESSAGE',
+      body: {
+        userId: userId!.toString(),
+        chatId: chat!.id.toString(),
+        companionId: chat!.user.id.toString(),
+        messages: {
+          id: message.message.id,
+        },
+      },
+    };
+
+    const result = {
+      chatId: chat!.id,
+      message: {
+        id: message.message.id,
+      },
+    };
+
+    websocketAPI.sendMessage(title);
+    return result;
+  }
+);
+
+const websocketConnector = createAsyncThunk(
+  '@@chat/connector',
+  async (data: Message<unknown>, { dispatch }) => {
+    switch (data.event) {
+      case 'GET_CHAT_MESSAGE':
+        dispatch(addMessagesToChat(data as Message<GetChatMessagesBodyRes>));
+        break;
+      case 'MESSAGE':
+        dispatch(addMessageToChat(data as Message<MessageBodyRes>));
+        break;
+      case 'READ_MESSAGE':
+        dispatch(addReadMessages(data as Message<ReadMessageBodyRes>));
+        break;
+      case 'EDIT_MESSAGE':
+        dispatch(addEditMessage(data as Message<EditMessageBodyRes>));
+        break;
+      case 'DELETE_MESSAGE':
+        dispatch(addDeleteMessage(data as Message<DeleteMessageBodyRes>));
+        break;
+    }
+  }
+);
+
+export {
+  getChats,
+  startWebsocket,
+  sendMessage,
+  readMessage,
+  editMessage,
+  deleteMessage,
+};

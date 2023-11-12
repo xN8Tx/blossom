@@ -1,0 +1,28 @@
+.item {
+  width: 100%;
+  padding: 5px 15px;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+
+  transition: var(--main-transition);
+
+  &:hover {
+    background-color: var(--msg-bg-change-color);
+  }
+}
+
+.icon {
+  & > svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  &.red {
+    & > svg > path {
+      stroke: var(--red-base-color);
+    }
+  }
+}
