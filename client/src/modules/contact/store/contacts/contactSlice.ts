@@ -1,8 +1,9 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { getContacts, deleteContact, postContact } from './contactThunk';
 
 import type { Contact, InitialState } from '../../../../models/data';
+import { Message, WhoIsOnlineRes } from '../../../../models/socket';
 
 const initialState: InitialState<Contact[]> = {
   loading: 'idle',
@@ -12,7 +13,21 @@ const initialState: InitialState<Contact[]> = {
 const contactsSlice = createSlice({
   name: '@@contacts',
   initialState,
-  reducers: {},
+  reducers: {
+    addContactStatus: (
+      state,
+      action: PayloadAction<Message<WhoIsOnlineRes>>
+    ) => {
+      const contactsId = action.payload.body.contactsId;
+
+      state.data?.forEach((contact, index) => {
+        const contactIndex = contactsId.findIndex(
+          (c) => Number(contact.contactId) === Number(c.id)
+        );
+        state.data![index].status = contactsId[contactIndex].status;
+      });
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getContacts.fulfilled, (state, action) => {
@@ -41,5 +56,7 @@ const contactsSlice = createSlice({
 });
 
 const contactsReducer = contactsSlice.reducer;
+const { addContactStatus } = contactsSlice.actions;
 
 export default contactsReducer;
+export { addContactStatus };

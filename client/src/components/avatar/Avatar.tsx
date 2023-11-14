@@ -10,6 +10,7 @@ type AvatarProps = {
   to?: string;
   size: 's' | 'm' | 'l';
   isLink: boolean;
+  status: boolean;
 };
 
 export default function Avatar({
@@ -18,13 +19,35 @@ export default function Avatar({
   to,
   size,
   isLink,
+  status,
 }: AvatarProps) {
   const isAvatar = avatar !== null;
   const firstLatter = firstName[0];
 
   if (!isLink) {
     return (
-      <div className={style.wrapper} data-size={size}>
+      <div className={style.container} data-size={size}>
+        <div className={style.wrapper}>
+          {isAvatar ? (
+            <img src={avatar} alt='Avatar' className={style.image} />
+          ) : (
+            <Heading size='l' color='user'>
+              {firstLatter}
+            </Heading>
+          )}
+        </div>
+        {status && (
+          <div className={style.status}>
+            <span></span>
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  return (
+    <div className={style.container} data-size={size}>
+      <Link to={to!} className={style.wrapper}>
         {isAvatar ? (
           <img src={avatar} alt='Avatar' className={style.image} />
         ) : (
@@ -32,19 +55,12 @@ export default function Avatar({
             {firstLatter}
           </Heading>
         )}
-      </div>
-    );
-  }
-
-  return (
-    <Link to={to!} className={style.wrapper} data-size={size}>
-      {isAvatar ? (
-        <img src={avatar} alt='Avatar' className={style.image} />
-      ) : (
-        <Heading size='l' color='user'>
-          {firstLatter}
-        </Heading>
+      </Link>
+      {status && (
+        <div className={style.status}>
+          <span></span>
+        </div>
       )}
-    </Link>
+    </div>
   );
 }

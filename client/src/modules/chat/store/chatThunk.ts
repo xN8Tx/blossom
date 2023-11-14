@@ -3,11 +3,13 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import $http from '../../../api/httpApi';
 import websocketAPI from '../../../api/WebsocketAPI';
 import {
+  addCompanionStatus,
   addDeleteMessage,
   addEditMessage,
   addMessagesToChat,
   addMessageToChat,
   addReadMessages,
+  changeIsConnected,
 } from './chatSlice';
 
 import type { RootState } from '../../../store';
@@ -16,14 +18,18 @@ import type {
   DeleteMessageBodyRes,
   EditMessageBody,
   EditMessageBodyRes,
+  GetChatMessagesBody,
   GetChatMessagesBodyRes,
   Message,
   MessageBody,
   MessageBodyRes,
   ReadMessageBody,
   ReadMessageBodyRes,
+  WhoIsOnline,
+  WhoIsOnlineRes,
 } from '../../../models/socket';
 import type { Messages } from '../../../models/data';
+import { addContactStatus } from '../../contact/store/contacts/contactSlice';
 
 type EditDeleteMessageMessage = {
   chatId: string;
@@ -158,11 +164,59 @@ const deleteMessage = createAsyncThunk(
     return result;
   }
 );
+const getOnlineContacts = createAsyncThunk(
+  '@@chats/getOnlineContacts',
+  async (_, { getState, dispatch }) => {
+    const userId = (getState() as RootState).user.data.id;
+    const chats = (getState() as RootState).chat.data;
+    const contacts = (getState() as RootState).contacts.data;
+
+    const contactsId: Set<string> = new Set();
+
+    chats?.forEach((chat) => {
+      contactsId.add(chat.user.id.toString());
+    });
+    contacts?.forEach((contact) => {
+      contactsId.add(contact.contactId.toString());
+    });
+
+    const title: Message<WhoIsOnline> = {
+      event: 'WHO_IS_ONLINE',
+      body: {
+        userId: userId!.toString(),
+        contactsId: Array.from(contactsId),
+      },
+    };
+
+    websocketAPI.sendMessage(title);
+    setTimeout(() => {
+      dispatch(getOnlineContacts());
+    }, 15000);
+  }
+);
+const getChatMessages = createAsyncThunk(
+  '@@chats/getChatMessages',
+  async (chatId: string) => {
+    const title: Message<GetChatMessagesBody> = {
+      event: 'GET_CHAT_MESSAGE',
+      body: {
+        chatId: chatId,
+      },
+    };
+
+    websocketAPI.sendMessage<GetChatMessagesBody>(title);
+    return chatId;
+  }
+);
 
 const websocketConnector = createAsyncThunk(
   '@@chat/connector',
   async (data: Message<unknown>, { dispatch }) => {
     switch (data.event) {
+      case 'READY':
+        dispatch(changeIsConnected());
+        dispatch(getOnlineContacts());
+        break;
       case 'GET_CHAT_MESSAGE':
         dispatch(addMessagesToChat(data as Message<GetChatMessagesBodyRes>));
         break;
@@ -178,6 +232,10 @@ const websocketConnector = createAsyncThunk(
       case 'DELETE_MESSAGE':
         dispatch(addDeleteMessage(data as Message<DeleteMessageBodyRes>));
         break;
+      case 'WHO_IS_ONLINE':
+        dispatch(addCompanionStatus(data as Message<WhoIsOnlineRes>));
+        dispatch(addContactStatus(data as Message<WhoIsOnlineRes>));
+        break;
     }
   }
 );
@@ -189,4 +247,6 @@ export {
   readMessage,
   editMessage,
   deleteMessage,
+  getOnlineContacts,
+  getChatMessages,
 };

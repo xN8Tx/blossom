@@ -26,6 +26,7 @@ export default function Contacts() {
               avatar={contact.avatar}
               username={contact.username}
               key={contact.id}
+              status={contact.status}
             />
           ))}
       </div>

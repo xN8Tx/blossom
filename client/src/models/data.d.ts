@@ -6,6 +6,7 @@ type User = {
   lastName: string;
   username: string;
   avatar: string;
+  status: boolean;
 };
 
 type Contact = User & {
@@ -44,6 +45,11 @@ type InitialState<T> = {
   data: null | T;
 };
 
+type ChatInitialState = InitialState<ChatWithInfo[]> & {
+  isLoaded: boolean;
+  isConnected: boolean;
+};
+
 export type {
   LoadingType,
   User,
@@ -53,4 +59,5 @@ export type {
   InitialState,
   Profile,
   ChatWithInfo,
+  ChatInitialState,
 };

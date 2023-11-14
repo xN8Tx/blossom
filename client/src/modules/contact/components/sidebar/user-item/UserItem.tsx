@@ -12,6 +12,7 @@ type UserItemProps = {
   lastName: string;
   username: string;
   avatar: string;
+  status: boolean;
 };
 
 export default function UserItem({
@@ -20,12 +21,19 @@ export default function UserItem({
   lastName,
   username,
   id,
+  status,
 }: UserItemProps) {
   const linkToUser = `/contacts/user/${id}`;
 
   return (
     <Link to={linkToUser} className={style.container}>
-      <Avatar isLink={false} avatar={avatar} firstName={firstName} size='s' />
+      <Avatar
+        isLink={false}
+        avatar={avatar}
+        firstName={firstName}
+        size='s'
+        status={status}
+      />
       <div className={style.wrapper}>
         <Heading size='s' color='user'>
           {firstName} {lastName}

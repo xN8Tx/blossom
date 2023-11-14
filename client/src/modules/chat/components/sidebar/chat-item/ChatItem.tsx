@@ -38,7 +38,13 @@ export default function ChatItem({
 
   return (
     <Link to={linkToChat} className={style.wrapper}>
-      <Avatar isLink={false} avatar={chatAvatar} firstName={name} size='s' />
+      <Avatar
+        isLink={false}
+        avatar={chatAvatar}
+        firstName={name}
+        size='s'
+        status={user.status}
+      />
       <div className={style.body}>
         <div className={style.title}>
           <Heading size='s'>{name}</Heading>

@@ -16,6 +16,7 @@ class WebsocketAPI {
 
   private receiveMessage(event: MessageEvent) {
     const newMessage = JSON.parse(event.data);
+
     this.connector!(newMessage);
   }
 
@@ -36,7 +37,7 @@ class WebsocketAPI {
     const socketURL = `${config.wsServerURL}${key}`;
 
     this.socket = new WebSocket(socketURL);
-    this.socket.addEventListener('open', this.openHandler);
+    this.socket.addEventListener('open', this.openHandler.bind(websocketAPI));
     this.socket.addEventListener(
       'message',
       this.receiveMessage.bind(websocketAPI)

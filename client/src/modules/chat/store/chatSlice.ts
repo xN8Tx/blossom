@@ -1,13 +1,21 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { deleteMessage, editMessage, getChats, readMessage } from './chatThunk';
-
-import type { ChatWithInfo, InitialState } from '../../../models/data';
 import reducers from './chatReducers';
+import {
+  deleteMessage,
+  editMessage,
+  getChatMessages,
+  getChats,
+  readMessage,
+} from './chatThunk';
 
-const initialState: InitialState<ChatWithInfo[]> = {
+import type { ChatInitialState } from '../../../models/data';
+
+const initialState: ChatInitialState = {
   loading: 'idle',
   data: null,
+  isLoaded: false,
+  isConnected: false,
 };
 
 const chatSlice = createSlice({
@@ -52,26 +60,38 @@ const chatSlice = createSlice({
         );
 
         state.data![indexOfChat].messages.splice(indexOfMessage, 1);
+      })
+      .addCase(getChatMessages.fulfilled, (state, action) => {
+        const index = state.data!.findIndex(
+          (chat) => `${chat.id}` === action.payload
+        );
+        state.data![index].isLoaded = 'loading';
       });
   },
 });
 
 const chatReducer = chatSlice.reducer;
 const {
-  getChatMessages,
   addMessagesToChat,
   addMessageToChat,
   addReadMessages,
   addEditMessage,
   addDeleteMessage,
+  changeIsLoaded,
+  addCompanionStatus,
+  changeIsConnected,
+  // getChatMessages,
 } = chatSlice.actions;
 
 export default chatReducer;
 export {
-  getChatMessages,
   addMessagesToChat,
   addMessageToChat,
   addReadMessages,
   addEditMessage,
   addDeleteMessage,
+  changeIsLoaded,
+  addCompanionStatus,
+  changeIsConnected,
+  // getChatMessages,
 };

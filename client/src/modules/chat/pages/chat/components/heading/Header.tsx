@@ -10,8 +10,11 @@ import Paragraph from '../../../../../../ui/paragraphs/Paragraph';
 import style from './Header.module.scss';
 import SearchIcon from '../../../../assets/SearchIcon';
 import BackButton from '../../../../../../components/back-button/BackButton';
+import { useTranslation } from 'react-i18next';
 
 export default function Header() {
+  const { t } = useTranslation();
+
   const { id } = useParams();
 
   const { user } = useAppSelector((state) => selectById(state, Number(id))!);
@@ -35,9 +38,15 @@ export default function Header() {
             <Heading size='l' color='user'>
               {name}
             </Heading>
-            <Paragraph size='l' color='green'>
-              status
-            </Paragraph>
+            {user.status ? (
+              <Paragraph size='l' color='green'>
+                {t('status.online')}
+              </Paragraph>
+            ) : (
+              <Paragraph size='l' color='red'>
+                {t('status.offline')}
+              </Paragraph>
+            )}
           </div>
         </div>
       </div>

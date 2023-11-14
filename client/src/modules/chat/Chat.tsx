@@ -1,21 +1,33 @@
-// import { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 
-import { useAppSelector } from '../../store';
-// import useModal from '../modal/hooks/useModal';
+import { useAppDispatch, useAppSelector } from '../../store';
+import useModal from '../modal/hooks/useModal';
 
 import Sidebar from './components/sidebar/Sidebar';
+import { changeIsLoaded } from './store/chatSlice';
 
 export default function Chat() {
-  // const modal = useModal();
+  const modal = useModal();
+  const dispatch = useAppDispatch();
 
-  const loading = useAppSelector((state) => state.chat.loading);
+  const { loading, isLoaded } = useAppSelector((state) => state.chat);
 
-  // useEffect(() => {
-  //   if (loading === 'success') modal('success', 'Chat downloaded', 3000);
-  //   if (loading === 'loading') modal('success', 'Chat loading');
-  //   if (loading === 'error') modal('error', 'Error', 3000);
-  // }, []);
+  useEffect(() => {
+    if (isLoaded === true) return () => {};
+    switch (loading) {
+      case 'success':
+        modal('success', 'Chat downloaded', 1000);
+        dispatch(changeIsLoaded());
+        break;
+      case 'loading':
+        modal('success', 'Chat loading');
+        break;
+      case 'error':
+        modal('error', 'Error');
+        break;
+    }
+  }, [loading]);
 
   return (
     <>
