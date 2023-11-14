@@ -10,6 +10,7 @@ const broadcastMessage = (
   wss.clients.forEach((client) => {
     if ((client as WebsocketType).id === companionId) {
       const data = JSON.stringify(title);
+
       client.send(data);
     }
   });

@@ -9,6 +9,7 @@ import type { WebsocketType, Event } from './socket';
 import type { IncomingMessage } from 'http';
 import onEdit from './handlers/onEdit';
 import onDelete from './handlers/onDelete';
+import onWhoIsOnline from './handlers/onWhoIsOnline';
 
 const wssStart = () => {
   const wss = new ws.Server(
@@ -20,8 +21,8 @@ const wssStart = () => {
     },
   );
 
-  wss.on('connection', (ws: WebsocketType, req: IncomingMessage) => {
-    verifyConnection(ws, req);
+  wss.on('connection', async (ws: WebsocketType, req: IncomingMessage) => {
+    await verifyConnection(ws, req);
 
     ws.on('message', (stream: string) => {
       const message = JSON.parse(stream);
@@ -45,6 +46,10 @@ const wssStart = () => {
         }
         case 'DELETE_MESSAGE': {
           onDelete(message, ws, wss);
+          break;
+        }
+        case 'WHO_IS_ONLINE': {
+          onWhoIsOnline(message, ws, wss);
           break;
         }
       }

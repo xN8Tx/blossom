@@ -12,10 +12,12 @@ const verifyConnection = async (ws: WebsocketType, req: IncomingMessage) => {
   const key = url.slice(1);
 
   if (key === undefined || key.length === 0) return ws.close();
-  const isAuth = await wsKeyAPI.checkKey(key); // CAN BE FALSE OR ID
+  const isAuth: false | string = await wsKeyAPI.checkKey(key); // CAN BE FALSE OR ID
 
   if (isAuth === false) return ws.close();
   ws.id = isAuth;
+  const title = { event: 'READY' };
+  ws.send(JSON.stringify(title));
 };
 
 export default verifyConnection;

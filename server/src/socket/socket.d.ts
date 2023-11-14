@@ -6,11 +6,13 @@ type WebsocketType = ws & {
 };
 
 type Event =
+  | 'READY'
   | 'MESSAGE'
   | 'GET_CHAT_MESSAGE'
   | 'READ_MESSAGE'
   | 'EDIT_MESSAGE'
-  | 'DELETE_MESSAGE';
+  | 'DELETE_MESSAGE'
+  | 'WHO_IS_ONLINE';
 
 type Message<T> = {
   event: Event;
@@ -89,6 +91,21 @@ type DeleteMessageBodyRes = {
   };
 };
 
+type WhoIsOnline = {
+  userId: string;
+  contactsId: Array<string>;
+};
+
+type ContactOnline = {
+  id: string;
+  status: boolean; // true - online | false - offline
+};
+
+type WhoIsOnlineRes = {
+  userId: string;
+  contactsId: ContactOnline[];
+};
+
 export {
   WebsocketType,
   ReadMessageBody,
@@ -104,4 +121,7 @@ export {
   EditMessageBodyRes,
   DeleteMessageBody,
   DeleteMessageBodyRes,
+  WhoIsOnline,
+  WhoIsOnlineRes,
+  ContactOnline,
 };
