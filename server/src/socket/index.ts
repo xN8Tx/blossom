@@ -1,15 +1,18 @@
 import ws from 'ws';
 
 import verifyConnection from './middleware/verifyConnection';
+
 import onGetMessage from './handlers/onGetMessage';
 import onMessage from './handlers/onMessage';
 import onReadMessage from './handlers/onReadMessage';
-
-import type { WebsocketType, Event } from './socket';
-import type { IncomingMessage } from 'http';
 import onEdit from './handlers/onEdit';
 import onDelete from './handlers/onDelete';
 import onWhoIsOnline from './handlers/onWhoIsOnline';
+import onCreateChat from './handlers/onCreateChat';
+import onDeleteChat from './handlers/onDeleteChat';
+
+import type { WebsocketType, Event } from './socket';
+import type { IncomingMessage } from 'http';
 
 const wssStart = () => {
   const wss = new ws.Server(
@@ -50,6 +53,14 @@ const wssStart = () => {
         }
         case 'WHO_IS_ONLINE': {
           onWhoIsOnline(message, ws, wss);
+          break;
+        }
+        case 'CREATE_CHAT': {
+          onCreateChat(message, ws, wss);
+          break;
+        }
+        case 'DELETE_CHAT': {
+          onDeleteChat(message, ws, wss);
           break;
         }
       }

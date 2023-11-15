@@ -27,14 +27,23 @@ class MembersAPI {
     }
   }
 
-  async put(chatId: number, userId: number): Promise<void> {
+  async post(chatId: number, userId: number): Promise<void> {
     await databasePool.query(
-      'INSERT INTO members (chatId, userId) VALUES ($1, $2)',
+      'INSERT INTO members ("chatId", "userId") VALUES ($1, $2) ',
       [chatId, userId],
     );
   }
   async delete(id: number) {
     await databasePool.query('DELETE FROM members WHERE id = $1', [id]);
+  }
+  async deleteByChatId(chatId: number) {
+    try {
+      await databasePool.query('DELETE FROM members WHERE "chatId" = $1', [
+        chatId,
+      ]);
+    } catch (error) {
+      console.log('Error');
+    }
   }
 }
 

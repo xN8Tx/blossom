@@ -67,6 +67,18 @@ class MessagesAPI {
       console.log(error);
     }
   }
+  async deleteByChatId(chatId: number): Promise<DeleteMessageDB | void> {
+    try {
+      const message = await databasePool.query<DeleteMessageDB>(
+        'DELETE FROM messages WHERE "chatId" = $1',
+        [chatId],
+      );
+
+      return message.rows[0];
+    } catch (error) {
+      console.log(error);
+    }
+  }
   async getByUserId(
     userId: number,
     secondUserId: number,

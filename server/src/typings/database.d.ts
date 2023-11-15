@@ -2,6 +2,7 @@ type ChatDB = {
   id: number;
   title: string;
   type: boolean;
+  avatar: string;
 };
 
 type MembersDB = {

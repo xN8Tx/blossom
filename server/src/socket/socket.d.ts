@@ -12,7 +12,9 @@ type Event =
   | 'READ_MESSAGE'
   | 'EDIT_MESSAGE'
   | 'DELETE_MESSAGE'
-  | 'WHO_IS_ONLINE';
+  | 'WHO_IS_ONLINE'
+  | 'CREATE_CHAT'
+  | 'DELETE_CHAT';
 
 type Message<T> = {
   event: Event;
@@ -91,7 +93,7 @@ type DeleteMessageBodyRes = {
   };
 };
 
-type WhoIsOnline = {
+type WhoIsOnlineBody = {
   userId: string;
   contactsId: Array<string>;
 };
@@ -101,9 +103,28 @@ type ContactOnline = {
   status: boolean; // true - online | false - offline
 };
 
-type WhoIsOnlineRes = {
+type WhoIsOnlineBodyRes = {
   userId: string;
   contactsId: ContactOnline[];
+};
+
+type DeleteChatBody = {
+  userId: string;
+  companionId: string;
+  chatId: string;
+};
+
+type DeleteChatBodyRes = {
+  chatId: string;
+};
+
+type CreateChatBody = {
+  userId: string;
+  companionId: string;
+};
+
+type CreateChatBodyRes = {
+  chat: ChatsWithInfoDB;
 };
 
 export {
@@ -121,7 +142,11 @@ export {
   EditMessageBodyRes,
   DeleteMessageBody,
   DeleteMessageBodyRes,
-  WhoIsOnline,
-  WhoIsOnlineRes,
+  WhoIsOnlineBody,
+  WhoIsOnlineBodyRes,
   ContactOnline,
+  DeleteChatBody,
+  DeleteChatBodyRes,
+  CreateChatBody,
+  CreateChatBodyRes,
 };

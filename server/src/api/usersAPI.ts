@@ -7,7 +7,7 @@ class UsersAPI {
   async getById(id: string): Promise<UserProfileDB | void> {
     try {
       const user = await databasePool.query<UserProfileDB>(
-        'SELECT users.id, users."firstName", users."lastName", users.username, users.avatar, users.status FROM users WHERE id = $1',
+        'SELECT users.id, users."firstName", users."lastName", users.username, users.avatar FROM users WHERE id = $1',
         [id],
       );
 

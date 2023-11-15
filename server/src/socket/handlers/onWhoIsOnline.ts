@@ -4,12 +4,12 @@ import type {
   ContactOnline,
   Message,
   WebsocketType,
-  WhoIsOnline,
-  WhoIsOnlineRes,
+  WhoIsOnlineBody,
+  WhoIsOnlineBodyRes,
 } from '../socket';
 
 const onWhoIsOnline = async (
-  message: Message<WhoIsOnline>,
+  message: Message<WhoIsOnlineBody>,
   ws: WebsocketType,
   wss: ws.Server,
 ) => {
@@ -29,7 +29,7 @@ const onWhoIsOnline = async (
     };
   });
 
-  const title: Message<WhoIsOnlineRes> = {
+  const title: Message<WhoIsOnlineBodyRes> = {
     event: 'WHO_IS_ONLINE',
     body: {
       userId: userId,
