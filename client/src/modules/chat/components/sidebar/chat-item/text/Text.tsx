@@ -15,8 +15,13 @@ type TextProps = {
 };
 
 export default function Text({ messages, notification }: TextProps) {
-  const lastMessage = messages[messages.length - 1];
   const userId = useAppSelector((state) => state.user.data.id);
+
+  if (messages.length === 0) {
+    return <></>;
+  }
+
+  const lastMessage = messages[messages.length - 1];
 
   let messageText: string = lastMessage.message;
   if (lastMessage.message.length > 27) {

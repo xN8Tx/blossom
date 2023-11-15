@@ -4,16 +4,22 @@ import $http from '../../../api/httpApi';
 import websocketAPI from '../../../api/WebsocketAPI';
 import {
   addCompanionStatus,
+  addDeleteChat,
   addDeleteMessage,
   addEditMessage,
   addMessagesToChat,
   addMessageToChat,
+  addNewChat,
   addReadMessages,
   changeIsConnected,
 } from './chatSlice';
 
 import type { RootState } from '../../../store';
 import type {
+  CreateChatBody,
+  CreateChatBodyRes,
+  DeleteChatBody,
+  DeleteChatBodyRes,
   DeleteMessageBody,
   DeleteMessageBodyRes,
   EditMessageBody,
@@ -25,8 +31,8 @@ import type {
   MessageBodyRes,
   ReadMessageBody,
   ReadMessageBodyRes,
-  WhoIsOnline,
-  WhoIsOnlineRes,
+  WhoIsOnlineBody,
+  WhoIsOnlineBodyRes,
 } from '../../../models/socket';
 import type { Messages } from '../../../models/data';
 import { addContactStatus } from '../../contact/store/contacts/contactSlice';
@@ -180,7 +186,7 @@ const getOnlineContacts = createAsyncThunk(
       contactsId.add(contact.contactId.toString());
     });
 
-    const title: Message<WhoIsOnline> = {
+    const title: Message<WhoIsOnlineBody> = {
       event: 'WHO_IS_ONLINE',
       body: {
         userId: userId!.toString(),
@@ -205,6 +211,43 @@ const getChatMessages = createAsyncThunk(
     };
 
     websocketAPI.sendMessage<GetChatMessagesBody>(title);
+    return chatId;
+  }
+);
+const createChat = createAsyncThunk(
+  '@@chats/deleteChat',
+  async (companionId: string, { getState }) => {
+    const userId = (getState() as RootState).user.data.id;
+
+    const title: Message<CreateChatBody> = {
+      event: 'CREATE_CHAT',
+      body: {
+        userId: userId!.toString(),
+        companionId: companionId,
+      },
+    };
+
+    websocketAPI.sendMessage(title);
+  }
+);
+const deleteChat = createAsyncThunk(
+  '@@chats/deleteChat',
+  async (chatId: string, { getState }) => {
+    const userId = (getState() as RootState).user.data.id;
+    const chat = (getState() as RootState).chat.data?.find(
+      (chat) => Number(chat.id) === Number(chatId)
+    );
+
+    const title: Message<DeleteChatBody> = {
+      event: 'DELETE_CHAT',
+      body: {
+        chatId: chatId,
+        userId: userId!.toString(),
+        companionId: chat!.user.id.toString(),
+      },
+    };
+
+    websocketAPI.sendMessage(title);
     return chatId;
   }
 );
@@ -233,8 +276,14 @@ const websocketConnector = createAsyncThunk(
         dispatch(addDeleteMessage(data as Message<DeleteMessageBodyRes>));
         break;
       case 'WHO_IS_ONLINE':
-        dispatch(addCompanionStatus(data as Message<WhoIsOnlineRes>));
-        dispatch(addContactStatus(data as Message<WhoIsOnlineRes>));
+        dispatch(addCompanionStatus(data as Message<WhoIsOnlineBodyRes>));
+        dispatch(addContactStatus(data as Message<WhoIsOnlineBodyRes>));
+        break;
+      case 'CREATE_CHAT':
+        dispatch(addNewChat(data as Message<CreateChatBodyRes>));
+        break;
+      case 'DELETE_CHAT':
+        dispatch(addDeleteChat(data as Message<DeleteChatBodyRes>));
         break;
     }
   }
@@ -249,4 +298,6 @@ export {
   deleteMessage,
   getOnlineContacts,
   getChatMessages,
+  createChat,
+  deleteChat,
 };

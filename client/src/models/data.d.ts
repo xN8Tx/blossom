@@ -48,6 +48,7 @@ type InitialState<T> = {
 type ChatInitialState = InitialState<ChatWithInfo[]> & {
   isLoaded: boolean;
   isConnected: boolean;
+  isReRender: boolean;
 };
 
 export type {

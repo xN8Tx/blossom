@@ -11,7 +11,9 @@ export default function Chat() {
   const modal = useModal();
   const dispatch = useAppDispatch();
 
-  const { loading, isLoaded } = useAppSelector((state) => state.chat);
+  const { loading, isLoaded, isReRender } = useAppSelector(
+    (state) => state.chat
+  );
 
   useEffect(() => {
     if (isLoaded === true) return () => {};
@@ -29,9 +31,11 @@ export default function Chat() {
     }
   }, [loading]);
 
+  const isShow = loading === 'success' && !isReRender;
+
   return (
     <>
-      {loading === 'success' && (
+      {isShow && (
         <main className='page-wrapper'>
           <Sidebar />
           <Outlet />

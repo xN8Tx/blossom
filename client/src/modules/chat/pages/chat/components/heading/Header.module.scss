@@ -25,27 +25,3 @@
     }
   }
 }
-
-.wrapper {
-  display: flex;
-  gap: 15px;
-  align-items: center;
-}
-
-.title {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-.search {
-  & > svg {
-    width: 25px;
-    height: 25px;
-
-    & > path,
-    circle {
-      stroke: var(--user-msg-change-color);
-    }
-  }
-}

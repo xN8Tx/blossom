@@ -1,0 +1,14 @@
+.list {
+  position: absolute;
+  right: 0;
+  top: 50px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  background-color: var(--msg-bg-change-color);
+  border-radius: 0 0 10px 10px;
+
+  padding: 10px 5px;
+}

@@ -1,0 +1,44 @@
+.button {
+  width: 21px;
+  height: 21px;
+
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: transparent;
+
+  & > span {
+    width: 5px;
+    height: 5px;
+
+    display: block;
+    border-radius: 50%;
+
+    background-color: var(--user-msg-change-color);
+
+    &::after,
+    &::before {
+      content: ' ';
+      display: block;
+      position: absolute;
+
+      width: 5px;
+      height: 5px;
+
+      border-radius: 50%;
+
+      background-color: var(--user-msg-change-color);
+    }
+
+    &::after {
+      left: 0;
+    }
+
+    &::before {
+      right: 0;
+    }
+  }
+}

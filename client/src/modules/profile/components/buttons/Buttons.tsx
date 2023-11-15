@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { useAppDispatch, useAppSelector } from '../../../../store';
@@ -15,18 +15,29 @@ import {
   postContact,
 } from '../../../contact/store/contacts/contactThunk';
 import { Contact } from '../../../../models/data';
+import { selectByCompanionId } from '../../../chat/store/chatSelector';
+import { createChat } from '../../../chat/store/chatThunk';
 
 export default function Buttons() {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { t } = useTranslation();
 
   const { id } = useParams();
   const data = useAppSelector((state) => selectById(state, Number(id)));
+  const chat = useAppSelector((state) => selectByCompanionId(state, id!));
 
-  const isContact = (data as Contact[]).length === 0;
-  const contactId = (data as Contact[])[0]?.contactId;
+  const isContact = (data as Contact) !== undefined;
+  const contactId = (data as Contact)?.contactId;
 
-  const onMessageClick = () => {};
+  const onMessageClick = () => {
+    if (chat !== undefined) {
+      navigate('/chat/' + chat.id);
+    } else {
+      dispatch(createChat(id!));
+    }
+  };
+
   const onAddClick = () => {
     dispatch(postContact(Number(id)));
   };

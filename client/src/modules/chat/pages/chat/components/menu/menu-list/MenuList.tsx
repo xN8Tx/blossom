@@ -6,14 +6,13 @@ import { selectMessage } from '../../../../../store/chatSelector';
 import { deleteMessage } from '../../../../../store/chatThunk';
 import MenuContext from '../../../../../context/MenuContext';
 
-import MenuItem from '../menu-item/MenuItem';
-
 import ForwardIcon from '../../../../../assets/ForwardIcon';
 import CopyIcon from '../../../../../assets/CopyIcon';
 import EditIcon from '../../../../../assets/EditIcon';
 import DeleteIcon from '../../../../../assets/DeleteIcon';
 
 import style from './MenuList.module.scss';
+import MenuItem from '../../../../../components/menu-item/MenuItem';
 
 type MenuItemProps = {
   name: string;

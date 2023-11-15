@@ -1,19 +1,18 @@
 import audioNotification from '../utils/audioNotification';
-// import websocketAPI from '../../../api/WebsocketAPI';
 
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { ChatInitialState } from '../../../models/data';
 import type {
+  CreateChatBodyRes,
+  DeleteChatBodyRes,
   DeleteMessageBodyRes,
   EditMessageBodyRes,
-  // GetChatMessagesBody,
   GetChatMessagesBodyRes,
   Message,
   MessageBodyRes,
   ReadMessageBodyRes,
-  WhoIsOnlineRes,
+  WhoIsOnlineBodyRes,
 } from '../../../models/socket';
-// import websocketAPI from '../../../api/WebsocketAPI';
 
 const reducers = {
   addMessagesToChat: (
@@ -100,7 +99,7 @@ const reducers = {
   },
   addCompanionStatus: (
     state: ChatInitialState,
-    action: PayloadAction<Message<WhoIsOnlineRes>>
+    action: PayloadAction<Message<WhoIsOnlineBodyRes>>
   ) => {
     const contactsId = action.payload.body.contactsId;
 
@@ -111,24 +110,21 @@ const reducers = {
       state.data![index].user.status = contactsId[contactIndex].status;
     });
   },
-  // getChatMessages: {
-  //   reducer: (state: ChatInitialState, action: PayloadAction<string>) => {
-  //     const index = state.data!.findIndex(
-  //       (chat) => `${chat.id}` === action.payload
-  //     );
-  //     state.data![index].isLoaded = 'loading';
-  //   },
-  //   prepare: (chatId: string) => {
-  //     const title: Message<GetChatMessagesBody> = {
-  //       event: 'GET_CHAT_MESSAGE',
-  //       body: {
-  //         chatId: chatId,
-  //       },
-  //     };
-  //     websocketAPI.sendMessage<GetChatMessagesBody>(title);
-  //     return { payload: chatId };
-  //   },
-  // },
+  addNewChat: (
+    state: ChatInitialState,
+    action: PayloadAction<Message<CreateChatBodyRes>>
+  ) => {
+    state.data?.push(action.payload.body.chat);
+  },
+  addDeleteChat: (
+    state: ChatInitialState,
+    action: PayloadAction<Message<DeleteChatBodyRes>>
+  ) => {
+    state.data =
+      state.data?.filter(
+        (chat) => Number(chat.id) !== Number(action.payload.body.chatId)
+      ) || null;
+  },
 };
 
 export default reducers;

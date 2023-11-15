@@ -32,9 +32,9 @@ export default function ChatItem({
   const name =
     title.length !== 0 ? title : `${user.firstName} ${user.lastName}`;
 
-  const lastMessage = messages[messages.length - 1];
-
-  const time = timeHandler(lastMessage.date);
+  const isMessages = messages.length > 0;
+  const lastMessage = isMessages && messages[messages.length - 1];
+  const time = isMessages && timeHandler((lastMessage as Messages).date);
 
   return (
     <Link to={linkToChat} className={style.wrapper}>
@@ -48,9 +48,11 @@ export default function ChatItem({
       <div className={style.body}>
         <div className={style.title}>
           <Heading size='s'>{name}</Heading>
-          <Paragraph size='s' color='message'>
-            {time}
-          </Paragraph>
+          {isMessages && (
+            <Paragraph size='s' color='message'>
+              {time}
+            </Paragraph>
+          )}
         </div>
         <Text messages={messages} notification={notification} />
       </div>

@@ -95,7 +95,8 @@
     "edit": "Edit",
     "select": "Select",
     "delete": "Delete",
-    "copy": "Copy"
+    "copy": "Copy",
+    "search": "Search"
   },
   "etc": {
     "inDevelopment": "This feature will be soon!",

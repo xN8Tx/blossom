@@ -1,4 +1,4 @@
-import { Messages } from './data';
+import { ChatWithInfo, Messages } from './data';
 
 type Event =
   | 'READY'
@@ -7,7 +7,9 @@ type Event =
   | 'READ_MESSAGE'
   | 'EDIT_MESSAGE'
   | 'DELETE_MESSAGE'
-  | 'WHO_IS_ONLINE';
+  | 'WHO_IS_ONLINE'
+  | 'DELETE_CHAT'
+  | 'CREATE_CHAT';
 
 type Message<T> = {
   event: Event;
@@ -81,19 +83,38 @@ type DeleteMessageBodyRes = {
   };
 };
 
-type WhoIsOnline = {
-  userId: string;
-  contactsId: Array<string>;
-};
-
 type ContactOnline = {
   id: string;
   status: boolean; // true - online | false - offline
 };
 
-type WhoIsOnlineRes = {
+type WhoIsOnlineBody = {
+  userId: string;
+  contactsId: Array<string>;
+};
+
+type WhoIsOnlineBodyRes = {
   userId: string;
   contactsId: ContactOnline[];
+};
+
+type DeleteChatBody = {
+  userId: string;
+  companionId: string;
+  chatId: string;
+};
+
+type DeleteChatBodyRes = {
+  chatId: string;
+};
+
+type CreateChatBody = {
+  userId: string;
+  companionId: string;
+};
+
+type CreateChatBodyRes = {
+  chat: ChatWithInfo;
 };
 
 export {
@@ -108,7 +129,11 @@ export {
   EditMessageBodyRes,
   DeleteMessageBody,
   DeleteMessageBodyRes,
-  WhoIsOnline,
-  WhoIsOnlineRes,
+  WhoIsOnlineBody,
+  WhoIsOnlineBodyRes,
   ContactOnline,
+  DeleteChatBody,
+  DeleteChatBodyRes,
+  CreateChatBody,
+  CreateChatBodyRes,
 };

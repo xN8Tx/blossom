@@ -1,0 +1,22 @@
+.container {
+  position: relative;
+  /* min-height: 100%; */
+  /* overflow-x: hidden; */
+
+  & > div {
+    opacity: 1;
+    pointer-events: all;
+    visibility: visible;
+    cursor: pointer;
+    transition: var(--main-transition);
+  }
+
+  &[is-open='false'] {
+    & > div {
+      opacity: 0;
+      pointer-events: none;
+      visibility: hidden;
+      cursor: none;
+    }
+  }
+}

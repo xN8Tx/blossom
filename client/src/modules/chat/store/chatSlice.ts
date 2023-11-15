@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import reducers from './chatReducers';
 import {
+  deleteChat,
   deleteMessage,
   editMessage,
   getChatMessages,
@@ -16,6 +17,7 @@ const initialState: ChatInitialState = {
   data: null,
   isLoaded: false,
   isConnected: false,
+  isReRender: false,
 };
 
 const chatSlice = createSlice({
@@ -66,6 +68,17 @@ const chatSlice = createSlice({
           (chat) => `${chat.id}` === action.payload
         );
         state.data![index].isLoaded = 'loading';
+      })
+      .addCase(deleteChat.pending, (state) => {
+        state.isReRender = true;
+      })
+      .addCase(deleteChat.fulfilled, (state, action) => {
+        state.data =
+          state.data?.filter(
+            (chat) => Number(chat.id) !== Number(action.payload)
+          ) || null;
+
+        state.isReRender = false;
       });
   },
 });
@@ -80,7 +93,8 @@ const {
   changeIsLoaded,
   addCompanionStatus,
   changeIsConnected,
-  // getChatMessages,
+  addNewChat,
+  addDeleteChat,
 } = chatSlice.actions;
 
 export default chatReducer;
@@ -93,5 +107,6 @@ export {
   changeIsLoaded,
   addCompanionStatus,
   changeIsConnected,
-  // getChatMessages,
+  addNewChat,
+  addDeleteChat,
 };
