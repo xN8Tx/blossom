@@ -1,4 +1,5 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
+import { useAppSelector } from '../store';
 
 import Auth from '../modules/auth/Auth';
 import Login from '../modules/auth/pages/login/Login';
@@ -13,10 +14,19 @@ import Home from '../modules/contact/pages/home/Home';
 import Profile from '../modules/profile/Profile';
 import routesComeback from '../utils/routesComeback';
 import chatRoutes from './ChatRoutes';
-import { useAppSelector } from '../store';
 
 export default function Router() {
   const isAuth = useAppSelector((state) => state.auth.isAuth);
+  const userLoading = useAppSelector((state) => state.user.loading);
+  const chatLoading = useAppSelector((state) => state.chat.loading);
+  const contactLoading = useAppSelector((state) => state.contacts.loading);
+
+  const isAllLoading =
+    userLoading === 'success' &&
+    chatLoading === 'success' &&
+    contactLoading === 'success';
+
+  const isReadyToRender = isAuth === 'auth' && isAllLoading;
 
   return (
     <Routes>
@@ -27,7 +37,7 @@ export default function Router() {
           <Route path='code' element={<Code />} />
         </Route>
       )}
-      {isAuth === 'auth' && (
+      {isReadyToRender && (
         <>
           <Route path='/' element={<Chat />}>
             {routesComeback(chatRoutes)}

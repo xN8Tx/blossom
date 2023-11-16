@@ -28,13 +28,15 @@ export default function Buttons() {
   const chat = useAppSelector((state) => selectByCompanionId(state, id!));
 
   const isContact = (data as Contact) !== undefined;
+
   const contactId = (data as Contact)?.contactId;
 
-  const onMessageClick = () => {
+  const onMessageClick = async () => {
     if (chat !== undefined) {
       navigate('/chat/' + chat.id);
     } else {
-      dispatch(createChat(id!));
+      await dispatch(createChat(id!));
+      navigate('/chat/');
     }
   };
 
@@ -54,12 +56,12 @@ export default function Buttons() {
         {t('contact.message')}
       </Button>
       {isContact ? (
-        <Button onClick={onAddClick} image={contactIcon}>
-          {t('contact.add')}
-        </Button>
-      ) : (
         <Button onClick={onDeleteClick} image={contactIcon}>
           {t('contact.delete')}
+        </Button>
+      ) : (
+        <Button onClick={onAddClick} image={contactIcon}>
+          {t('contact.add')}
         </Button>
       )}
     </div>

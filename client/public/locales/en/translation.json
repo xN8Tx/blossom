@@ -80,12 +80,14 @@
     "add": "Add",
     "block": "Block",
     "unblock": "Unblock",
-    "message": "Message"
+    "message": "Message",
+    "toStartContact": "To find user\nSearch -> Enter username\nMessage or Add to contacts"
   },
   "chat": {
     "writeMessage": "Write Message",
     "edited": "Edited",
-    "editMessage": "Edit message"
+    "editMessage": "Edit message",
+    "toStartChat": "To start chat\nContact -> User -> Message"
   },
   "users": {
     "error": "User not found"

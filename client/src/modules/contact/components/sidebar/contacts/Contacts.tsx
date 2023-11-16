@@ -5,11 +5,13 @@ import Heading from '../../../../../ui/headings/Heading';
 import UserItem from '../user-item/UserItem';
 
 import style from './Contacts.module.scss';
+import SignForm from '../../../../../components/signForm/SignForm';
 
 export default function Contacts() {
   const { t } = useTranslation();
 
   const { data, loading } = useAppSelector((state) => state.contacts);
+  const isNull = data && data?.length === 0;
 
   return (
     <div className={style.wrapper}>
@@ -17,6 +19,11 @@ export default function Contacts() {
         {t('title.contacts')}
       </Heading>
       <div className={style.container}>
+        {isNull && (
+          <div className={style.null}>
+            <SignForm>{t('contact.toStartContact')}</SignForm>
+          </div>
+        )}
         {loading === 'success' &&
           data!.map((contact) => (
             <UserItem
