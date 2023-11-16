@@ -7,13 +7,12 @@ import { reset } from './store/profileSlice';
 
 import BackButton from '../../components/back-button/BackButton';
 import ProfileInfo from './components/profile-info/ProfileInfo';
+import Buttons from './components/buttons/Buttons';
+import Error from './components/error/Error';
 
 import type { Profile } from '../../models/data';
 
 import style from './Profile.module.scss';
-import Error from './components/error/Error';
-import Buttons from './components/buttons/Buttons';
-import { getContacts } from '../contact/store/contacts/contactThunk';
 
 export default function Profile() {
   const dispatch = useAppDispatch();
@@ -32,10 +31,6 @@ export default function Profile() {
   useEffect(() => {
     if (userLoading === 'success' && contactLoading === 'success') {
       dispatch(getProfile(Number(id!)));
-    }
-
-    if (contactLoading === 'idle') {
-      dispatch(getContacts());
     }
 
     return () => {

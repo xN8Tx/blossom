@@ -17,16 +17,6 @@ import chatRoutes from './ChatRoutes';
 
 export default function Router() {
   const isAuth = useAppSelector((state) => state.auth.isAuth);
-  const userLoading = useAppSelector((state) => state.user.loading);
-  const chatLoading = useAppSelector((state) => state.chat.loading);
-  const contactLoading = useAppSelector((state) => state.contacts.loading);
-
-  const isAllLoading =
-    userLoading === 'success' &&
-    chatLoading === 'success' &&
-    contactLoading === 'success';
-
-  const isReadyToRender = isAuth === 'auth' && isAllLoading;
 
   return (
     <Routes>
@@ -37,7 +27,7 @@ export default function Router() {
           <Route path='code' element={<Code />} />
         </Route>
       )}
-      {isReadyToRender && (
+      {isAuth === 'auth' && (
         <>
           <Route path='/' element={<Chat />}>
             {routesComeback(chatRoutes)}
