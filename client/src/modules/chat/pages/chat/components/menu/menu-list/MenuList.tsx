@@ -13,6 +13,8 @@ import DeleteIcon from '../../../../../assets/DeleteIcon';
 
 import style from './MenuList.module.scss';
 import MenuItem from '../../../../../components/menu-item/MenuItem';
+import isMessageImage from '../../../utils/isMessageImage';
+import { Messages } from '../../../../../../../models/data';
 
 type MenuItemProps = {
   name: string;
@@ -43,6 +45,7 @@ const MenuList = forwardRef<HTMLDivElement>((_, ref) => {
   ); // MESSAGE FROM STATE
   const isMessageFromUser =
     message && Number(message.userId) === Number(userId);
+  const isImage = message && isMessageImage((message as Messages)!.message);
 
   // CHANGE POSITION IF MENU GO OUT OF BOUNDS
   useEffect(() => {
@@ -158,7 +161,7 @@ const MenuList = forwardRef<HTMLDivElement>((_, ref) => {
       style={{ left: posX, top: posY }}
     >
       {menuItemsList.map((item, index) => {
-        if (isMessageFromUser) {
+        if (isMessageFromUser && !isImage) {
           return (
             <MenuItem
               key={index}

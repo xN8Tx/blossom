@@ -22,6 +22,7 @@ const MessageList = forwardRef<HTMLDivElement>((_, ref) => {
 
   const onContextMenu = (event: MouseEvent<HTMLDivElement>) => {
     event.preventDefault();
+
     if (!isOpen) setIsOpen(true);
 
     if (document.documentElement.clientWidth > 768) {
@@ -45,6 +46,8 @@ const MessageList = forwardRef<HTMLDivElement>((_, ref) => {
     }
   };
 
+  const isRender = data!.messages.length > 0 && data!.isLoaded === 'success';
+
   return (
     <div
       className={style.list}
@@ -52,67 +55,95 @@ const MessageList = forwardRef<HTMLDivElement>((_, ref) => {
       onContextMenu={onContextMenu}
       onClick={onClick}
     >
-      {data.messages.map((message, index) => {
-        const prevMessage: Messages | null =
-          index === 0 ? null : data.messages[index - 1];
+      {isRender &&
+        data.messages.map((message, index) => {
+          const prevMessage: Messages | null =
+            index === 0 ? null : data.messages[index - 1];
 
-        if (prevMessage === null) {
-          if (Number(message.userId) === Number(userId)) {
-            return (
-              <>
-                <MessageDate date={message.date} key={'DateKey' + index} />
-                <Message
-                  isUser={true}
-                  isDate={true}
-                  messageObj={message}
-                  key={message.id}
-                />
-              </>
-            );
-          } else {
-            return (
-              <>
-                <MessageDate date={message.date} key={'DateKey' + index} />
-                <Message
-                  isUser={false}
-                  isDate={true}
-                  messageObj={message}
-                  key={message.id}
-                />
-              </>
-            );
-          }
-        } else {
-          const messageParseDate = new Date(Number(message.date));
-          const prevMessageParseDate = new Date(Number(prevMessage.date));
-
-          const messageDate = `${messageParseDate.getHours()}:${messageParseDate.getMinutes()}|${messageParseDate.getDate()}.${messageParseDate.getMonth()}`;
-          const messageDay = `${messageParseDate.getDate()}.${messageParseDate.getMonth()}`;
-
-          const prevMessageDate = `${prevMessageParseDate.getHours()}:${prevMessageParseDate.getMinutes()}|${prevMessageParseDate.getDate()}.${prevMessageParseDate.getMonth()}`;
-          const prevMessageDay = `${prevMessageParseDate.getDate()}.${prevMessageParseDate.getMonth()}`;
-
-          if (Number(message.userId) === Number(userId)) {
-            if (Number(message.userId) === Number(prevMessage.userId)) {
-              // ЕСЛИ ОДИН ПОЛЬЗОВАТЕЛЬ У ДВУХ ПОДРЯД СМС
-              if (messageDate === prevMessageDate) {
-                //  ОДНО ВРЕМЯ
-                return (
+          if (prevMessage === null) {
+            if (Number(message.userId) === Number(userId)) {
+              return (
+                <>
+                  <MessageDate date={message.date} key={'DateKey' + index} />
                   <Message
                     isUser={true}
-                    isDate={false}
+                    isDate={true}
                     messageObj={message}
                     key={message.id}
                   />
-                );
+                </>
+              );
+            } else {
+              return (
+                <>
+                  <MessageDate date={message.date} key={'DateKey' + index} />
+                  <Message
+                    isUser={false}
+                    isDate={true}
+                    messageObj={message}
+                    key={message.id}
+                  />
+                </>
+              );
+            }
+          } else {
+            const messageParseDate = new Date(Number(message.date));
+            const prevMessageParseDate = new Date(Number(prevMessage.date));
+
+            const messageDate = `${messageParseDate.getHours()}:${messageParseDate.getMinutes()}|${messageParseDate.getDate()}.${messageParseDate.getMonth()}`;
+            const messageDay = `${messageParseDate.getDate()}.${messageParseDate.getMonth()}`;
+
+            const prevMessageDate = `${prevMessageParseDate.getHours()}:${prevMessageParseDate.getMinutes()}|${prevMessageParseDate.getDate()}.${prevMessageParseDate.getMonth()}`;
+            const prevMessageDay = `${prevMessageParseDate.getDate()}.${prevMessageParseDate.getMonth()}`;
+
+            if (Number(message.userId) === Number(userId)) {
+              if (Number(message.userId) === Number(prevMessage.userId)) {
+                // ЕСЛИ ОДИН ПОЛЬЗОВАТЕЛЬ У ДВУХ ПОДРЯД СМС
+                if (messageDate === prevMessageDate) {
+                  //  ОДНО ВРЕМЯ
+                  return (
+                    <Message
+                      isUser={true}
+                      isDate={false}
+                      messageObj={message}
+                      key={message.id}
+                    />
+                  );
+                } else {
+                  //  РАЗНОЕ ВРЕМЯ
+                  if (messageDay !== prevMessageDay) {
+                    return (
+                      <>
+                        <MessageDate
+                          key={'DateKey' + index}
+                          date={message.date}
+                        />
+                        <Message
+                          isUser={true}
+                          isDate={true}
+                          messageObj={message}
+                          key={message.id}
+                        />
+                      </>
+                    );
+                  }
+                  return (
+                    <Message
+                      isUser={true}
+                      isDate={true}
+                      messageObj={message}
+                      key={message.id}
+                    />
+                  );
+                }
               } else {
-                //  РАЗНОЕ ВРЕМЯ
+                // ЕСЛИ РАЗНЫЕ ПОЛЬЗОВАТЕЛИ У ДВУХ ПОДРЯД СМС
                 if (messageDay !== prevMessageDay) {
                   return (
                     <>
                       <MessageDate
-                        key={'DateKey' + index}
                         date={message.date}
+                        key={'DateKey' + index}
                       />
                       <Message
                         isUser={true}
@@ -133,43 +164,46 @@ const MessageList = forwardRef<HTMLDivElement>((_, ref) => {
                 );
               }
             } else {
-              // ЕСЛИ РАЗНЫЕ ПОЛЬЗОВАТЕЛИ У ДВУХ ПОДРЯД СМС
-              if (messageDay !== prevMessageDay) {
-                return (
-                  <>
-                    <MessageDate date={message.date} key={'DateKey' + index} />
+              if (Number(message.userId) === Number(prevMessage.userId)) {
+                if (messageDate === prevMessageDate) {
+                  //  ОДНО ВРЕМЯ
+                  return (
                     <Message
-                      isUser={true}
+                      isUser={false}
+                      isDate={false}
+                      messageObj={message}
+                      key={message.id}
+                    />
+                  );
+                } else {
+                  //  РАЗНОЕ ВРЕМЯ
+                  if (messageDay !== prevMessageDay) {
+                    return (
+                      <>
+                        <MessageDate
+                          date={message.date}
+                          key={'DateKey' + index}
+                        />
+                        <Message
+                          isUser={false}
+                          isDate={true}
+                          messageObj={message}
+                          key={message.id}
+                        />
+                      </>
+                    );
+                  }
+                  return (
+                    <Message
+                      isUser={false}
                       isDate={true}
                       messageObj={message}
                       key={message.id}
                     />
-                  </>
-                );
-              }
-              return (
-                <Message
-                  isUser={true}
-                  isDate={true}
-                  messageObj={message}
-                  key={message.id}
-                />
-              );
-            }
-          } else {
-            if (Number(message.userId) === Number(prevMessage.userId)) {
-              if (messageDate === prevMessageDate) {
-                //  ОДНО ВРЕМЯ
-                return (
-                  <Message
-                    isUser={false}
-                    isDate={false}
-                    messageObj={message}
-                    key={message.id}
-                  />
-                );
+                  );
+                }
               } else {
-                //  РАЗНОЕ ВРЕМЯ
+                // ЕСЛИ РАЗНЫЕ ПОЛЬЗОВАТЕЛИ У ДВУХ ПОДРЯД СМС
                 if (messageDay !== prevMessageDay) {
                   return (
                     <>
@@ -195,33 +229,9 @@ const MessageList = forwardRef<HTMLDivElement>((_, ref) => {
                   />
                 );
               }
-            } else {
-              // ЕСЛИ РАЗНЫЕ ПОЛЬЗОВАТЕЛИ У ДВУХ ПОДРЯД СМС
-              if (messageDay !== prevMessageDay) {
-                return (
-                  <>
-                    <MessageDate date={message.date} key={'DateKey' + index} />
-                    <Message
-                      isUser={false}
-                      isDate={true}
-                      messageObj={message}
-                      key={message.id}
-                    />
-                  </>
-                );
-              }
-              return (
-                <Message
-                  isUser={false}
-                  isDate={true}
-                  messageObj={message}
-                  key={message.id}
-                />
-              );
             }
           }
-        }
-      })}
+        })}
     </div>
   );
 });

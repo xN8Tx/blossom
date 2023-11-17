@@ -27,11 +27,13 @@ export default function ChatPage() {
     }
   }, [data, isConnected, id]);
 
+  const isRender = data!.isLoaded === 'success';
+
   return (
     <section className={style.wrapper}>
       <MenuProvider>
         <Header />
-        {data!.isLoaded === 'success' && <Wrapper />}
+        {isRender && <Wrapper />}
         <Menu />
         <Form />
       </MenuProvider>

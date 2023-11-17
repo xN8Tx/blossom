@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
@@ -10,8 +10,7 @@ import isMessageEmpty from '../../../utils/isMessageEmpty';
 import Paragraph from '../../../../../../../ui/paragraphs/Paragraph';
 import ButtonForm from '../button-form/ButtonForm';
 
-import type { Messages } from '../../../../../../../models/data';
-import type { KeyboardEvent, ChangeEvent } from 'react';
+import type { KeyboardEvent, ChangeEvent, MouseEvent } from 'react';
 
 import style from '../Form.module.scss';
 import MenuContext from '../../../../../context/MenuContext';
@@ -28,29 +27,23 @@ export default function InputForm() {
     selectMessage(state, Number(editMessageId), Number(id))
   );
 
-  const userId = useAppSelector((state) => state.user.data!.id);
-
   const [myMessage, setMyMessage] = useState<string>('');
 
   const isContent = `${myMessage.length > 0}`;
 
-  const onFormClick = (event: React.MouseEvent) => event.preventDefault();
-
+  // HANDLER TO MY DIV INPUT
   const onMyMessageChange = (event: ChangeEvent<HTMLDivElement>) => {
     setMyMessage(event.currentTarget.textContent!);
   };
 
-  const onMyMessageSend = () => {
+  // SEND MESSAGE HANDLER
+  const sendMyMessage = () => {
     if (myMessage.length === 0) return 0;
     if (isMessageEmpty(myMessage)) return 0;
 
     if (editMessageId === '') {
-      const title: Omit<Messages, 'id'> = {
-        userId: userId!,
+      const title = {
         message: myMessage,
-        date: Date.now().toString(),
-        status: 'loading',
-        isEdit: false,
         chatId: id!,
       };
 
@@ -71,11 +64,18 @@ export default function InputForm() {
     textboxRef.current!.textContent = '';
   };
 
+  // BUTTON HANDLER
+  const onMyMessageSend = (event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+
+    sendMyMessage();
+  };
+
+  // ENTER TO SAND MESSAGE
   const onEnterClick = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.key === 'Enter' && !event.shiftKey) {
       event.preventDefault();
-
-      onMyMessageSend();
+      sendMyMessage();
     }
   };
 
@@ -92,7 +92,7 @@ export default function InputForm() {
   }, [message]);
 
   return (
-    <form className={style.form} onClick={onFormClick}>
+    <form className={style.form}>
       <div
         is-content={isContent}
         contentEditable

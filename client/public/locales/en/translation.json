@@ -87,7 +87,10 @@
     "writeMessage": "Write Message",
     "edited": "Edited",
     "editMessage": "Edit message",
-    "toStartChat": "To start chat\nContact -> User -> Message"
+    "toStartChat": "To start chat\nContact -> User -> Message",
+    "fileBigger": "File wouldn't be bigger than 10MB",
+    "image": "Image",
+    "justWrite": "Just write and send"
   },
   "users": {
     "error": "User not found"

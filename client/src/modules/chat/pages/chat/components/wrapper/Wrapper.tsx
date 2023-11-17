@@ -8,6 +8,7 @@ import selectById from '../../../../store/chatSelector';
 import MessageList from './message-list/MessageList';
 
 import style from './Wrapper.module.scss';
+import Empty from './empty/Empty';
 
 export default function Wrapper() {
   const { id } = useParams();
@@ -29,9 +30,12 @@ export default function Wrapper() {
     }
   }, [messages?.notification, dispatch]);
 
+  const isNull = messages?.messages.length === 0;
+
   return (
     <div className={style.wrapper} ref={containerRef}>
-      <MessageList ref={listRef} />
+      {isNull && <Empty />}
+      {!isNull && <MessageList ref={listRef} />}
     </div>
   );
 }

@@ -8,6 +8,8 @@ import ReadIcon from '../../../../assets/ReadIcon.svg';
 import SendedIcon from '../../../../assets/SendedIcon.svg';
 
 import style from './Text.module.scss';
+import isMessageImage from '../../../../pages/chat/utils/isMessageImage';
+import { useTranslation } from 'react-i18next';
 
 type TextProps = {
   messages: Messages[];
@@ -15,6 +17,7 @@ type TextProps = {
 };
 
 export default function Text({ messages, notification }: TextProps) {
+  const { t } = useTranslation();
   const userId = useAppSelector((state) => state.user.data.id);
 
   if (messages.length === 0) {
@@ -22,9 +25,10 @@ export default function Text({ messages, notification }: TextProps) {
   }
 
   const lastMessage = messages[messages.length - 1];
+  const isImage = isMessageImage(lastMessage.message);
 
   let messageText: string = lastMessage.message;
-  if (lastMessage.message.length > 27) {
+  if (!isImage && lastMessage.message.length > 27) {
     const newMess = lastMessage.message.slice(0, 25);
     messageText = newMess + '...';
   }
@@ -38,7 +42,7 @@ export default function Text({ messages, notification }: TextProps) {
   return (
     <div className={style.text}>
       <Paragraph size='m' color='message'>
-        {messageText}
+        {isImage ? <b>{t('chat.image')}</b> : messageText}
       </Paragraph>
       {isCompanionRead && (
         <div className={style.icon}>

@@ -34,8 +34,12 @@ import type {
   WhoIsOnlineBody,
   WhoIsOnlineBodyRes,
 } from '../../../models/socket';
-import type { Messages } from '../../../models/data';
 import { addContactStatus } from '../../contact/store/contacts/contactSlice';
+
+type CreateMessageMessage = {
+  chatId: string;
+  message: string;
+};
 
 type EditDeleteMessageMessage = {
   chatId: string;
@@ -71,10 +75,10 @@ const startWebsocket = createAsyncThunk(
 );
 const sendMessage = createAsyncThunk(
   '@@chats/sendMessage',
-  async (message: Omit<Messages, 'id'>, { getState }) => {
+  async (data: CreateMessageMessage, { getState }) => {
     const userId = (getState() as RootState).user.data.id;
     const chat = (getState() as RootState).chat.data?.find(
-      (chat) => Number(chat.id) === Number(message.chatId)
+      (chat) => Number(chat.id) === Number(data!.chatId)
     );
 
     const title: Message<MessageBody> = {
@@ -82,7 +86,14 @@ const sendMessage = createAsyncThunk(
       body: {
         userId: userId!.toString(),
         companionId: chat!.user.id.toString(),
-        message: message,
+        message: {
+          chatId: data.chatId.toString(),
+          message: data.message,
+          userId: userId!,
+          date: Date.now().toString(),
+          status: 'loading',
+          isEdit: false,
+        },
       },
     };
 
