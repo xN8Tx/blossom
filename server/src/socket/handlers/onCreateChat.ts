@@ -25,27 +25,44 @@ const onCreateChat = async (
 
     const newChat = await chatAPI.post('');
     const companionInformation = await usersAPI.getById(companionId);
+    const userInformation = await usersAPI.getById(message.body.userId);
+
     await membersAPI.post(newChat.id, Number(userId));
     await membersAPI.post(newChat.id, Number(companionId));
 
-    const title: Message<CreateChatBodyRes> = {
+    const titleToUser: Message<CreateChatBodyRes> = {
       event: 'CREATE_CHAT',
       body: {
         chat: {
           id: Number(newChat.id),
-          isLoading: 'idle',
           title: newChat.title,
           avatar: newChat.avatar,
-          user: companionInformation,
-          notifications: '',
+          isLoaded: 'idle',
+          user: companionInformation!,
+          notification: null,
           messages: [],
         },
       },
     };
 
-    const data = JSON.stringify(title);
+    const titleToCompanion: Message<CreateChatBodyRes> = {
+      event: 'CREATE_CHAT',
+      body: {
+        chat: {
+          id: Number(newChat.id),
+          title: newChat.title,
+          avatar: newChat.avatar,
+          isLoaded: 'idle',
+          user: userInformation!,
+          notification: null,
+          messages: [],
+        },
+      },
+    };
 
-    broadcastMessage(wss, title, companionId);
+    const data = JSON.stringify(titleToUser);
+
+    broadcastMessage(wss, titleToCompanion, companionId);
     ws.send(data);
   } catch (error) {
     ws.close();

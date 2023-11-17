@@ -1,7 +1,6 @@
 type ChatDB = {
   id: number;
   title: string;
-  type: boolean;
   avatar: string;
 };
 
@@ -55,8 +54,8 @@ type ContactUserDB = Omit<ContactDB, 'userId'> & {
 };
 
 type ChatsWithInfoDB = ChatDB & {
-  isLoading: 'idle';
-  notifications: number;
+  isLoaded: 'idle';
+  notification: string | null;
   user: UserProfileDB;
   messages: Omit<MessagesDB, 'chatId'>[];
 };

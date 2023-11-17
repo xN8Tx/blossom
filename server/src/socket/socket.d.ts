@@ -1,5 +1,5 @@
 import type ws from 'ws';
-import type { MessagesDB } from '../typings/database';
+import type { ChatsWithInfoDB, MessagesDB } from '../typings/database';
 
 type WebsocketType = ws & {
   id: string;

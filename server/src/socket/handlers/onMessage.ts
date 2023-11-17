@@ -13,21 +13,33 @@ const onMessage = async (
   ws: WebsocketType,
   wss: ws.Server,
 ) => {
-  if (Number(ws.id) !== Number(message.body.userId)) ws.close();
-  const { chatId, userId, message: _mes, date } = message.body.message;
-  const newMessage = await messagesAPI.post(chatId, userId, _mes, false, date);
+  try {
+    if (Number(ws.id) !== Number(message.body.userId)) return ws.close();
+    const { chatId, userId, message: _mes, date } = message.body.message;
 
-  const title: Message<MessageBodyRes> = {
-    event: 'MESSAGE',
-    body: {
-      chatId: chatId.toString(),
-      message: newMessage!,
-    },
-  };
-  const data = JSON.stringify(title);
+    const newMessage = await messagesAPI.post(
+      chatId,
+      userId,
+      _mes,
+      false,
+      date,
+    );
 
-  ws.send(data);
-  broadcastMessage(wss, title, message.body.companionId);
+    const title: Message<MessageBodyRes> = {
+      event: 'MESSAGE',
+      body: {
+        chatId: chatId.toString(),
+        message: newMessage!,
+      },
+    };
+    const data = JSON.stringify(title);
+
+    broadcastMessage(wss, title, message.body.companionId);
+    ws.send(data);
+  } catch (error) {
+    ws.close();
+    console.log('Error in onMessage.ts. Error: ' + error);
+  }
 };
 
 export default onMessage;
