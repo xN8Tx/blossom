@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { editUser, getUser } from './userThunk';
+import { editAvatar, editUser, getUser } from './userThunk';
 
 import type { InitialState, User } from './index';
 
@@ -53,6 +53,9 @@ const userSlice = createSlice({
       })
       .addCase(editUser.pending, (state) => {
         state.isEditLoaded = 'loading';
+      })
+      .addCase(editAvatar.fulfilled, (state, action) => {
+        state.data = action.payload;
       });
   },
 });

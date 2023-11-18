@@ -34,4 +34,23 @@ const editUser = createAsyncThunk(
   }
 );
 
-export { getUser, editUser };
+const editAvatar = createAsyncThunk(
+  '@@user/editAvatar',
+  async (avatar: string, thunkAPI) => {
+    const { getState } = thunkAPI;
+    const userId = (getState() as RootState).user.data.id;
+
+    const url = `/user/avatar`;
+    const title = {
+      avatar: avatar,
+      id: userId,
+    };
+
+    const res = await $http.post(url, title);
+    const data: User = await res.data.message;
+
+    return data;
+  }
+);
+
+export { getUser, editUser, editAvatar };
