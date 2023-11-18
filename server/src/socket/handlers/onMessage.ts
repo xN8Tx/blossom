@@ -1,12 +1,16 @@
 import ws from 'ws';
+
+import broadcastMessage from '../utils/broadcastMessage';
+import messagesAPI from '../../api/messagesAPI';
+import imageAPI from '../../api/imageAPI';
+import isMessageImage from '../utils/isMessageImage';
+
 import type {
   MessageBody,
   Message,
   WebsocketType,
   MessageBodyRes,
 } from '../socket';
-import broadcastMessage from '../utils/broadcastMessage';
-import messagesAPI from '../../api/messagesAPI';
 
 const onMessage = async (
   message: Message<MessageBody>,
@@ -17,10 +21,15 @@ const onMessage = async (
     if (Number(ws.id) !== Number(message.body.userId)) return ws.close();
     const { chatId, userId, message: _mes, date } = message.body.message;
 
+    let messageText = _mes;
+    if (isMessageImage(_mes)) {
+      messageText = (await imageAPI.madeWebpFromBase64(_mes)) as string;
+    }
+
     const newMessage = await messagesAPI.post(
       chatId,
       userId,
-      _mes,
+      messageText,
       false,
       date,
     );

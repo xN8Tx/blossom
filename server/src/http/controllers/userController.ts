@@ -1,3 +1,4 @@
+import imageAPI from '../../api/imageAPI';
 import messagesAPI from '../../api/messagesAPI';
 import usersAPI from '../../api/usersAPI';
 
@@ -63,6 +64,21 @@ class UserController {
       );
 
       (user as UserWithMessages).messages = messages as MessagesDB[];
+
+      res.status(200).json({ message: user });
+    } catch (error) {
+      res.status(500).json({ message: (error as Error).message });
+    }
+  }
+  async setAvatar(req: Request, res: Response) {
+    try {
+      const { id, avatar } = req.body;
+
+      const webpAvatar = await imageAPI.madeWebpFromBase64(avatar);
+      if (typeof webpAvatar !== 'string')
+        return res.status(400).json({ message: 'Invalid image' });
+
+      const user = await usersAPI.setAvatar(webpAvatar, id);
 
       res.status(200).json({ message: user });
     } catch (error) {

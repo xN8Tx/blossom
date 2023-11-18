@@ -3,6 +3,7 @@ import { Router } from 'express';
 import tokenVerify from '../middleware/tokenVerify';
 import checkId from '../middleware/checkId';
 import userController from '../controllers/userController';
+import checkIdByBody from '../middleware/checkIdByBody';
 
 const router = Router();
 
@@ -15,5 +16,6 @@ router.get(
   userController.getByIdWithMessages,
 );
 router.put('/:id', tokenVerify, checkId, userController.edit);
+router.post('/avatar', tokenVerify, checkIdByBody, userController.setAvatar);
 
 export default router;

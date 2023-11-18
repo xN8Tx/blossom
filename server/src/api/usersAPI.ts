@@ -102,6 +102,21 @@ class UsersAPI {
       console.log(error);
     }
   }
+  async setAvatar(
+    avatar: string,
+    id: string,
+  ): Promise<UserWithoutPassword | void> {
+    try {
+      const user = await databasePool.query<UserWithoutPassword>(
+        'UPDATE users SET "avatar" = $1 WHERE id = $2 RETURNING id, "firstName", "lastName", username, email, avatar, status',
+        [avatar, id],
+      );
+
+      return user.rows[0];
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
 
 const usersAPI = new UsersAPI();
