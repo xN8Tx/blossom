@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../../store';
 
 import selectById from '../../store/chatSelector';
+import { getChatMessages } from '../../store/chatThunk';
 
 import MenuProvider from '../../context/MenuProvider';
 
@@ -12,7 +13,6 @@ import Wrapper from './components/wrapper/Wrapper';
 import Menu from './components/menu/Menu';
 
 import style from './ChatPage.module.scss';
-import { getChatMessages } from '../../store/chatThunk';
 
 export default function ChatPage() {
   const { id } = useParams();
@@ -25,6 +25,7 @@ export default function ChatPage() {
     if (isConnected && data && data.isLoaded === 'idle') {
       dispatch(getChatMessages(id!));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, isConnected, id]);
 
   const isRender = data!.isLoaded === 'success';

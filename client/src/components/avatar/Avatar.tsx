@@ -10,7 +10,7 @@ type AvatarProps = {
   to?: string;
   size: 's' | 'm' | 'l';
   isLink: boolean;
-  status: boolean;
+  status?: boolean;
 };
 
 export default function Avatar({

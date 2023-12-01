@@ -12,7 +12,7 @@ export default function Modal() {
   return (
     <div className={style.wrapper} modal-state={modalState}>
       {modalState !== 'idle' && (
-        <Paragraph size='xl' color='user'>
+        <Paragraph size='l' color='user'>
           {modalText}
         </Paragraph>
       )}

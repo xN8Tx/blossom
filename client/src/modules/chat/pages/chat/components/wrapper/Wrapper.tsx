@@ -28,6 +28,7 @@ export default function Wrapper() {
     if (Number(messages!.notification) > 0) {
       dispatch(readMessage(messages!.id.toString()));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [messages?.notification, dispatch]);
 
   const isNull = messages?.messages.length === 0;

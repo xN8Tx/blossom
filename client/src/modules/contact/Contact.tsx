@@ -20,7 +20,7 @@ export default function Contact() {
     if (loading === 'success') {
       modal('idle', '');
     }
-  }, [loading]);
+  }, [loading, modal, t]);
 
   return (
     <main className='page-wrapper'>

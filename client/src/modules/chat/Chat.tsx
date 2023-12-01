@@ -2,10 +2,10 @@ import { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../store';
+import { changeIsLoaded } from './store/chatSlice';
 import useModal from '../modal/hooks/useModal';
 
 import Sidebar from './components/sidebar/Sidebar';
-import { changeIsLoaded } from './store/chatSlice';
 
 export default function Chat() {
   const modal = useModal();
@@ -29,6 +29,7 @@ export default function Chat() {
         modal('error', 'Error');
         break;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading]);
 
   const isShow = loading === 'success' && !isReRender;

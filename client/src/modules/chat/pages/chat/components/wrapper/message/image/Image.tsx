@@ -1,24 +1,29 @@
 import { useEffect, useRef, useState } from 'react';
-import style from '../Message.module.scss';
-import config from '../../../../../../../../config';
 import { useParams } from 'react-router-dom';
+
 import useOnScreen from '../../../../../../hooks/useOnScreem';
+
+import style from '../Message.module.scss';
 
 type ImageProps = {
   message: string;
 };
 
 export default function Image({ message }: ImageProps) {
-  const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const ref = useRef<HTMLImageElement>(null);
   const isOnScreen = useOnScreen(ref);
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
   const { id } = useParams();
 
   useEffect(() => {
     if (!isOnScreen) return () => {};
     if (!ref.current) return () => {};
-    if (ref.current.src !== `${config.siteIp}chat/${id}`) return () => {};
+    if (
+      ref.current.src !==
+      `${import.meta.env.VITE_FRONTEND_SERVER_URL}chat/${id}`
+    )
+      return () => {};
 
     let isLive = false;
     let interval;
@@ -41,6 +46,7 @@ export default function Image({ message }: ImageProps) {
       setIsLoaded(true);
       clearInterval(interval!);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ref, isOnScreen]);
 
   return (

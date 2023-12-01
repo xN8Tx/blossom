@@ -1,13 +1,17 @@
-import { ChangeEvent } from 'react';
+import { useTranslation } from 'react-i18next';
+
+import useModal from '../../../../../modal/hooks/useModal';
+
+import { useAppDispatch } from '../../../../../../store';
+import { editAvatar } from '../../../../../../store/user/userThunk';
+
 import Heading from '../../../../../../ui/headings/Heading';
+
+import type { ChangeEvent } from 'react';
+
 import cameraIcon from '../../assets/cameraIcon.svg';
 
 import style from './AvatarSection.module.scss';
-import config from '../../../../../../config';
-import { useAppDispatch } from '../../../../../../store';
-import { editAvatar } from '../../../../../../store/user/userThunk';
-import useModal from '../../../../../modal/hooks/useModal';
-import { useTranslation } from 'react-i18next';
 
 type AvatarSectionProps = {
   avatar: string | null;
@@ -28,7 +32,7 @@ export default function AvatarSection({
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files![0];
     const fileSize = file.size / Math.pow(10, 6);
-    const isFileBigger = config.maxFileSize < fileSize;
+    const isFileBigger = import.meta.env.VITE_MAX_FILE_SIZE < fileSize;
 
     const readerAvatar = new FileReader();
     readerAvatar.addEventListener('load', () => {

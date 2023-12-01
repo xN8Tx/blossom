@@ -38,6 +38,7 @@ export default function Users() {
               lastName={contact.lastName}
               avatar={contact.avatar}
               username={contact.username}
+              status={contact.status}
               key={contact.id}
             />
           ))}

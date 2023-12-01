@@ -1,5 +1,4 @@
 import axios from 'axios';
-import config from '../config';
 import store from '../store';
 
 import { resetUser } from '../store/user/userSlice';
@@ -7,7 +6,7 @@ import { resetAuth } from '../store/auth/authSlice';
 
 const $http = axios.create({
   withCredentials: true,
-  baseURL: config.serverURL,
+  baseURL: import.meta.env.VITE_SERVER_URL,
 });
 
 $http.interceptors.request.use((config) => {
@@ -24,9 +23,12 @@ $http.interceptors.response.use(
     if (error.request.status === 401 || originRequest.isRetry === true) {
       originRequest.isRetry = true;
       try {
-        const response = await axios.get(config.serverURL + '/auth/refresh', {
-          withCredentials: true,
-        });
+        const response = await axios.get(
+          import.meta.env.VITE_SERVER_URL + '/auth/refresh',
+          {
+            withCredentials: true,
+          }
+        );
         localStorage.setItem('accessToken', response.data.message);
         return $http.request(originRequest);
       } catch (error) {

@@ -1,5 +1,3 @@
-import config from '../config';
-
 import { Message } from '../models/socket';
 
 class WebsocketAPI {
@@ -34,7 +32,7 @@ class WebsocketAPI {
     this.socket?.removeEventListener('close', this.closeHandler);
     this.socket?.close();
 
-    const socketURL = `${config.wsServerURL}${key}`;
+    const socketURL = `${import.meta.env.VITE_WS_SERVER_URL}${key}`;
 
     this.socket = new WebSocket(socketURL);
     this.socket.addEventListener('open', this.openHandler.bind(websocketAPI));

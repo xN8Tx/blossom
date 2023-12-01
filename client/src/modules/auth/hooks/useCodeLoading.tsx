@@ -25,6 +25,7 @@ const useCodeLoading = (type: 'codeLoading' | 'authLoading') => {
       modal('error', errorText);
     }
     return () => {};
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading]);
 };
 

@@ -16,6 +16,7 @@ const useOnScreen = (ref: RefObject<unknown>, rootMargin = '0px') => {
       observer.observe(ref.current as Element);
     }
     return () => {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       if (ref.current) observer.unobserve(ref.current as Element);
     };
   }, [ref, rootMargin]);

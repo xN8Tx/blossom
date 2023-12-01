@@ -1,5 +1,3 @@
-import config from '../../../../../../../config';
-
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch } from '../../../../../../../store';
@@ -28,7 +26,7 @@ export default function ButtonForm({ onMyMessageSend }: ButtonFormProps) {
   const onFileButtonChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files![0];
     const fileSize = file.size / Math.pow(10, 6);
-    const isFileBigger = config.maxFileSize < fileSize;
+    const isFileBigger = import.meta.env.VITE_MAX_FILE_SIZE < fileSize;
 
     const reader = new FileReader();
     reader.addEventListener('load', () => {

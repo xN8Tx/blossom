@@ -6,7 +6,6 @@ import { logout } from '../../../../../../store/auth/authThunk';
 import PrimaryButton from '../../../../../../ui/buttons/PrimaryButton/PrimaryButton';
 
 import style from './ButtonSection.module.scss';
-import config from '../../../../../../config';
 
 type ButtonSectionProps = {
   onEditClick: () => void;
@@ -18,7 +17,7 @@ export default function ButtonSection({ onEditClick }: ButtonSectionProps) {
 
   const onLogOutClick = async () => {
     await dispatch(logout());
-    window.location.href = config.siteIp;
+    window.location.href = import.meta.env.VITE_FRONTEND_SERVER_URL;
   };
 
   return (

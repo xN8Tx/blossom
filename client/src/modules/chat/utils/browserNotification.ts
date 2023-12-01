@@ -1,5 +1,3 @@
-import config from '../../../config';
-
 import icon from '../../../assets/images/logo.ico';
 
 const browserNotification = async (
@@ -13,7 +11,7 @@ const browserNotification = async (
     new Notification(name, {
       body: message,
       data: {
-        url: `${config.siteIp}/chat/c/${chatId}`,
+        url: `${import.meta.env.VITE_FRONTEND_SERVER_URL}/chat/c/${chatId}`,
       },
       icon: icon,
       silent: true,

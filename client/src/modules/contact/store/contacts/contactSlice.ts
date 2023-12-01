@@ -3,7 +3,8 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { getContacts, deleteContact, postContact } from './contactThunk';
 
 import type { Contact, InitialState } from '../../../../models/data';
-import { Message, WhoIsOnlineRes } from '../../../../models/socket';
+
+import type { Message, WhoIsOnlineBodyRes } from '../../../../models/socket';
 
 const initialState: InitialState<Contact[]> = {
   loading: 'idle',
@@ -16,7 +17,7 @@ const contactsSlice = createSlice({
   reducers: {
     addContactStatus: (
       state,
-      action: PayloadAction<Message<WhoIsOnlineRes>>
+      action: PayloadAction<Message<WhoIsOnlineBodyRes>>
     ) => {
       const contactsId = action.payload.body.contactsId;
 
