@@ -1,14 +1,15 @@
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
-import { useAppDispatch } from '../../../../../../../store';
 
-import { sendMessage } from '../../../../../store/chatThunk';
-import useModal from '../../../../../../modal/hooks/useModal';
+import { useAppDispatch } from '@/store';
+import { sendMessage } from '@chat/store/chatThunk';
+
+import useModal from '@modal/hooks/useModal';
+
+import SendIcon from '@chat/assets/SendIcon';
+import ClipIcon from '@chat/assets/ClipIcon';
 
 import type { ChangeEvent, MouseEvent } from 'react';
-
-import SendIcon from '../../../../../assets/SendIcon';
-import ClipIcon from '../../../../../assets/ClipIcon';
 
 import style from '../Form.module.scss';
 

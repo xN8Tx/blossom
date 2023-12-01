@@ -1,5 +1,5 @@
-import type { ChatWithInfo, Messages } from '../../../models/data';
-import type { RootState } from '../../../store';
+import type { ChatWithInfo, Messages } from '@/models/data';
+import type { RootState } from '@/store';
 
 const selectById = (state: RootState, id: number) => {
   return state.chat.data?.find((chat) => Number(chat.id) === id);

@@ -1,9 +1,9 @@
 import authReducer from './auth/authSlice';
-import chatReducer from '../modules/chat/store/chatSlice';
 import userReducer from './user/userSlice';
-import contactsReducer from '../modules/contact/store/contacts/contactSlice';
-import usersReducer from '../modules/contact/store/users/usersSlice';
-import profileReducer from '../modules/profile/store/profileSlice';
+import chatReducer from '@chat/store/chatSlice';
+import profileReducer from '@profile/store/profileSlice';
+import usersReducer from '@contact/store/users/usersSlice';
+import contactsReducer from '@contact/store/contacts/contactSlice';
 
 const reducer = {
   auth: authReducer,

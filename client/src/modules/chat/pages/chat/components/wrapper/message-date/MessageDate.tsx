@@ -1,9 +1,9 @@
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import Paragraph from '../../../../../../../ui/paragraphs/Paragraph';
+import whatDayWas from '@chat/utils/whatDayWas';
 
-import whatDayWas from '../../../utils/whatDayWas';
+import Paragraph from '@/ui/paragraphs/Paragraph';
 
 import style from './MessageDate.module.scss';
 

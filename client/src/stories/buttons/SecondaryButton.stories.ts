@@ -1,16 +1,14 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from '@storybook/react';
 
-import SecondaryButton from "../../ui/buttons/SecondaryButton/SecondaryButton";
-
-import arrowBackIcon from "../../assets/svg/arrowBackIcon.svg";
+import SecondaryButton from '../../ui/buttons/SecondaryButton/SecondaryButton';
 
 const meta = {
-  title: "Example/SecondaryButton",
+  title: 'Example/SecondaryButton',
   component: SecondaryButton,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   args: {
     onClick: () => {},
   },
@@ -19,15 +17,8 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const WithIcon: Story = {
-  args: {
-    children: "Back",
-    image: arrowBackIcon,
-  },
-};
-
 export const WithoutIcon: Story = {
   args: {
-    children: "Text",
+    children: 'Text',
   },
 };

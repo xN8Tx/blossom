@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import $http from '../../../../api/httpApi';
+import $http from '@/api/httpApi';
 
-import { User } from '../../../../models/data';
+import { User } from '@/models/data';
 
 const getUsers = createAsyncThunk('@@users', async (username: string) => {
   const url = `/user/user/${username}`;

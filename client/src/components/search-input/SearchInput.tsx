@@ -1,6 +1,7 @@
-import ButtonInput from '../../ui/inputs/button-input/ButtonInput';
-import SearchIcon from '../../assets/svg/SearchIcon';
 import { useTranslation } from 'react-i18next';
+
+import ButtonInput from '@/ui/inputs/button-input/ButtonInput';
+import SearchIcon from '@/assets/svg/SearchIcon';
 
 type SearchInputProps = {
   onClick: (value: string) => void;

@@ -1,4 +1,5 @@
-import Paragraph from '../../ui/paragraphs/Paragraph';
+import Paragraph from '@/ui/paragraphs/Paragraph';
+
 import style from './SignForm.module.scss';
 
 type SignFormProps = {

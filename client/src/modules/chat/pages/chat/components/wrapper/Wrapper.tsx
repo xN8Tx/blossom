@@ -1,14 +1,14 @@
 import { useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../../../../../store';
 
-import { readMessage } from '../../../../store/chatThunk';
-import selectById from '../../../../store/chatSelector';
+import { useAppDispatch, useAppSelector } from '@/store';
+import { readMessage } from '@chat/store/chatThunk';
+import selectById from '@chat/store/chatSelector';
 
 import MessageList from './message-list/MessageList';
+import Empty from './empty/Empty';
 
 import style from './Wrapper.module.scss';
-import Empty from './empty/Empty';
 
 export default function Wrapper() {
   const { id } = useParams();

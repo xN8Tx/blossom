@@ -1,9 +1,9 @@
 import { useTranslation } from 'react-i18next';
 
-import Heading from '../../../../../../../ui/headings/Heading';
-import Paragraph from '../../../../../../../ui/paragraphs/Paragraph';
+import Heading from '@/ui/headings/Heading';
+import Paragraph from '@/ui/paragraphs/Paragraph';
 
-import type { User } from '../../../../../../../models/data';
+import type { User } from '@/models/data';
 
 import style from './Title.module.scss';
 

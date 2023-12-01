@@ -1,13 +1,14 @@
-import { useAppDispatch } from '../../../../../../../store';
+import { useNavigate, useParams } from 'react-router-dom';
 
-import MenuItem from '../../../../../components/menu-item/MenuItem';
+import { useAppDispatch } from '@/store';
+import { deleteChat } from '@chat/store/chatThunk';
 
-import SearchIcon from '../../../../../../../assets/svg/SearchIcon';
-import DeleteIcon from '../../../../../assets/DeleteIcon';
+import MenuItem from '@chat/components/menu-item/MenuItem';
+
+import SearchIcon from '@/assets/svg/SearchIcon';
+import DeleteIcon from '@chat/assets/DeleteIcon';
 
 import style from './MenuList.module.scss';
-import { deleteChat } from '../../../../../store/chatThunk';
-import { useNavigate, useParams } from 'react-router-dom';
 
 export default function MenuList() {
   const dispatch = useAppDispatch();

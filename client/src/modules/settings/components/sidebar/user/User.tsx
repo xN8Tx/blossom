@@ -1,13 +1,13 @@
 import { NavLink } from 'react-router-dom';
 
-import { useAppSelector } from '../../../../../store';
+import { useAppSelector } from '@/store';
 
-import Heading from '../../../../../ui/headings/Heading';
-import Paragraph from '../../../../../ui/paragraphs/Paragraph';
+import Heading from '@/ui/headings/Heading';
+import Paragraph from '@/ui/paragraphs/Paragraph';
 
-import type { ClassNameType } from '../../../../../models';
+import linkIcon from '@settings/assets/linkIcon.svg';
 
-import linkIcon from '../../../assets/linkIcon.svg';
+import type { ClassNameType } from '@/models';
 
 import style from './User.module.scss';
 

@@ -1,11 +1,12 @@
 import { useTranslation } from 'react-i18next';
-import { useAppSelector } from '../../../../../store';
 
-import Heading from '../../../../../ui/headings/Heading';
+import { useAppSelector } from '@/store';
+
+import SignForm from '@/components/signForm/SignForm';
+import Heading from '@/ui/headings/Heading';
 import UserItem from '../user-item/UserItem';
 
 import style from './Contacts.module.scss';
-import SignForm from '../../../../../components/signForm/SignForm';
 
 export default function Contacts() {
   const { t } = useTranslation();

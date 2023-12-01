@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { getUsers } from './usersThunk';
 
-import type { InitialState, User } from '../../../../models/data';
+import type { InitialState, User } from '@/models/data';
 
 const initialState: InitialState<User[]> = {
   loading: 'idle',

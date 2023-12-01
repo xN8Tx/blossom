@@ -1,7 +1,7 @@
 import audioNotification from '../utils/audioNotification';
 
 import type { PayloadAction } from '@reduxjs/toolkit';
-import type { ChatInitialState } from '../../../models/data';
+import type { ChatInitialState } from '@/models/data';
 import type {
   CreateChatBodyRes,
   DeleteChatBodyRes,
@@ -12,7 +12,7 @@ import type {
   MessageBodyRes,
   ReadMessageBodyRes,
   WhoIsOnlineBodyRes,
-} from '../../../models/socket';
+} from '@/models/socket';
 
 const reducers = {
   addMessagesToChat: (

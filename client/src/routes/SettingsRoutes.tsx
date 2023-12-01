@@ -1,10 +1,10 @@
-import Appearance from '../modules/settings/pages/appearance/Appearance';
-import Devices from '../modules/settings/pages/devices/Devices';
-import General from '../modules/settings/pages/general/General';
-import Home from '../modules/settings/pages/home/Home';
-import Language from '../modules/settings/pages/language/Language';
-import Privacy from '../modules/settings/pages/privacy/Privacy';
-import Profile from '../modules/settings/pages/profile/Profile';
+import Appearance from '@settings/pages/appearance/Appearance';
+import Devices from '@settings/pages/devices/Devices';
+import General from '@settings/pages/general/General';
+import Home from '@settings/pages/home/Home';
+import Language from '@settings/pages/language/Language';
+import Privacy from '@settings/pages/privacy/Privacy';
+import Profile from '@settings/pages/profile/Profile';
 
 import appearanceIcon from '../assets/svg/setting-page-icons/appearanceIcon.svg';
 import devicesIcon from '../assets/svg/setting-page-icons/devicesIcon.svg';

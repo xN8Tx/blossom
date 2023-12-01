@@ -2,9 +2,8 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { getContacts, deleteContact, postContact } from './contactThunk';
 
-import type { Contact, InitialState } from '../../../../models/data';
-
-import type { Message, WhoIsOnlineBodyRes } from '../../../../models/socket';
+import type { Contact, InitialState } from '@/models/data';
+import type { Message, WhoIsOnlineBodyRes } from '@/models/socket';
 
 const initialState: InitialState<Contact[]> = {
   loading: 'idle',

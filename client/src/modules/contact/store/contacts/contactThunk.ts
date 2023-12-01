@@ -1,9 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import $http from '../../../../api/httpApi';
+import $http from '@/api/httpApi';
 
-import type { RootState } from '../../../../store';
-import { Contact } from '../../../../models/data';
+import type { Contact } from '@/models/data';
+import type { RootState } from '@/store';
 
 const getContacts = createAsyncThunk(
   '@@contact/getContact',

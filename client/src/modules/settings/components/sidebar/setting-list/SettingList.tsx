@@ -1,4 +1,5 @@
-import settingRoutes from '../../../../../routes/SettingsRoutes';
+import settingRoutes from '@/routes/SettingsRoutes';
+
 import SettingItem from '../setting-item/SettingItem';
 
 import style from './SettingList.module.scss';

@@ -1,4 +1,5 @@
-import isMessageImage from '../../../../utils/isMessageImage';
+import isMessageImage from '@chat/utils/isMessageImage';
+
 import Body from '../body/Body';
 import Image from '../image/Image';
 import Info from '../info/Info';

@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
-import Heading from '../../../../../../ui/headings/Heading';
+import Heading from '@/ui/headings/Heading';
 
 import selected from '../../assets/selected.png';
 

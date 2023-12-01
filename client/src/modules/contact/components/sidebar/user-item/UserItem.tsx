@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 
-import Avatar from '../../../../../components/avatar/Avatar';
-import Heading from '../../../../../ui/headings/Heading';
-import Paragraph from '../../../../../ui/paragraphs/Paragraph';
+import Paragraph from '@/ui/paragraphs/Paragraph';
+import Avatar from '@/components/avatar/Avatar';
+import Heading from '@/ui/headings/Heading';
 
 import style from './UserItem.module.scss';
 

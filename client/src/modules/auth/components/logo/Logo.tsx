@@ -1,6 +1,6 @@
-import Heading from '../../../../ui/headings/Heading';
+import Heading from '@/ui/headings/Heading';
 
-import logo from '../../../../assets/images/logo.ico';
+import logo from '@/assets/images/logo.ico';
 
 import style from './Logo.module.scss';
 

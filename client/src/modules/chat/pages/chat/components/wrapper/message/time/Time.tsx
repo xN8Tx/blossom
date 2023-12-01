@@ -1,6 +1,6 @@
-import Paragraph from '../../../../../../../../ui/paragraphs/Paragraph';
+import Paragraph from '@/ui/paragraphs/Paragraph';
 
-import timeHandler from '../../../../utils/timeHandler';
+import timeHandler from '@/modules/chat/utils/timeHandler';
 
 import style from '../Message.module.scss';
 

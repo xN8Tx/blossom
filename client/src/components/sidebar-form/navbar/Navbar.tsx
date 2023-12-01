@@ -1,10 +1,10 @@
 import { NavLink } from 'react-router-dom';
 
-import ContactIcon from '../../../assets/svg/ContactIcon';
-import ChatIcon from '../../../assets/svg/ChatIcon';
-import SettingsIcon from '../../../assets/svg/SettingsIcon';
+import ContactIcon from '@/assets/svg/ContactIcon';
+import ChatIcon from '@/assets/svg/ChatIcon';
+import SettingsIcon from '@/assets/svg/SettingsIcon';
 
-import type { ClassNameType } from '../../../models';
+import type { ClassNameType } from '@/models';
 
 import style from './Navbar.module.scss';
 

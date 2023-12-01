@@ -1,5 +1,3 @@
-import React from 'react';
-
 import type { PasswordInputType } from '../../models';
 
 import style from './Form.module.scss';

@@ -1,20 +1,23 @@
 import { RefObject, forwardRef, useContext, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { useAppDispatch, useAppSelector } from '../../../../../../../store';
-import { selectMessage } from '../../../../../store/chatSelector';
-import { deleteMessage } from '../../../../../store/chatThunk';
-import MenuContext from '../../../../../context/MenuContext';
+import { useAppDispatch, useAppSelector } from '@/store';
+import { selectMessage } from '@chat/store/chatSelector';
+import { deleteMessage } from '@chat/store/chatThunk';
 
-import ForwardIcon from '../../../../../assets/ForwardIcon';
-import CopyIcon from '../../../../../assets/CopyIcon';
-import EditIcon from '../../../../../assets/EditIcon';
-import DeleteIcon from '../../../../../assets/DeleteIcon';
+import MenuContext from '@chat/context/MenuContext';
+import isMessageImage from '@chat/utils/isMessageImage';
+
+import MenuItem from '@chat/components/menu-item/MenuItem';
+
+import ForwardIcon from '@chat/assets/ForwardIcon';
+import CopyIcon from '@chat/assets/CopyIcon';
+import EditIcon from '@chat/assets/EditIcon';
+import DeleteIcon from '@chat/assets/DeleteIcon';
+
+import type { Messages } from '@/models/data';
 
 import style from './MenuList.module.scss';
-import MenuItem from '../../../../../components/menu-item/MenuItem';
-import isMessageImage from '../../../utils/isMessageImage';
-import { Messages } from '../../../../../../../models/data';
 
 type MenuItemProps = {
   name: string;

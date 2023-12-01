@@ -1,7 +1,8 @@
 import { Outlet } from 'react-router-dom';
 
+import { useAppSelector } from '@/store';
+
 import Sidebar from './components/sidebar/Sidebar';
-import { useAppSelector } from '../../store';
 
 export default function Settings() {
   const loading = useAppSelector((state) => state.user.loading);

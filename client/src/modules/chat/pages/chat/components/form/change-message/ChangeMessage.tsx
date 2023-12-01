@@ -1,12 +1,13 @@
 import { useContext } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
-import { useAppSelector } from '../../../../../../../store';
-import { selectMessage } from '../../../../../store/chatSelector';
-import MenuContext from '../../../../../context/MenuContext';
+import { useAppSelector } from '@/store';
+import { selectMessage } from '@chat/store/chatSelector';
 
-import Paragraph from '../../../../../../../ui/paragraphs/Paragraph';
+import MenuContext from '@chat/context/MenuContext';
+
+import Paragraph from '@/ui/paragraphs/Paragraph';
 
 import style from '../Form.module.scss';
 

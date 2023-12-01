@@ -1,9 +1,10 @@
 import { useTranslation } from 'react-i18next';
 
+import LanguageItem from '../language-item/LanguageItem';
+
 import languages from '../../assets/languages';
 
 import style from './LanguageList.module.scss';
-import LanguageItem from '../language-item/LanguageItem';
 
 export default function LanguageList() {
   const { i18n } = useTranslation();

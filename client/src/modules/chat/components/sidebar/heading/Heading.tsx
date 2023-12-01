@@ -1,10 +1,10 @@
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import SearchInput from '../../../../../components/search-input/SearchInput';
+import SearchInput from '@/components/search-input/SearchInput';
+import Heading from '@/ui/headings/Heading';
 
 import style from './Heading.module.scss';
-import Heading from '../../../../../ui/headings/Heading';
-import { useState } from 'react';
 
 export default function Headings() {
   const { t } = useTranslation();

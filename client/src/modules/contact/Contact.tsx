@@ -1,7 +1,8 @@
-import { Outlet } from 'react-router-dom';
 import { useEffect } from 'react';
+import { Outlet } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useAppSelector } from '../../store';
+
+import { useAppSelector } from '@/store';
 
 import useModal from '../modal/hooks/useModal';
 

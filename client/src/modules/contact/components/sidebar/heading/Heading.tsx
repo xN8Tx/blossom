@@ -1,13 +1,14 @@
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import SearchInput from '../../../../../components/search-input/SearchInput';
+import { useAppDispatch } from '@/store';
+import { getUsers } from '@contact/store/users/usersThunk';
+import { reset } from '@contact/store/users/usersSlice';
+
+import SearchInput from '@/components/search-input/SearchInput';
+import Heading from '@/ui/headings/Heading';
 
 import style from './Heading.module.scss';
-import Heading from '../../../../../ui/headings/Heading';
-import { useAppDispatch } from '../../../../../store';
-import { getUsers } from '../../../store/users/usersThunk';
-import { useEffect, useState } from 'react';
-import { reset } from '../../../store/users/usersSlice';
 
 export default function Headings() {
   const dispatch = useAppDispatch();

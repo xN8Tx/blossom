@@ -1,9 +1,11 @@
 import React from 'react';
-import style from './PageWrapper.module.scss';
-import { useTranslation } from 'react-i18next';
-import BackButton from '../../../../components/back-button/BackButton';
-import Heading from '../../../../ui/headings/Heading';
 import { useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+
+import BackButton from '@/components/back-button/BackButton';
+import Heading from '@/ui/headings/Heading';
+
+import style from './PageWrapper.module.scss';
 
 type PageWrapperProps = {
   children: React.ReactNode;

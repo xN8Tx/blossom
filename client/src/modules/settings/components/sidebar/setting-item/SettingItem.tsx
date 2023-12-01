@@ -1,13 +1,13 @@
+import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
 
-import Heading from '../../../../../ui/headings/Heading';
+import Heading from '@/ui/headings/Heading';
 
-import type { ClassNameType } from '../../../../../models';
+import linkIcon from '@settings/assets/linkIcon.svg';
 
-import linkIcon from '../../../assets/linkIcon.svg';
+import type { ClassNameType } from '@/models';
 
 import style from './SettingItem.module.scss';
-import { useTranslation } from 'react-i18next';
 
 type SettingItemProps = {
   image: string;

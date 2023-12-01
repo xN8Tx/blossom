@@ -2,12 +2,12 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import decodeJWT from '../utils/decodeJwt';
+import decodeJWT from '@/utils/decodeJwt';
 
-import { useAppDispatch, useAppSelector } from '../store';
-import { getUser } from '../store/user/userThunk';
-import { getChats, startWebsocket } from '../modules/chat/store/chatThunk';
-import { getContacts } from '../modules/contact/store/contacts/contactThunk';
+import { useAppDispatch, useAppSelector } from '@/store';
+import { getUser } from '@/store/user/userThunk';
+import { getChats, startWebsocket } from '@/modules/chat/store/chatThunk';
+import { getContacts } from '@/modules/contact/store/contacts/contactThunk';
 
 export default function AppInit() {
   const dispatch = useAppDispatch();

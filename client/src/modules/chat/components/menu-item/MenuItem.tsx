@@ -1,7 +1,8 @@
 import { useTranslation } from 'react-i18next';
 
+import Paragraph from '@/ui/paragraphs/Paragraph';
+
 import style from './MenuItem.module.scss';
-import Paragraph from '../../../../ui/paragraphs/Paragraph';
 
 type MenuItemProps = {
   name: string;

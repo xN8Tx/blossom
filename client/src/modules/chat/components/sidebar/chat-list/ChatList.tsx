@@ -1,7 +1,9 @@
 import { useTranslation } from 'react-i18next';
-import SignForm from '../../../../../components/signForm/SignForm';
-import { useAppSelector } from '../../../../../store';
-import { sortChatsByLastMessageDate } from '../../../store/chatSelector';
+
+import { useAppSelector } from '@/store';
+import { sortChatsByLastMessageDate } from '@chat/store/chatSelector';
+
+import SignForm from '@/components/signForm/SignForm';
 import ChatItem from '../chat-item/ChatItem';
 
 import style from './ChatList.module.scss';

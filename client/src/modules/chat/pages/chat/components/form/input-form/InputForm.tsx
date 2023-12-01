@@ -2,19 +2,19 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
-import { useAppDispatch, useAppSelector } from '../../../../../../../store';
-import { editMessage, sendMessage } from '../../../../../store/chatThunk';
+import { useAppDispatch, useAppSelector } from '@/store';
+import MenuContext from '@chat/context/MenuContext';
+import { selectMessage } from '@chat/store/chatSelector';
+import { editMessage, sendMessage } from '@chat/store/chatThunk';
 
-import isMessageEmpty from '../../../utils/isMessageEmpty';
+import isMessageEmpty from '@chat/utils/isMessageEmpty';
 
-import Paragraph from '../../../../../../../ui/paragraphs/Paragraph';
+import Paragraph from '@/ui/paragraphs/Paragraph';
 import ButtonForm from '../button-form/ButtonForm';
 
 import type { KeyboardEvent, ChangeEvent, MouseEvent } from 'react';
 
 import style from '../Form.module.scss';
-import MenuContext from '../../../../../context/MenuContext';
-import { selectMessage } from '../../../../../store/chatSelector';
 
 export default function InputForm() {
   const { t } = useTranslation();

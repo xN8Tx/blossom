@@ -1,4 +1,4 @@
-import { Message } from '../models/socket';
+import { Message } from '@/models/socket';
 
 class WebsocketAPI {
   private socket: WebSocket | null = null;

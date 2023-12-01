@@ -1,15 +1,16 @@
-import Paragraph from '../../../../../../ui/paragraphs/Paragraph';
+import Paragraph from '@/ui/paragraphs/Paragraph';
+import { useTranslation } from 'react-i18next';
 
-import { useAppSelector } from '../../../../../../store';
+import { useAppSelector } from '@/store';
 
-import type { Messages } from '../../../../../../models/data';
+import isMessageImage from '@chat/utils/isMessageImage';
 
-import ReadIcon from '../../../../assets/ReadIcon.svg';
-import SendedIcon from '../../../../assets/SendedIcon.svg';
+import ReadIcon from '@chat/assets/ReadIcon.svg';
+import SendedIcon from '@chat/assets/SendedIcon.svg';
+
+import type { Messages } from '@/models/data';
 
 import style from './Text.module.scss';
-import isMessageImage from '../../../../pages/chat/utils/isMessageImage';
-import { useTranslation } from 'react-i18next';
 
 type TextProps = {
   messages: Messages[];

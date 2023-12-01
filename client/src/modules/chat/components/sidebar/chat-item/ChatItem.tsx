@@ -1,13 +1,15 @@
 import { Link } from 'react-router-dom';
-import Avatar from '../../../../../components/avatar/Avatar';
-import Heading from '../../../../../ui/headings/Heading';
-import Paragraph from '../../../../../ui/paragraphs/Paragraph';
 
-import type { Messages, User } from '../../../../../models/data';
+import timeHandler from '@/modules/chat/utils/timeHandler';
+
+import Avatar from '@/components/avatar/Avatar';
+import Heading from '@/ui/headings/Heading';
+import Paragraph from '@/ui/paragraphs/Paragraph';
+import Text from './text/Text';
+
+import type { Messages, User } from '@/models/data';
 
 import style from './ChatItem.module.scss';
-import Text from './text/Text';
-import timeHandler from '../../../pages/chat/utils/timeHandler';
 
 type ChatItemProps = {
   chatId: number;

@@ -1,7 +1,7 @@
-import Paragraph from '../../../../../../../../ui/paragraphs/Paragraph';
+import Paragraph from '@/ui/paragraphs/Paragraph';
 
-import sendedIcon from '../../../../../../assets/SendedIcon.svg';
-import readIcon from '../../../../../../assets/ReadIcon.svg';
+import sendedIcon from '@chat/assets/SendedIcon.svg';
+import readIcon from '@chat/assets/ReadIcon.svg';
 
 import style from '../Message.module.scss';
 

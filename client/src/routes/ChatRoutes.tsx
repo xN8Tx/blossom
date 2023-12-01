@@ -1,6 +1,6 @@
-import Home from '../modules/chat/pages/home/Home';
-import ChatPage from '../modules/chat/pages/chat/ChatPage';
-import Profile from '../modules/profile/Profile';
+import Home from '@chat/pages/home/Home';
+import ChatPage from '@chat/pages/chat/ChatPage';
+import Profile from '@profile/Profile';
 
 const chatRoutes = [
   { path: 'index', element: <Home /> },

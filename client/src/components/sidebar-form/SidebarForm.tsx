@@ -1,6 +1,8 @@
 import { useLocation } from 'react-router-dom';
-import style from './SidebarForm.module.scss';
+
 import Navbar from './navbar/Navbar';
+
+import style from './SidebarForm.module.scss';
 
 type SidebarFormProps = {
   children: React.ReactNode;

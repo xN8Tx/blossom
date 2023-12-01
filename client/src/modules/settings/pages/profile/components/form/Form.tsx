@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAppDispatch, useAppSelector } from '../../../../../../store';
-import useModal from '../../../../../modal/hooks/useModal';
 
-import { editUser } from '../../../../../../store/user/userThunk';
+import { useAppDispatch, useAppSelector } from '@/store';
+import { editUser } from '@/store/user/userThunk';
+
+import useModal from '@modal/hooks/useModal';
 
 import NameSection from '../name-section/NameSection';
 import UsernameSection from '../username-section/UsernameSection';

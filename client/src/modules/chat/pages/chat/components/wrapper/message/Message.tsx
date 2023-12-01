@@ -3,7 +3,7 @@ import { memo } from 'react';
 import Wrapper from './wrapper/Wrapper';
 import Time from './time/Time';
 
-import type { Messages } from '../../../../../../../models/data';
+import type { Messages } from '@/models/data';
 
 import style from './Message.module.scss';
 

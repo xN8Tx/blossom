@@ -1,15 +1,15 @@
 import { useTranslation } from 'react-i18next';
 
-import useModal from '../../../../../modal/hooks/useModal';
+import useModal from '@modal/hooks/useModal';
 
-import { useAppDispatch } from '../../../../../../store';
-import { editAvatar } from '../../../../../../store/user/userThunk';
+import { useAppDispatch } from '@/store';
+import { editAvatar } from '@/store/user/userThunk';
 
-import Heading from '../../../../../../ui/headings/Heading';
-
-import type { ChangeEvent } from 'react';
+import Heading from '@/ui/headings/Heading';
 
 import cameraIcon from '../../assets/cameraIcon.svg';
+
+import type { ChangeEvent } from 'react';
 
 import style from './AvatarSection.module.scss';
 

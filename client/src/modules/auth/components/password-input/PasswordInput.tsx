@@ -1,9 +1,9 @@
 import { useTranslation } from 'react-i18next';
 
-import type { InputEventType, PasswordInputType } from '../../models';
+import ButtonInput from '@/ui/inputs/button-input/ButtonInput';
+import PasswordEyeIcon from '@/assets/svg/PasswordEyeIcon';
 
-import ButtonInput from '../../../../ui/inputs/button-input/ButtonInput';
-import PasswordEyeIcon from '../../../../assets/svg/PasswordEyeIcon';
+import type { InputEventType, PasswordInputType } from '../../models';
 
 type PasswordInputProps = {
   passwordInputType: PasswordInputType;

@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
 
-import useOnScreen from '../../../../../../hooks/useOnScreem';
+import useOnScreen from '@chat/hooks/useOnScreen';
 
 import style from '../Message.module.scss';
 

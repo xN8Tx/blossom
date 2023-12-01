@@ -1,11 +1,11 @@
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '../../../../../store';
 
-import { reset } from '../../../store/users/usersSlice';
-import { selectWithoutUser } from '../../../store/users/usersSelector';
+import { reset } from '@contact/store/users/usersSlice';
+import { selectWithoutUser } from '@contact/store/users/usersSelector';
 
-import Heading from '../../../../../ui/headings/Heading';
-import Paragraph from '../../../../../ui/paragraphs/Paragraph';
+import Paragraph from '@/ui/paragraphs/Paragraph';
+import Heading from '@/ui/headings/Heading';
 import UserItem from '../user-item/UserItem';
 
 import style from './Users.module.scss';

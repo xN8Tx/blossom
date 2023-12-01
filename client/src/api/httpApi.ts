@@ -1,8 +1,8 @@
 import axios from 'axios';
 import store from '../store';
 
-import { resetUser } from '../store/user/userSlice';
-import { resetAuth } from '../store/auth/authSlice';
+import { resetUser } from '@/store/user/userSlice';
+import { resetAuth } from '@/store/auth/authSlice';
 
 const $http = axios.create({
   withCredentials: true,

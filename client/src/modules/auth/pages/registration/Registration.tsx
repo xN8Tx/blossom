@@ -1,20 +1,20 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAppDispatch, useAppSelector } from '../../../../store';
 import { Navigate } from 'react-router-dom';
 
-import useModal from '../../../modal/hooks/useModal';
-import useCodeLoading from '../../hooks/useCodeLoading';
+import useModal from '@modal/hooks/useModal';
+import useCodeLoading from '@auth/hooks/useCodeLoading';
 
-import { sendRegistrationCode } from '../../../../store/auth/authThunk';
-import { addDataOnRegistration } from '../../../../store/auth/authSlice';
+import { useAppDispatch, useAppSelector } from '@/store';
+import { sendRegistrationCode } from '@/store/auth/authThunk';
+import { addDataOnRegistration } from '@/store/auth/authSlice';
 
-import Form from '../../components/form/Form';
-import MainInput from '../../../../ui/inputs/main-input/MainInput';
-import PasswordInput from '../../components/password-iput/PasswordInput';
-import ButtonsForm from '../../components/buttons-form/ButtonsForm';
-import PrimaryButton from '../../../../ui/buttons/PrimaryButton/PrimaryButton';
-import MyLink from '../../../../ui/link/MyLink';
+import MyLink from '@/ui/link/MyLink';
+import MainInput from '@/ui/inputs/main-input/MainInput';
+import PrimaryButton from '@/ui/buttons/PrimaryButton/PrimaryButton';
+import PasswordInput from '@/modules/auth/components/password-input/PasswordInput';
+import ButtonsForm from '@auth/components/buttons-form/ButtonsForm';
+import Form from '@auth/components/form/Form';
 
 import type { InputEventType, PasswordInputType } from '../../models';
 

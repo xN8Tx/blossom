@@ -1,7 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import $http from '../../../api/httpApi';
-import websocketAPI from '../../../api/WebsocketAPI';
+import $http from '@/api/httpApi';
+import websocketAPI from '@/api/WebsocketAPI';
+
 import {
   addCompanionStatus,
   addDeleteChat,
@@ -14,7 +15,7 @@ import {
   changeIsConnected,
 } from './chatSlice';
 
-import type { RootState } from '../../../store';
+import type { RootState } from '@/store';
 import type {
   CreateChatBody,
   CreateChatBodyRes,
@@ -33,8 +34,8 @@ import type {
   ReadMessageBodyRes,
   WhoIsOnlineBody,
   WhoIsOnlineBodyRes,
-} from '../../../models/socket';
-import { addContactStatus } from '../../contact/store/contacts/contactSlice';
+} from '@/models/socket';
+import { addContactStatus } from '@contact/store/contacts/contactSlice';
 
 type CreateMessageMessage = {
   chatId: string;

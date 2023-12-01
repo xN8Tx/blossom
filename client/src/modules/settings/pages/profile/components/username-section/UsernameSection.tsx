@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 
-import Paragraph from '../../../../../../ui/paragraphs/Paragraph';
-import MainInput from '../../../../../../ui/inputs/main-input/MainInput';
+import Paragraph from '@/ui/paragraphs/Paragraph';
+import MainInput from '@/ui/inputs/main-input/MainInput';
 
 import style from './UsernameSection.module.scss';
 

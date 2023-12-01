@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
-import MainInput from '../../../../../../ui/inputs/main-input/MainInput';
+import MainInput from '@/ui/inputs/main-input/MainInput';
 
 import style from './NameSection.module.scss';
 

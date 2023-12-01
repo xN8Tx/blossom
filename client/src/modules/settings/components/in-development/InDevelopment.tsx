@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
-import SignForm from '../../../../components/signForm/SignForm';
+import SignForm from '@/components/signForm/SignForm';
 
 import style from './InDevelopment.module.scss';
 

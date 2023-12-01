@@ -7,6 +7,16 @@
     "module": "ESNext",
     "skipLibCheck": true,
 
+    "paths": {
+      "@/*": ["./src/*"],
+      "@modal/*": ["./src/modules/modal/*"],
+      "@auth/*": ["./src/modules/auth/*"],
+      "@chat/*": ["./src/modules/chat/*"],
+      "@settings/*": ["./src/modules/settings/*"],
+      "@profile/*": ["./src/modules/profile/*"],
+      "@contact/*": ["./src/modules/contact/*"]
+    },
+
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,

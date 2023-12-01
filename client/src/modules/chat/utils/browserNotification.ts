@@ -1,4 +1,4 @@
-import icon from '../../../assets/images/logo.ico';
+import icon from '@/assets/images/logo.ico';
 
 const browserNotification = async (
   name: string,

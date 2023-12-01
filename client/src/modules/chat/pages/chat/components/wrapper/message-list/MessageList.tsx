@@ -1,16 +1,17 @@
 import { MouseEvent, forwardRef, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { useAppSelector } from '../../../../../../../store';
-import selectById from '../../../../../store/chatSelector';
+import { useAppSelector } from '@/store';
+import selectById from '@chat/store/chatSelector';
+
+import MenuContext from '@chat/context/MenuContext';
 
 import MessageDate from '../message-date/MessageDate';
 import Message from '../message/Message';
 
-import type { Messages } from '../../../../../../../models/data';
+import type { Messages } from '@/models/data';
 
 import style from './MessageList.module.scss';
-import MenuContext from '../../../../../context/MenuContext';
 
 const MessageList = forwardRef<HTMLDivElement>((_, ref) => {
   const { id } = useParams();

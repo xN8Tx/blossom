@@ -10,7 +10,7 @@ import {
   readMessage,
 } from './chatThunk';
 
-import type { ChatInitialState } from '../../../models/data';
+import type { ChatInitialState } from '@/models/data';
 
 const initialState: ChatInitialState = {
   loading: 'idle',

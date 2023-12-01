@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import Heading from '../../ui/headings/Heading';
+import Heading from '@/ui/headings/Heading';
 
 import style from './Avatar.module.scss';
 

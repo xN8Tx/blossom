@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../../../store';
 
-import selectById from '../../store/chatSelector';
-import { getChatMessages } from '../../store/chatThunk';
+import { useAppDispatch, useAppSelector } from '@/store';
+import { getChatMessages } from '@chat/store/chatThunk';
+import selectById from '@chat/store/chatSelector';
 
-import MenuProvider from '../../context/MenuProvider';
+import MenuProvider from '@chat/context/MenuProvider';
 
 import Header from './components/heading/Header';
 import Form from './components/form/Form';

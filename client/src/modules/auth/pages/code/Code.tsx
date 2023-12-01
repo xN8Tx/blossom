@@ -1,17 +1,18 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Navigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../../../store';
 
-import { login, registration } from '../../../../store/auth/authThunk';
+import { useAppDispatch, useAppSelector } from '@/store';
+import { login, registration } from '@/store/auth/authThunk';
 
-import Form from '../../components/form/Form';
-import MainInput from '../../../../ui/inputs/main-input/MainInput';
-import ButtonsForm from '../../components/buttons-form/ButtonsForm';
-import PrimaryButton from '../../../../ui/buttons/PrimaryButton/PrimaryButton';
-import useCodeLoading from '../../hooks/useCodeLoading';
+import useCodeLoading from '@auth/hooks/useCodeLoading';
 
-import type { InputEventType } from '../../models';
+import MainInput from '@/ui/inputs/main-input/MainInput';
+import PrimaryButton from '@/ui/buttons/PrimaryButton/PrimaryButton';
+import ButtonsForm from '@auth/components/buttons-form/ButtonsForm';
+import Form from '@auth/components/form/Form';
+
+import type { InputEventType } from '@auth/models';
 
 export default function Code() {
   const dispatch = useAppDispatch();

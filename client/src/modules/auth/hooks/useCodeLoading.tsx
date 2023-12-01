@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAppSelector } from '../../../store';
 
-import useModal from '../../modal/hooks/useModal';
+import { useAppSelector } from '@/store';
+
+import useModal from '@modal/hooks/useModal';
 
 const useCodeLoading = (type: 'codeLoading' | 'authLoading') => {
   const modal = useModal();

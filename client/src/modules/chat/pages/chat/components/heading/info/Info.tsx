@@ -1,7 +1,7 @@
-import Avatar from '../../../../../../../components/avatar/Avatar';
+import Avatar from '@/components/avatar/Avatar';
 import Title from '../title/Title';
 
-import type { User } from '../../../../../../../models/data';
+import type { User } from '@/models/data';
 
 import style from './Info.module.scss';
 

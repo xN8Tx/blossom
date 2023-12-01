@@ -1,9 +1,9 @@
 import { useParams } from 'react-router-dom';
 
-import { useAppSelector } from '../../../../../../store';
-import selectById from '../../../../store/chatSelector';
+import { useAppSelector } from '@/store';
+import selectById from '@chat/store/chatSelector';
 
-import BackButton from '../../../../../../components/back-button/BackButton';
+import BackButton from '@/components/back-button/BackButton';
 import Info from './info/Info';
 import Menu from './menu/Menu';
 

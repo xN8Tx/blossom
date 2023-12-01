@@ -1,5 +1,3 @@
-import React from 'react';
-
 import style from './ButtonsForm.module.scss';
 
 type ButtonsFormProps = {
