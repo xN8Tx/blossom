@@ -6,9 +6,11 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+**/.env
 
 redis
 */**/open.txt
+database/base
 
 # Editor directories and files
 .vscode/*
