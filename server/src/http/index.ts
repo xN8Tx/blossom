@@ -20,7 +20,6 @@ const httpStart = () => {
   app.use(cors(corsConfig));
 
   routesConfiguration(app);
-
   app.listen(PORT, () => {
     console.log('Server listening on port: ' + PORT);
   });

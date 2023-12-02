@@ -1,19 +1,24 @@
+import dotenv from 'dotenv';
 import { Pool } from 'pg';
 
-// FOR PRODUCTION MODE
-// const databasePoolConfig = {
-//   connectionString: process.env.DATABASE_URL,
-//   ssl: false,
-// };
+dotenv.config();
 
-// FOR DEVELOPMENT MODE
-const databasePoolConfig = {
-  user: 'postgres',
-  password: '',
-  host: 'localhost',
-  port: 5432,
-  database: 'Messenger',
-};
+let databasePoolConfig;
+
+if (process.env.NODE_ENV === 'production') {
+  databasePoolConfig = {
+    connectionString: process.env.DATABASE_URL,
+    ssl: false,
+  };
+} else {
+  databasePoolConfig = {
+    user: 'postgres',
+    password: '',
+    host: 'localhost',
+    port: 5432,
+    database: 'Messenger',
+  };
+}
 
 const databasePool = new Pool(databasePoolConfig);
 
