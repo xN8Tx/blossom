@@ -5,7 +5,7 @@
 -- Dumped from database version 15.2
 -- Dumped by pg_dump version 15.2
 
--- Started on 2023-08-29 20:54:57 +07
+-- Started on 2023-12-02 05:23:17 +07
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -30,7 +30,8 @@ SET default_table_access_method = heap;
 CREATE TABLE public.chats (
     id bigint NOT NULL,
     title character varying,
-    type boolean
+    type boolean,
+    avatar character varying
 );
 
 
@@ -43,6 +44,35 @@ ALTER TABLE public.chats OWNER TO postgres;
 
 ALTER TABLE public.chats ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
     SEQUENCE NAME public.chats_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- TOC entry 222 (class 1259 OID 16986)
+-- Name: contacts; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.contacts (
+    id bigint NOT NULL,
+    "userId" bigint,
+    "contactId" bigint
+);
+
+
+ALTER TABLE public.contacts OWNER TO postgres;
+
+--
+-- TOC entry 223 (class 1259 OID 17001)
+-- Name: contacts_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.contacts ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.contacts_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -90,9 +120,9 @@ CREATE TABLE public.messages (
     "chatId" bigint,
     "userId" bigint,
     message character varying,
-    date date,
+    "isEdit" boolean,
     status boolean,
-    "isEdit" boolean
+    date character varying
 );
 
 
@@ -121,11 +151,12 @@ ALTER TABLE public.messages ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
 CREATE TABLE public.users (
     id bigint NOT NULL,
     "firstName" character varying,
-    "secondName" character varying,
+    "lastName" character varying,
     username character varying,
     email character varying,
     password character varying,
-    status boolean
+    status boolean,
+    avatar character varying
 );
 
 
@@ -299,4 +330,3 @@ ALTER TABLE ONLY public.messages
 --
 -- PostgreSQL database dump complete
 --
-
