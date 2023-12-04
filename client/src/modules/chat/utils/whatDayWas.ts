@@ -1,6 +1,4 @@
-import { TFunction } from 'i18next';
-
-const whatDayWas = (_date: string, t: TFunction<'translation', undefined>) => {
+const whatDayWas = (_date: string, t: (str: string) => string) => {
   const todayParse = new Date(Date.now());
   const today =
     todayParse.getDate() +

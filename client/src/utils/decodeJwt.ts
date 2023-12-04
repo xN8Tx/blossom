@@ -1,5 +1,6 @@
 const decodeJWT = (token: string) => {
-  if (token.includes('.')) {
+  try {
+    if (!token.includes('.')) throw new Error();
     const base64Url = token.split('.')[1];
     const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
 
@@ -12,8 +13,11 @@ const decodeJWT = (token: string) => {
     );
 
     return JSON.parse(jsonPayload);
-  } else {
-    alert('Something went wrong');
+  } catch (error) {
+    alert(
+      'Something went wrong! Could not decode the token! Please try again.'
+    );
+    return false;
   }
 };
 

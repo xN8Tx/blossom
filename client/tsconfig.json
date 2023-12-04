@@ -33,10 +33,10 @@
   },
   "include": ["src"],
   "exclude": [
-    "./src/stories",
-    "./src/**/*.test.ts",
-    "./src/**/*.test.tsx",
-    "./src/__test__"
+    // "./src/stories",
+    // "./src/**/*.test.ts",
+    // "./src/**/*.test.tsx",
+    // "./src/__test__"
   ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
