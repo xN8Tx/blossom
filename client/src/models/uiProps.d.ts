@@ -14,7 +14,7 @@ type HeadingsProps = Omit<ParagraphProps, 'size'> & {
 type ParagraphProps = {
   children: React.ReactNode;
   color?: 'green' | 'user' | 'message' | 'red';
-  size?: 'xs' | 'x' | 's' | 'm' | 'l';
+  size?: 'xs' | 'x' | 's' | 'm' | 'l' | 'xl';
   onClick?: () => void;
 };
 
