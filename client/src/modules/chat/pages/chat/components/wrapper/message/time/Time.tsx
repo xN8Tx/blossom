@@ -1,6 +1,6 @@
 import Paragraph from '@/ui/paragraphs/Paragraph';
 
-import timeHandler from '@/modules/chat/utils/timeHandler';
+import timeHandler from '@/modules/chat/utils/fromDateToTime';
 
 import style from '../Message.module.scss';
 

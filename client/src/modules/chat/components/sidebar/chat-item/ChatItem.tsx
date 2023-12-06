@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import timeHandler from '@/modules/chat/utils/timeHandler';
+import timeHandler from '@/modules/chat/utils/fromDateToTime';
 
 import Avatar from '@/components/avatar/Avatar';
 import Heading from '@/ui/headings/Heading';

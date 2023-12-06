@@ -91,7 +91,7 @@ const sendMessage = createAsyncThunk(
           chatId: data.chatId.toString(),
           message: data.message,
           userId: userId!,
-          date: Date.now().toString(),
+          date: new Date().toString(),
           status: 'loading',
           isEdit: false,
         },

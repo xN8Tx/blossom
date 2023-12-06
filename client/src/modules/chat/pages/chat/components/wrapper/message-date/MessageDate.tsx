@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import whatDayWas from '@chat/utils/whatDayWas';
+import fromDateToDay from '@chat/utils/fromDateToDay';
 
 import Paragraph from '@/ui/paragraphs/Paragraph';
 
@@ -14,7 +14,7 @@ type MessageDate = {
 const MessageDate = memo(({ date }: MessageDate) => {
   const { t } = useTranslation();
 
-  const readyDate = whatDayWas(date, t);
+  const readyDate = fromDateToDay(date, t);
 
   return (
     <div className={style.wrapper}>
