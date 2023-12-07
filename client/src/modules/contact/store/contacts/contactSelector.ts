@@ -1,7 +1,12 @@
 import type { RootState } from '@/store';
 
 const selectById = (state: RootState, id: number) => {
-  return state.contacts.data?.find((contact) => contact.contactId == id);
+  const contact = state.contacts.data?.find(
+    (contact) => Number(contact.contactId) == Number(id)
+  );
+
+  if (contact) return contact;
+  return null;
 };
 
 export { selectById };

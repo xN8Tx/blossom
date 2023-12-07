@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { useAppSelector } from '@/store';
-import { selectMessage } from '@chat/store/chatSelector';
+import selectMessageByMessageId from '@chat/store/selectors/selectMessageByMessageId';
 
 import MenuContext from '@chat/context/MenuContext';
 
@@ -19,7 +19,7 @@ export default function ChangeMessage() {
   const setEditMessageId = useContext(MenuContext).setEditMessageId;
 
   const message = useAppSelector((state) =>
-    selectMessage(state, Number(messageId), Number(chatId))
+    selectMessageByMessageId(state, Number(messageId), Number(chatId))
   );
 
   const onClose = () => {

@@ -2,10 +2,10 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
+import selectMessageByMessageId from '@chat/store/selectors/selectMessageByMessageId';
+import { editMessage, sendMessage } from '@chat/store/chatThunk';
 import { useAppDispatch, useAppSelector } from '@/store';
 import MenuContext from '@chat/context/MenuContext';
-import { selectMessage } from '@chat/store/chatSelector';
-import { editMessage, sendMessage } from '@chat/store/chatThunk';
 
 import isMessageEmpty from '@chat/utils/isMessageEmpty';
 
@@ -24,7 +24,7 @@ export default function InputForm() {
   const { editMessageId, setEditMessageId } = useContext(MenuContext);
 
   const message = useAppSelector((state) =>
-    selectMessage(state, Number(editMessageId), Number(id))
+    selectMessageByMessageId(state, Number(editMessageId), Number(id))
   );
 
   const [myMessage, setMyMessage] = useState<string>('');

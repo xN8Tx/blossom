@@ -5,7 +5,7 @@ import isMessageEmpty from './isMessageEmpty';
 const correctMessage = 'hello world!';
 const incorrectMessage = '   ';
 
-describe('isMessageEmpty Tests', () => {
+describe('[CHAT_UTILS] isMessageEmpty Tests', () => {
   test('Correct message', () => {
     expect(isMessageEmpty(correctMessage)).toBe(false);
   });

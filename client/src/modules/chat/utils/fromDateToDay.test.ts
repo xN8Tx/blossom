@@ -1,5 +1,5 @@
 import { expect, test, describe } from 'vitest';
-import { enMockT, ruMockT } from '@/__test__/__mock__/i18n-mock';
+import { enMockT, ruMockT } from '@/__test__/__mock__/i18n.mock';
 
 import fromDateToDay from './fromDateToDay';
 
@@ -8,7 +8,7 @@ const tuesdayDecember = new Date('2023-12-05').toString();
 const wednesdayJanuary = new Date('2023-01-04').toString();
 const today = new Date().toString();
 
-describe('fromDateToDay Test', () => {
+describe('[CHAT_UTILS] fromDateToDay Test', () => {
   test('Monday, November 6th | ru language', () => {
     expect(fromDateToDay(mondayNovember, ruMockT)).toBe(
       'Понедельник, Ноябрь 6'

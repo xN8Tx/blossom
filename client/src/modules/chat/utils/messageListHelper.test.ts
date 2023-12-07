@@ -4,40 +4,18 @@ import messageListHelper from './messageListHelper';
 import { Messages } from '@/models/data';
 
 const userId = 1;
-const firstMessage = [{ date: new Date().toString(), userId: 1 }];
-const firstMessageComp = [{ date: new Date().toString(), userId: 2 }];
-const newDate = [
-  { date: new Date().toString(), userId: 1 },
-  { date: new Date('2053-03-1').toString(), userId: 1 },
-];
-const newDateComp = [
-  { date: new Date().toString(), userId: 2 },
-  { date: new Date('2053-03-1').toString(), userId: 1 },
-];
-const newTime = [
-  { date: new Date('2023-12-06T13:13:25').toString(), userId: 1 },
-  { date: new Date('2023-12-06T13:10:25').toString(), userId: 1 },
-];
-const newTimeComp = [
-  { date: new Date('2023-12-06T13:13:25').toString(), userId: 2 },
-  { date: new Date('2023-12-06T13:10:25').toString(), userId: 1 },
-];
-const oldTime = [
-  { date: new Date('2023-12-06T13:10:25').toString(), userId: 1 },
-  { date: new Date('2023-12-06T13:10:25').toString(), userId: 1 },
-];
-const oldTimeComp = [
-  { date: new Date('2023-12-06T13:10:25').toString(), userId: 2 },
-  { date: new Date('2023-12-06T13:10:25').toString(), userId: 2 },
-];
 
-describe('messageListHelper Test', () => {
+describe('[CHAT_UTILS] messageListHelper Test', () => {
   test('FIRST_MESSAGE', () => {
+    const firstMessage = [{ date: new Date().toString(), userId: 1 }];
+
     expect(
       messageListHelper(userId.toString(), firstMessage[0] as Messages, null)
     ).toBe('FIRST_MESSAGE');
   });
   test('FIRST_MESSAGE_COMP', () => {
+    const firstMessageComp = [{ date: new Date().toString(), userId: 2 }];
+
     expect(
       messageListHelper(
         userId.toString(),
@@ -47,6 +25,11 @@ describe('messageListHelper Test', () => {
     ).toBe('FIRST_MESSAGE_COMP');
   });
   test('NEW_DATE', () => {
+    const newDate = [
+      { date: new Date().toString(), userId: 1 },
+      { date: new Date('2053-03-1').toString(), userId: 1 },
+    ];
+
     expect(
       messageListHelper(
         userId.toString(),
@@ -56,6 +39,11 @@ describe('messageListHelper Test', () => {
     ).toBe('NEW_DATE');
   });
   test('NEW_DATE_COMP', () => {
+    const newDateComp = [
+      { date: new Date().toString(), userId: 2 },
+      { date: new Date('2053-03-1').toString(), userId: 1 },
+    ];
+
     expect(
       messageListHelper(
         userId.toString(),
@@ -65,6 +53,11 @@ describe('messageListHelper Test', () => {
     ).toBe('NEW_DATE_COMP');
   });
   test('NEW_TIME', () => {
+    const newTime = [
+      { date: new Date('2023-12-06T13:13:25').toString(), userId: 1 },
+      { date: new Date('2023-12-06T13:10:25').toString(), userId: 1 },
+    ];
+
     expect(
       messageListHelper(
         userId.toString(),
@@ -74,6 +67,11 @@ describe('messageListHelper Test', () => {
     ).toBe('NEW_TIME');
   });
   test('NEW_TIME_COMP', () => {
+    const newTimeComp = [
+      { date: new Date('2023-12-06T13:13:25').toString(), userId: 2 },
+      { date: new Date('2023-12-06T13:10:25').toString(), userId: 1 },
+    ];
+
     expect(
       messageListHelper(
         userId.toString(),
@@ -83,6 +81,11 @@ describe('messageListHelper Test', () => {
     ).toBe('NEW_TIME_COMP');
   });
   test('OLD_TIME', () => {
+    const oldTime = [
+      { date: new Date('2023-12-06T13:10:25').toString(), userId: 1 },
+      { date: new Date('2023-12-06T13:10:25').toString(), userId: 1 },
+    ];
+
     expect(
       messageListHelper(
         userId.toString(),
@@ -92,6 +95,11 @@ describe('messageListHelper Test', () => {
     ).toBe('OLD_TIME');
   });
   test('OLD_TIME_COMP', () => {
+    const oldTimeComp = [
+      { date: new Date('2023-12-06T13:10:25').toString(), userId: 2 },
+      { date: new Date('2023-12-06T13:10:25').toString(), userId: 2 },
+    ];
+
     expect(
       messageListHelper(
         userId.toString(),

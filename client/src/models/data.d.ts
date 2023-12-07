@@ -30,7 +30,7 @@ type Chat = {
 };
 
 type Profile = User & {
-  messages: Messages[];
+  messages: Messages[] | null;
 };
 
 type ChatWithInfo = Chat & {

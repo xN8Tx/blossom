@@ -4,6 +4,6 @@ import fromDateToTime from './fromDateToTime';
 
 const date = '2014-01-01T10:00:00';
 
-test('isMessageImage Tests', () => {
+test('[CHAT_UTILS] isMessageImage Tests', () => {
   expect(fromDateToTime(date)).toBe('10:00');
 });

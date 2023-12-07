@@ -2,7 +2,7 @@ import { RefObject, forwardRef, useContext, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '@/store';
-import { selectMessage } from '@chat/store/chatSelector';
+import selectMessageByMessageId from '@chat/store/selectors/selectMessageByMessageId';
 import { deleteMessage } from '@chat/store/chatThunk';
 
 import MenuContext from '@chat/context/MenuContext';
@@ -44,7 +44,7 @@ const MenuList = forwardRef<HTMLDivElement>((_, ref) => {
 
   const userId = useAppSelector((state) => state.user.data.id); // USER ID
   const message = useAppSelector((state) =>
-    selectMessage(state, Number(selectedMessageId), Number(id))
+    selectMessageByMessageId(state, Number(selectedMessageId), Number(id))
   ); // MESSAGE FROM STATE
   const isMessageFromUser =
     message && Number(message.userId) === Number(userId);

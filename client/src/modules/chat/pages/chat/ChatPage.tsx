@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '@/store';
 import { getChatMessages } from '@chat/store/chatThunk';
-import selectById from '@chat/store/chatSelector';
+import selectById from '@chat/store/selectors/selectById';
 
 import MenuProvider from '@chat/context/MenuProvider';
 

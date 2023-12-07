@@ -1,22 +1,23 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-import { useAppDispatch, useAppSelector } from '../../../../store';
-import { selectById } from '../../../contact/store/contacts/contactSelector';
-
-import Button from './button/Button';
-
-import MessagesIcon from '../../../../assets/svg/MessagesIcon';
-import ContactIcon from '../../../../assets/svg/ContactIcon';
-
-import style from './Buttons.module.scss';
+import { useAppDispatch, useAppSelector } from '@/store';
+import { selectById } from '@contact/store/contacts/contactSelector';
+import selectByCompanionId from '@chat/store/selectors/selectByCompanionId';
+import { createChat } from '@chat/store/chatThunk';
 import {
   deleteContact,
   postContact,
-} from '../../../contact/store/contacts/contactThunk';
-import { Contact } from '../../../../models/data';
-import { selectByCompanionId } from '../../../chat/store/chatSelector';
-import { createChat } from '../../../chat/store/chatThunk';
+} from '@contact/store/contacts/contactThunk';
+
+import Button from './button/Button';
+
+import MessagesIcon from '@/assets/svg/MessagesIcon';
+import ContactIcon from '@/assets/svg/ContactIcon';
+
+import type { Contact } from '@/models/data';
+
+import style from './Buttons.module.scss';
 
 export default function Buttons() {
   const dispatch = useAppDispatch();

@@ -2,7 +2,7 @@ import { MouseEvent, forwardRef, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { useAppSelector } from '@/store';
-import selectById from '@chat/store/chatSelector';
+import selectById from '@/modules/chat/store/selectors/selectById';
 
 import MenuContext from '@chat/context/MenuContext';
 
@@ -18,7 +18,7 @@ const MessageList = forwardRef<HTMLDivElement>((_, ref) => {
   const { setPosX, setPosY, isOpen, setIsOpen, setSelectedMessageId } =
     useContext(MenuContext);
 
-  const data = useAppSelector((state) => selectById(state, Number(id))!);
+  const data = useAppSelector((state) => selectById(state, Number(id!))!);
   const userId = useAppSelector((state) => state.user.data.id);
 
   const onContextMenu = (event: MouseEvent<HTMLDivElement>) => {

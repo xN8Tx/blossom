@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '@/store';
 import { readMessage } from '@chat/store/chatThunk';
-import selectById from '@chat/store/chatSelector';
+import selectById from '@/modules/chat/store/selectors/selectById';
 
 import MessageList from './message-list/MessageList';
 import Empty from './empty/Empty';

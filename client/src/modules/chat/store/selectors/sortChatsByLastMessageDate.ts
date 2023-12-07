@@ -1,27 +1,5 @@
-import type { ChatWithInfo, Messages } from '@/models/data';
+import type { ChatWithInfo } from '@/models/data';
 import type { RootState } from '@/store';
-
-const selectById = (state: RootState, id: number) => {
-  return state.chat.data?.find((chat) => Number(chat.id) === id);
-};
-
-const selectMessage = (
-  state: RootState,
-  messageId: number,
-  chatId: number
-): Messages | 0 => {
-  if (isNaN(messageId) || isNaN(chatId)) return 0;
-
-  const indexOfChat = state.chat.data!.findIndex(
-    (chat) => Number(chat.id) === chatId
-  );
-
-  if (indexOfChat === -1) return 0;
-
-  return state.chat.data![indexOfChat!].messages.find(
-    (message) => Number(message.id) === messageId
-  )!;
-};
 
 const sortChatsByLastMessageDate = (state: RootState) => {
   function quickSort(list: ChatWithInfo[]): ChatWithInfo[] {
@@ -66,11 +44,4 @@ const sortChatsByLastMessageDate = (state: RootState) => {
   return quickSort(state.chat.data!);
 };
 
-const selectByCompanionId = (state: RootState, userId: string) => {
-  return state.chat.data?.find(
-    (chat) => Number(chat.user.id) === Number(userId)
-  );
-};
-
-export default selectById;
-export { sortChatsByLastMessageDate, selectMessage, selectByCompanionId };
+export default sortChatsByLastMessageDate;
