@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Heading from '../../ui/headings/Heading';
+import Heading from '@/ui/headings/Heading';
 
 const meta = {
-  title: 'Example/Heading',
+  title: 'UI/Heading',
   component: Heading,
   parameters: {
     layout: 'centered',

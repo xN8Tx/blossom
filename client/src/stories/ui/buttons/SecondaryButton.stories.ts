@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import SecondaryButton from '../../ui/buttons/SecondaryButton/SecondaryButton';
+import SecondaryButton from '@/ui/buttons/SecondaryButton/SecondaryButton';
 
 const meta = {
-  title: 'Example/SecondaryButton',
+  title: 'UI/SecondaryButton',
   component: SecondaryButton,
   parameters: {
     layout: 'centered',

@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 
 import { useAppSelector } from '@/store';
 
-import SignForm from '@/components/signForm/SignForm';
+import SignForm from '@/components/sign-form/SignForm';
 import Heading from '@/ui/headings/Heading';
 import UserItem from '../user-item/UserItem';
 

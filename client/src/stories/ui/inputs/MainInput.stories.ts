@@ -1,16 +1,16 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import type { Meta, StoryObj } from '@storybook/react';
 
-import ButtonInput from '../../ui/inputs/button-input/ButtonInput';
+import MainInput from '../../../ui/inputs/main-input/MainInput';
 
 const meta = {
-  title: 'Example/ButtonInput',
-  component: ButtonInput,
+  title: 'UI/MainInput',
+  component: MainInput,
   parameters: {
     layout: 'centered',
   },
   tags: ['autodocs'],
-} satisfies Meta<typeof ButtonInput>;
+} satisfies Meta<typeof MainInput>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -19,8 +19,5 @@ export const Primary: Story = {
   args: {
     placeholder: 'Text',
     type: 'text',
-    onClick: () => console.log('Hi'),
-    position: 'left',
-    children: 'Hello',
   },
 };

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useAppSelector } from '@/store';
 import sortChatsByLastMessageDate from '@chat/store/selectors/sortChatsByLastMessageDate';
 
-import SignForm from '@/components/signForm/SignForm';
+import SignForm from '@/components/sign-form/SignForm';
 import ChatItem from '../chat-item/ChatItem';
 
 import style from './ChatList.module.scss';

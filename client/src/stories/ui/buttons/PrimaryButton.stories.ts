@@ -1,14 +1,14 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from '@storybook/react';
 
-import PrimaryButton from "../../ui/buttons/PrimaryButton/PrimaryButton";
+import PrimaryButton from '@/ui/buttons/PrimaryButton/PrimaryButton';
 
 const meta = {
-  title: "Example/PrimaryButton",
+  title: 'UI/PrimaryButton',
   component: PrimaryButton,
   parameters: {
     // layout: "centered",
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   args: {
     onClick: () => {},
   },
@@ -19,14 +19,14 @@ type Story = StoryObj<typeof meta>;
 
 export const Blue: Story = {
   args: {
-    children: "Log in",
-    color: "blue",
+    children: 'Log in',
+    color: 'blue',
   },
 };
 
 export const Red: Story = {
   args: {
-    children: "Log out",
-    color: "red",
+    children: 'Log out',
+    color: 'red',
   },
 };

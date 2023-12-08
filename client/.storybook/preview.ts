@@ -1,10 +1,14 @@
-import type { Preview } from "@storybook/react";
+import React from 'react';
+import { Suspense } from 'react';
 
-import "../src/index.scss";
+import type { Preview } from '@storybook/react';
+
+import '@/index.scss';
+import '@/i18n';
 
 const preview: Preview = {
   parameters: {
-    actions: { argTypesRegex: "^on[A-Z].*" },
+    actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {
       matchers: {
         color: /(background|color)$/i,

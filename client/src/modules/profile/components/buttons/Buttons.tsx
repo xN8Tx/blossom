@@ -25,16 +25,18 @@ export default function Buttons() {
   const { t } = useTranslation();
 
   const { id } = useParams();
-  const data = useAppSelector((state) => selectById(state, Number(id)));
+
+  const contact: Contact | null = useAppSelector((state) =>
+    selectById(state, Number(id))
+  );
   const chat = useAppSelector((state) => selectByCompanionId(state, id!));
 
-  const isContact = (data as Contact) !== undefined;
-
-  const contactId = (data as Contact)?.contactId;
+  const isContact = contact !== null;
+  const contactId = contact?.contactId;
 
   const onMessageClick = async () => {
-    if (chat !== undefined) {
-      navigate('/chat/' + chat.id);
+    if (chat !== null) {
+      navigate('/chat/' + chat!.id);
     } else {
       await dispatch(createChat(id!));
       navigate('/chat/');
@@ -45,7 +47,7 @@ export default function Buttons() {
     dispatch(postContact(Number(id)));
   };
   const onDeleteClick = () => {
-    dispatch(deleteContact(contactId));
+    if (contactId) dispatch(deleteContact(contactId));
   };
 
   const messageIcon = () => <MessagesIcon />;

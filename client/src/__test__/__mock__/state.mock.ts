@@ -178,7 +178,7 @@ const chat: ChatInitialState = {
         lastName: 'World4',
         username: 'helloWorld4',
         avatar: '',
-        status: false,
+        status: true,
       },
       messages: [
         {

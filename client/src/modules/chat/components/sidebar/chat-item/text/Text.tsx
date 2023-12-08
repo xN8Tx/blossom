@@ -34,8 +34,8 @@ export default function Text({ messages, notification }: TextProps) {
     messageText = newMess + '...';
   }
 
-  const isCompanionRead = Number(notification) > 0;
   const isUserMessage = Number(userId) === Number(lastMessage.userId);
+  const isCompanionRead = !isUserMessage && Number(notification) > 0;
 
   const isUserMessageRead = isUserMessage && lastMessage.status === true;
   const isUserMessageSend = isUserMessage && lastMessage.status === false;

@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import SignForm from '../../../../components/signForm/SignForm';
+import SignForm from '../../../../components/sign-form/SignForm';
 import style from './Error.module.scss';
 
 export default function Error() {

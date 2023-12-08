@@ -20,7 +20,7 @@ const Message = memo(({ isDate, isUser, messageObj }: MessageProps) => {
     <div
       className={style.container}
       is-user={isUser.toString()}
-      data-id={id}
+      data-id={id.toString()}
       is-active='false'
     >
       {isDate && <Time date={date} />}
