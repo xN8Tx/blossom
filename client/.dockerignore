@@ -10,3 +10,12 @@ node_modules
 docker-compose.yaml
 Dockerfile
 README.md
+.loki
+.storybook
+storybook-static
+src/storybook
+src/__test__
+src/**/*.test.ts
+src/**/*.test.tsx
+
+
