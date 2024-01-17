@@ -1,7 +1,5 @@
+import { Paragraph, PrimaryInput } from 'blossom-react-ui';
 import { useTranslation } from 'react-i18next';
-
-import Paragraph from '@/ui/paragraphs/Paragraph';
-import MainInput from '@/ui/inputs/main-input/MainInput';
 
 import style from './UsernameSection.module.scss';
 
@@ -22,10 +20,10 @@ export default function UsernameSection({
 
   return (
     <div className={style.wrapper}>
-      <Paragraph size='s' color='message'>
+      <Paragraph size='m' weight='medium' color='dark'>
         {t('auth.username')}
       </Paragraph>
-      <MainInput
+      <PrimaryInput
         placeholder={t('auth.username')}
         type='text'
         value={usernameValue}

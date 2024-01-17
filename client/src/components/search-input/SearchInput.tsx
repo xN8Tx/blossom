@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
+import { ButtonInput } from 'blossom-react-ui';
 
-import ButtonInput from '@/ui/inputs/button-input/ButtonInput';
 import SearchIcon from '@/assets/svg/SearchIcon';
 
 type SearchInputProps = {

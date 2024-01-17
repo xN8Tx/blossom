@@ -17,7 +17,7 @@
     display: block;
     border-radius: 50%;
 
-    background-color: var(--user-msg-change-color);
+    background-color: var(--blossom-ui-primary-text-color);
 
     &::after,
     &::before {
@@ -30,7 +30,7 @@
 
       border-radius: 50%;
 
-      background-color: var(--user-msg-change-color);
+      background-color: var(--blossom-ui-primary-text-color);
     }
 
     &::after {

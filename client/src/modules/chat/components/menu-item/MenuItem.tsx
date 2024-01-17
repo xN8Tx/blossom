@@ -1,14 +1,13 @@
 import { useTranslation } from 'react-i18next';
 
-import Paragraph from '@/ui/paragraphs/Paragraph';
-
 import style from './MenuItem.module.scss';
+import { Paragraph } from 'blossom-react-ui';
 
 type MenuItemProps = {
   name: string;
   icon: () => JSX.Element;
   onClick: (value?: unknown) => void;
-  color: 'user' | 'red';
+  color: 'primary' | 'red';
 };
 
 export default function MenuItem({
@@ -25,7 +24,7 @@ export default function MenuItem({
   return (
     <div className={style.item} onClick={onClick}>
       <div className={className}>{Icon}</div>
-      <Paragraph size='l' color={color}>
+      <Paragraph size='l' weight='medium' color={color}>
         {t(`menu.${name}`)}
       </Paragraph>
     </div>

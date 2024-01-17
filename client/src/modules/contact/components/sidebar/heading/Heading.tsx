@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Heading } from 'blossom-react-ui';
 
 import { useAppDispatch } from '@/store';
 import { getUsers } from '@contact/store/users/usersThunk';
 import { reset } from '@contact/store/users/usersSlice';
 
 import SearchInput from '@/components/search-input/SearchInput';
-import Heading from '@/ui/headings/Heading';
 
 import style from './Heading.module.scss';
 
@@ -39,7 +39,9 @@ export default function Headings() {
 
   return (
     <div className={style.wrapper}>
-      <Heading size='l'>{t('title.contacts')}</Heading>
+      <Heading size='m' weight='bold' color='primary'>
+        {t('title.contacts')}
+      </Heading>
       <SearchInput onClick={onClick} value={value} setValue={setValue} />
     </div>
   );

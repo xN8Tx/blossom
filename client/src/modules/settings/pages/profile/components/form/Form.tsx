@@ -1,10 +1,9 @@
 import { useState } from 'react';
+import { useModal } from 'blossom-react-ui';
 import { useTranslation } from 'react-i18next';
 
 import { useAppDispatch, useAppSelector } from '@/store';
 import { editUser } from '@/store/user/userThunk';
-
-import useModal from '@modal/hooks/useModal';
 
 import NameSection from '../name-section/NameSection';
 import UsernameSection from '../username-section/UsernameSection';
@@ -30,9 +29,9 @@ export default function Form() {
   const onEditClick = () => {
     const myModal = () => modal('error', t('auth.allField'));
 
-    if (firstNameValue.length === 0) myModal();
-    if (lastNameValue.length === 0) myModal();
-    if (usernameValue.length === 0) myModal();
+    if (firstNameValue.length <= 5) return myModal();
+    if (lastNameValue.length <= 5) return myModal();
+    if (usernameValue.length <= 5) return myModal();
     if (isEditLoaded === 'loading') return 0;
 
     const title = {

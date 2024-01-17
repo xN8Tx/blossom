@@ -1,11 +1,8 @@
 import { useTranslation } from 'react-i18next';
-
-import useModal from '@modal/hooks/useModal';
+import { Heading, useModal } from 'blossom-react-ui';
 
 import { useAppDispatch } from '@/store';
 import { editAvatar } from '@/store/user/userThunk';
-
-import Heading from '@/ui/headings/Heading';
 
 import cameraIcon from '../../assets/cameraIcon.svg';
 
@@ -51,7 +48,11 @@ export default function AvatarSection({
       </label>
       <div className={style.avatarContainer}>
         {urlToAvatar && <img src={urlToAvatar} alt='Avatar' />}
-        {!urlToAvatar && <Heading size='l'>{firstLetter}</Heading>}
+        {!urlToAvatar && (
+          <Heading size='m' weight='bold' color='primary'>
+            {firstLetter}
+          </Heading>
+        )}
       </div>
     </div>
   );

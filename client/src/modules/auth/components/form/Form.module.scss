@@ -8,14 +8,14 @@
   &[inp-mode='text'] {
     & > div > p {
       & > svg > path {
-        fill: var(--user-msg-change-color);
+        fill: var(--blossom-ui-primary-text-color);
       }
     }
   }
   &[inp-mode='password'] {
     & > div > p {
       & > svg > path {
-        fill: var(--msg-change-color);
+        fill: var(--blossom-ui-dark-text-color);
       }
     }
   }

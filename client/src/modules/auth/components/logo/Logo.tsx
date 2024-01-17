@@ -1,4 +1,4 @@
-import Heading from '@/ui/headings/Heading';
+import { Heading } from 'blossom-react-ui';
 
 import logo from '@/assets/images/logo.ico';
 
@@ -8,7 +8,9 @@ export default function Logo() {
   return (
     <div className={style.wrapper}>
       <img src={logo} alt='Logo' className={style.logo} />
-      <Heading size='l'>Blossom</Heading>
+      <Heading size='m' weight='bold' color='primary'>
+        Blossom
+      </Heading>
     </div>
   );
 }

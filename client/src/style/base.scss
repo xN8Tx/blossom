@@ -3,13 +3,13 @@
   font-family: 'DM Sans', sans-serif;
 
   &[data-color='green'] {
-    color: var(--green-base-color);
+    color: var(--blossom-ui-primary-green-color);
   }
   &[data-color='message'] {
-    color: var(--msg-change-color);
+    color: var(--blossom-ui-dark-text-color);
   }
   &[data-color='user'] {
-    color: var(--user-msg-change-color);
+    color: var(--blossom-ui-primary-text-color);
   }
 }
 
@@ -24,12 +24,12 @@
 .svg-fill-color {
   & > path,
   rect {
-    fill: var(--user-msg-change-color);
+    fill: var(--blossom-ui-primary-text-color);
   }
 }
 .svg-stroke-color {
   & > path,
   circle {
-    stroke: var(--user-msg-change-color);
+    stroke: var(--blossom-ui-primary-text-color);
   }
 }

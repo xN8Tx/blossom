@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { PrimaryButton, PrimaryInput } from 'blossom-react-ui';
 import { useTranslation } from 'react-i18next';
 import { Navigate } from 'react-router-dom';
 
@@ -7,8 +8,6 @@ import { login, registration } from '@/store/auth/authThunk';
 
 import useCodeLoading from '@auth/hooks/useCodeLoading';
 
-import MainInput from '@/ui/inputs/main-input/MainInput';
-import PrimaryButton from '@/ui/buttons/PrimaryButton/PrimaryButton';
 import ButtonsForm from '@auth/components/buttons-form/ButtonsForm';
 import Form from '@auth/components/form/Form';
 
@@ -59,14 +58,14 @@ export default function Code() {
       {isNotAuth && <Navigate to='/' />}
       {isCode && (
         <Form>
-          <MainInput
+          <PrimaryInput
             placeholder={t('auth.code')}
             type='text'
             value={code}
             onChange={onCodeChange}
           />
           <ButtonsForm>
-            <PrimaryButton onClick={checkCode}>
+            <PrimaryButton onClick={checkCode} color='blue'>
               {t('auth.confirmCode')}
             </PrimaryButton>
           </ButtonsForm>

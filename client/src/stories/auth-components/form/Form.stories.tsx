@@ -1,9 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import Form from '@/modules/auth/components/form/Form';
-import MainInput from '@/ui/inputs/main-input/MainInput';
-import PrimaryButton from '@/ui/buttons/PrimaryButton/PrimaryButton';
 import PasswordInput from '@auth/components/password-input/PasswordInput';
+import { PrimaryButton, PrimaryInput } from 'blossom-react-ui';
 
 const meta: Meta = {
   title: 'Auth Components/Form',
@@ -18,19 +17,21 @@ export const Classic: Story = {
   args: {
     children: (
       <>
-        <MainInput
+        <PrimaryInput
           value=''
           onChange={() => {}}
           placeholder='Input'
           type='text'
         />
-        <MainInput
+        <PrimaryInput
           value='Some text'
           onChange={() => {}}
           placeholder='Input 2'
           type='text'
         />
-        <PrimaryButton onClick={() => {}}>Button</PrimaryButton>
+        <PrimaryButton onClick={() => {}} color='blue'>
+          Button
+        </PrimaryButton>
       </>
     ),
   },
@@ -41,7 +42,7 @@ export const Password: Story = {
     inputMode: 'password',
     children: (
       <>
-        <MainInput
+        <PrimaryInput
           value=''
           onChange={() => {}}
           placeholder='Input'
@@ -53,7 +54,9 @@ export const Password: Story = {
           setPasswordInputType={() => {}}
           passwordInputType='password'
         />
-        <PrimaryButton onClick={() => {}}>Button</PrimaryButton>
+        <PrimaryButton onClick={() => {}} color='blue'>
+          Button
+        </PrimaryButton>
       </>
     ),
   },

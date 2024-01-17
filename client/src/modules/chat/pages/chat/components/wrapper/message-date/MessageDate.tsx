@@ -3,9 +3,8 @@ import { useTranslation } from 'react-i18next';
 
 import fromDateToDay from '@chat/utils/fromDateToDay';
 
-import Paragraph from '@/ui/paragraphs/Paragraph';
-
 import style from './MessageDate.module.scss';
+import { Paragraph } from 'blossom-react-ui';
 
 type MessageDate = {
   date: string;
@@ -19,7 +18,7 @@ const MessageDate = memo(({ date }: MessageDate) => {
   return (
     <div className={style.wrapper}>
       <span className={style.span}></span>
-      <Paragraph size='s' color='message'>
+      <Paragraph size='m' weight='medium' color='dark'>
         {readyDate}
       </Paragraph>
       <span className={style.span}></span>

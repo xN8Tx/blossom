@@ -7,10 +7,10 @@
   justify-content: flex-start;
   gap: 10px;
 
-  transition: var(--main-transition);
+  transition: var(--blossom-ui-main-transition);
 
   &:hover {
-    background-color: var(--msg-bg-change-color);
+    background-color: var(--blossom-ui-primary-background-color);
   }
 }
 
@@ -22,7 +22,7 @@
 
   &.red {
     & > svg > path {
-      stroke: var(--red-base-color);
+      stroke: var(--blossom-ui-primary-red-color);
     }
   }
 }

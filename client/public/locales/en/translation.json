@@ -108,5 +108,9 @@
     "search": "Search",
     "loading": "Loading",
     "close": "Close"
+  },
+  "theme": {
+    "dark": "Dark mode",
+    "light": "Light mode"
   }
 }

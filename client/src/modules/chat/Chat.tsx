@@ -1,10 +1,9 @@
-import { useEffect } from 'react';
+import { useModal } from 'blossom-react-ui';
 import { Outlet } from 'react-router-dom';
+import { useEffect } from 'react';
 
 import { useAppDispatch, useAppSelector } from '@/store';
 import { changeIsLoaded } from './store/chatSlice';
-
-import useModal from '../modal/hooks/useModal';
 
 import Sidebar from './components/sidebar/Sidebar';
 

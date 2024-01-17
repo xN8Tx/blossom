@@ -6,8 +6,8 @@
   bottom: 0;
 
   padding: 10px 0px;
-  background-color: var(--second-bg-change-color);
-  border-top: 1px solid var(--bg-change-color);
+  background-color: var(--blossom-ui-light-background-color);
+  border-top: 1px solid var(--blossom-ui-dark-background-color);
 
   display: flex;
   align-items: center;
@@ -18,11 +18,11 @@
 .link {
   & > svg {
     transform: scale(1);
-    transition: all ease-in 0.5s;
+    transition: var(--blossom-ui-main-transition);
 
     & > path,
     circle {
-      fill: var(--msg-change-color);
+      fill: var(--blossom-ui-dark-text-color);
     }
   }
 }
@@ -30,11 +30,11 @@
 .active {
   & > svg {
     transform: scale(1.2);
-    transition: all ease-in 0.5s;
+    transition: var(--blossom-ui-main-transition);
 
     & > path,
     circle {
-      fill: var(--user-msg-change-color);
+      fill: var(--blossom-ui-primary-text-color);
     }
   }
 }

@@ -4,11 +4,10 @@ import { useAppDispatch, useAppSelector } from '../../../../../store';
 import { reset } from '@contact/store/users/usersSlice';
 import { selectWithoutUser } from '@contact/store/users/usersSelector';
 
-import Paragraph from '@/ui/paragraphs/Paragraph';
-import Heading from '@/ui/headings/Heading';
 import UserItem from '../user-item/UserItem';
 
 import style from './Users.module.scss';
+import { Heading, Paragraph } from 'blossom-react-ui';
 
 export default function Users() {
   const dispatch = useAppDispatch();
@@ -22,10 +21,10 @@ export default function Users() {
   return (
     <div className={style.wrapper}>
       <div className={style.title}>
-        <Heading size='s' color='user'>
+        <Heading size='xs' weight='bold' color='primary'>
           {t('contact.globalSearch')}
         </Heading>
-        <Paragraph size='s' color='message' onClick={onClick}>
+        <Paragraph size='s' color='dark' onClick={onClick}>
           {t('etc.close').toLowerCase()}
         </Paragraph>
       </div>

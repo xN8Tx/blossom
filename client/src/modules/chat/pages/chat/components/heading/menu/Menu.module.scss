@@ -8,7 +8,7 @@
     pointer-events: all;
     visibility: visible;
     cursor: pointer;
-    transition: var(--main-transition);
+    transition: var(--blossom-ui-main-transition);
   }
 
   &[is-open='false'] {

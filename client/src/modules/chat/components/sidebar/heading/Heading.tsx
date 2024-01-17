@@ -1,8 +1,8 @@
 import { useState } from 'react';
+import { Heading } from 'blossom-react-ui';
 import { useTranslation } from 'react-i18next';
 
 import SearchInput from '@/components/search-input/SearchInput';
-import Heading from '@/ui/headings/Heading';
 
 import style from './Heading.module.scss';
 
@@ -17,7 +17,9 @@ export default function Headings() {
 
   return (
     <div className={style.wrapper}>
-      <Heading size='l'>{t('title.messages')}</Heading>
+      <Heading size='m' weight='bold' color='primary'>
+        {t('title.messages')}
+      </Heading>
       <SearchInput onClick={onClick} value={value} setValue={setValue} />
     </div>
   );

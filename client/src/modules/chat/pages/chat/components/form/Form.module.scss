@@ -15,7 +15,7 @@
 
   padding: 15px 35px;
 
-  background-color: var(--msg-bg-change-color);
+  background-color: var(--blossom-ui-primary-background-color);
 
   min-height: 80px;
 }
@@ -28,7 +28,7 @@
   padding: 0px 24px;
 
   border-radius: 25px;
-  background-color: var(--second-bg-change-color);
+  background-color: var(--blossom-ui-light-background-color);
 
   display: flex;
   align-items: center;
@@ -72,13 +72,13 @@
 
     & > path {
       transition: all ease-in 0.3s;
-      fill: var(--user-msg-change-color);
+      fill: var(--blossom-ui-primary-text-color);
     }
 
     @media (hover: hover) {
       &:hover {
         & > path {
-          fill: var(--msg-change-color);
+          fill: var(--blossom-ui-dark-text-color);
         }
       }
     }
@@ -100,7 +100,7 @@
   font-size: 14px;
   font-weight: 500;
 
-  color: var(--user-msg-change-color);
+  color: var(--blossom-ui-primary-text-color);
 
   resize: none;
 
@@ -126,13 +126,13 @@
   justify-content: space-between;
   align-items: center;
 
-  background-color: var(--msg-bg-change-color);
+  background-color: var(--blossom-ui-primary-background-color);
 }
 
 .changeWrapperText {
   display: flex;
   flex-direction: column;
-  border-left: 1px solid var(--msg-change-color);
+  border-left: 1px solid var(--blossom-ui-dark-text-color);
   padding-left: 10px;
   gap: 5px;
   max-width: 50%;
@@ -156,7 +156,7 @@
 
     display: block;
 
-    background-color: var(--msg-change-color);
+    background-color: var(--blossom-ui-dark-text-color);
     transform: rotate(45deg);
 
     &::after {
@@ -167,7 +167,7 @@
 
       width: 20px;
       height: 2px;
-      background-color: var(--msg-change-color);
+      background-color: var(--blossom-ui-dark-text-color);
 
       transform: rotate(-90deg);
     }

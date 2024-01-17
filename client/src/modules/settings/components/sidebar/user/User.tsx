@@ -1,9 +1,7 @@
+import { Heading, Paragraph } from 'blossom-react-ui';
 import { NavLink } from 'react-router-dom';
 
 import { useAppSelector } from '@/store';
-
-import Heading from '@/ui/headings/Heading';
-import Paragraph from '@/ui/paragraphs/Paragraph';
 
 import linkIcon from '@settings/assets/linkIcon.svg';
 
@@ -30,11 +28,17 @@ export default function User() {
           {avatarUrl && (
             <img src={avatarUrl} alt='Avatar' className={style.avatar} />
           )}
-          {!avatarUrl && <Heading size='l'>{firstLetter}</Heading>}
+          {!avatarUrl && (
+            <Heading size='m' weight='bold' color='primary'>
+              {firstLetter}
+            </Heading>
+          )}
         </div>
         <div className={style.text}>
-          <Heading size='s'>{name}</Heading>
-          <Paragraph size='l' color='user'>
+          <Heading size='xs' weight='bold'>
+            {name}
+          </Heading>
+          <Paragraph size='l' weight='medium' color='primary'>
             @{username}
           </Paragraph>
         </div>

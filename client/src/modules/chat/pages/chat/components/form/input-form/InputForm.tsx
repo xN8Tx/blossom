@@ -9,12 +9,12 @@ import MenuContext from '@chat/context/MenuContext';
 
 import isMessageEmpty from '@chat/utils/isMessageEmpty';
 
-import Paragraph from '@/ui/paragraphs/Paragraph';
 import ButtonForm from '../button-form/ButtonForm';
 
 import type { KeyboardEvent, ChangeEvent, MouseEvent } from 'react';
 
 import style from '../Form.module.scss';
+import { Paragraph } from 'blossom-react-ui';
 
 export default function InputForm() {
   const { t } = useTranslation();
@@ -103,7 +103,7 @@ export default function InputForm() {
         tabIndex={1}
         ref={textboxRef}
       ></div>
-      <Paragraph color='message' size='l'>
+      <Paragraph color='dark' size='l' weight='medium'>
         {t('chat.writeMessage')}
       </Paragraph>
       <ButtonForm onMyMessageSend={onMyMessageSend} />

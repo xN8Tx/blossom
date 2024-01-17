@@ -1,6 +1,6 @@
+import { Heading, Paragraph } from 'blossom-react-ui';
+
 import Avatar from '../../../../components/avatar/Avatar';
-import Heading from '../../../../ui/headings/Heading';
-import Paragraph from '../../../../ui/paragraphs/Paragraph';
 
 import style from './ProfileInfo.module.scss';
 
@@ -20,10 +20,10 @@ export default function ProfileInfo({
   return (
     <div className={style.info}>
       <Avatar size='l' firstName={firstName} avatar={avatar} isLink={false} />
-      <Heading size='l' color='user'>
+      <Heading size='m' weight='bold' color='primary'>
         {firstName} {lastName}
       </Heading>
-      <Paragraph size='l' color='message'>
+      <Paragraph size='l' weight='medium' color='dark'>
         @{username}
       </Paragraph>
     </div>

@@ -16,5 +16,5 @@ i18n
     debug: true,
     fallbackLng: 'en',
     detection: options,
-    supportedLngs: ['en', 'ru'],
+    supportedLngs: ['en', 'ru', 'kt'],
   });

@@ -1,8 +1,7 @@
 import { Link } from 'react-router-dom';
+import { Heading, Paragraph } from 'blossom-react-ui';
 
-import Paragraph from '@/ui/paragraphs/Paragraph';
 import Avatar from '@/components/avatar/Avatar';
-import Heading from '@/ui/headings/Heading';
 
 import style from './UserItem.module.scss';
 
@@ -35,10 +34,10 @@ export default function UserItem({
         status={status}
       />
       <div className={style.wrapper}>
-        <Heading size='s' color='user'>
+        <Heading size='xs' weight='bold' color='primary'>
           {firstName} {lastName}
         </Heading>
-        <Paragraph size='s' color='user'>
+        <Paragraph size='m' weight='medium' color='primary'>
           @{username}
         </Paragraph>
       </div>

@@ -9,7 +9,7 @@ export default function InDevelopment() {
 
   return (
     <div className={style.wrapper}>
-      <SignForm>{t('etc.inDevelopment')}</SignForm>;
+      <SignForm>{t('etc.inDevelopment')}</SignForm>
     </div>
   );
 }

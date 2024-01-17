@@ -23,7 +23,7 @@ type MenuItemProps = {
   name: string;
   icon: () => JSX.Element;
   onClick: (value?: unknown) => void;
-  color: 'user' | 'red';
+  color: 'primary' | 'red';
 };
 
 const MenuList = forwardRef<HTMLDivElement>((_, ref) => {
@@ -135,19 +135,19 @@ const MenuList = forwardRef<HTMLDivElement>((_, ref) => {
       name: 'forward',
       icon: () => <ForwardIcon />,
       onClick: forwardMessageHandler,
-      color: 'user',
+      color: 'primary',
     },
     {
       name: 'copy',
       icon: () => <CopyIcon />,
       onClick: copyMessageHandler,
-      color: 'user',
+      color: 'primary',
     },
     {
       name: 'edit',
       icon: () => <EditIcon />,
       onClick: editMessageHandler,
-      color: 'user',
+      color: 'primary',
     },
     {
       name: 'delete',

@@ -3,7 +3,7 @@
   height: 70px;
 
   border-radius: 15px;
-  background-color: var(--second-bg-change-color);
+  background-color: var(--blossom-ui-light-background-color);
 
   display: flex;
   flex-direction: column;
@@ -16,12 +16,12 @@
   transition: all ease-in 0.3s;
 
   &:focus {
-    background-color: var(--bg-change-color);
+    background-color: var(--blossom-ui-dark-background-color);
   }
 
   @media (hover: hover) {
     &:hover {
-      background-color: var(--bg-change-color);
+      background-color: var(--blossom-ui-dark-background-color);
     }
   }
 
@@ -30,10 +30,10 @@
     height: 24px !important;
 
     & > path {
-      fill: var(--user-msg-change-color);
+      fill: var(--blossom-ui-primary-text-color);
     }
     & > circle {
-      fill: var(--user-msg-change-color);
+      fill: var(--blossom-ui-primary-text-color);
     }
   }
 }

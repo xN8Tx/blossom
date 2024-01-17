@@ -1,9 +1,9 @@
 import { useTranslation } from 'react-i18next';
+import { Heading } from 'blossom-react-ui';
 
 import { useAppSelector } from '@/store';
 
 import SignForm from '@/components/sign-form/SignForm';
-import Heading from '@/ui/headings/Heading';
 import UserItem from '../user-item/UserItem';
 
 import style from './Contacts.module.scss';
@@ -16,7 +16,7 @@ export default function Contacts() {
 
   return (
     <div className={style.wrapper}>
-      <Heading size='s' color='user'>
+      <Heading size='xs' weight='bold' color='primary'>
         {t('title.contacts')}
       </Heading>
       <div className={style.container}>

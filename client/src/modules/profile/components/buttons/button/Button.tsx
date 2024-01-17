@@ -1,7 +1,7 @@
 import type React from 'react';
+import { Paragraph } from 'blossom-react-ui';
 
 import style from './Button.module.scss';
-import Paragraph from '../../../../../ui/paragraphs/Paragraph';
 
 type ButtonProps = {
   onClick: () => void;
@@ -13,7 +13,7 @@ export default function Button({ onClick, children, image }: ButtonProps) {
   return (
     <button className={style.wrapper} onClick={onClick}>
       {image()}
-      <Paragraph size='m' color='user'>
+      <Paragraph size='l' weight='regular' color='primary'>
         {children}
       </Paragraph>
     </button>

@@ -1,7 +1,5 @@
+import { Heading, Paragraph } from 'blossom-react-ui';
 import { useTranslation } from 'react-i18next';
-
-import Heading from '@/ui/headings/Heading';
-import Paragraph from '@/ui/paragraphs/Paragraph';
 
 import type { User } from '@/models/data';
 
@@ -18,15 +16,15 @@ export default function Title({ user }: TitleProps) {
 
   return (
     <div className={style.title}>
-      <Heading size='l' color='user'>
+      <Heading size='m' weight='bold' color='primary'>
         {name}
       </Heading>
       {user.status ? (
-        <Paragraph size='l' color='green'>
+        <Paragraph size='l' weight='medium' color='green'>
           {t('status.online')}
         </Paragraph>
       ) : (
-        <Paragraph size='l' color='red'>
+        <Paragraph size='l' weight='medium' color='red'>
           {t('status.offline')}
         </Paragraph>
       )}

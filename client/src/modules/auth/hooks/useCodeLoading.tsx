@@ -1,9 +1,8 @@
 import { useEffect } from 'react';
+import { useModal } from 'blossom-react-ui';
 import { useTranslation } from 'react-i18next';
 
 import { useAppSelector } from '@/store';
-
-import useModal from '@modal/hooks/useModal';
 
 const useCodeLoading = (type: 'codeLoading' | 'authLoading') => {
   const modal = useModal();

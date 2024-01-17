@@ -1,4 +1,4 @@
-import Paragraph from '@/ui/paragraphs/Paragraph';
+import { Paragraph } from 'blossom-react-ui';
 
 import sendedIcon from '@chat/assets/SendedIcon.svg';
 import readIcon from '@chat/assets/ReadIcon.svg';
@@ -16,7 +16,7 @@ export default function Body({ message, isUser, status }: BodyProps) {
 
   return (
     <div className={style.body}>
-      <Paragraph size='x' color='user'>
+      <Paragraph size='m' weight='medium' color='primary'>
         {message}
       </Paragraph>
       {isUser && <img src={statusUrl} />}

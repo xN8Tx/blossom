@@ -11,12 +11,12 @@
   border-radius: 20px;
 
   &:hover {
-    background-color: var(--bg-change-color);
+    background-color: var(--blossom-ui-dark-background-color);
   }
 }
 
 .active {
-  background-color: var(--bg-change-color);
+  background-color: var(--blossom-ui-dark-background-color);
   border-radius: 20px;
 
   & > .icon {

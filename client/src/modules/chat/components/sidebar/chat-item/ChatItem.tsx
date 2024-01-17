@@ -1,10 +1,9 @@
+import { Heading, Paragraph } from 'blossom-react-ui';
 import { Link } from 'react-router-dom';
 
 import timeHandler from '@/modules/chat/utils/fromDateToTime';
 
 import Avatar from '@/components/avatar/Avatar';
-import Heading from '@/ui/headings/Heading';
-import Paragraph from '@/ui/paragraphs/Paragraph';
 import Text from './text/Text';
 
 import type { Messages, User } from '@/models/data';
@@ -49,9 +48,11 @@ export default function ChatItem({
       />
       <div className={style.body}>
         <div className={style.title}>
-          <Heading size='s'>{name}</Heading>
+          <Heading size='xs' weight='bold' color='primary'>
+            {name}
+          </Heading>
           {isMessages && (
-            <Paragraph size='s' color='message'>
+            <Paragraph size='m' weight='medium' color='dark'>
               {time}
             </Paragraph>
           )}

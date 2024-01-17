@@ -1,10 +1,9 @@
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
+import { useModal } from 'blossom-react-ui';
 
 import { useAppDispatch } from '@/store';
 import { sendMessage } from '@chat/store/chatThunk';
-
-import useModal from '@modal/hooks/useModal';
 
 import SendIcon from '@chat/assets/SendIcon';
 import ClipIcon from '@chat/assets/ClipIcon';

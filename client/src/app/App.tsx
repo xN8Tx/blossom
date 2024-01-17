@@ -1,8 +1,7 @@
+import { Modal } from 'blossom-react-ui';
 import { Suspense } from 'react';
 
 import AppInit from './AppInit';
-
-import Modal from '@/modules/modal/Modal';
 import Router from '@/routes/Router';
 
 function App() {

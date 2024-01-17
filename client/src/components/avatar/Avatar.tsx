@@ -1,6 +1,5 @@
+import { Heading } from 'blossom-react-ui';
 import { Link } from 'react-router-dom';
-
-import Heading from '@/ui/headings/Heading';
 
 import style from './Avatar.module.scss';
 
@@ -31,7 +30,7 @@ export default function Avatar({
           {isAvatar ? (
             <img src={avatar} alt='Avatar' className={style.image} />
           ) : (
-            <Heading size='l' color='user'>
+            <Heading size='m' weight='bold' color='primary'>
               {firstLatter}
             </Heading>
           )}
@@ -51,7 +50,7 @@ export default function Avatar({
         {isAvatar ? (
           <img src={avatar} alt='Avatar' className={style.image} />
         ) : (
-          <Heading size='l' color='user'>
+          <Heading size='m' weight='bold' color='primary'>
             {firstLatter}
           </Heading>
         )}

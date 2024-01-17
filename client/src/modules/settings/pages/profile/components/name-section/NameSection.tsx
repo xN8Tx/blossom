@@ -1,6 +1,5 @@
 import { useTranslation } from 'react-i18next';
-
-import MainInput from '@/ui/inputs/main-input/MainInput';
+import { PrimaryInput } from 'blossom-react-ui';
 
 import style from './NameSection.module.scss';
 
@@ -29,13 +28,13 @@ export default function NameSection({
 
   return (
     <div className={style.wrapper}>
-      <MainInput
+      <PrimaryInput
         type='text'
         placeholder={t('auth.firstName')}
         value={firstNameValue}
         onChange={onFirstNameChange}
       />
-      <MainInput
+      <PrimaryInput
         type='text'
         placeholder={t('auth.lastName')}
         value={lastNameValue}

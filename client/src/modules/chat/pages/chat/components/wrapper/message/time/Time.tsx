@@ -1,4 +1,4 @@
-import Paragraph from '@/ui/paragraphs/Paragraph';
+import { Paragraph } from 'blossom-react-ui';
 
 import timeHandler from '@/modules/chat/utils/fromDateToTime';
 
@@ -13,7 +13,7 @@ export default function Time({ date }: TimeProps) {
 
   return (
     <div className={style.time}>
-      <Paragraph size='xs' color='message'>
+      <Paragraph size='m' weight='regular' color='dark'>
         {time}
       </Paragraph>
     </div>

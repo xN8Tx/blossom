@@ -27,7 +27,7 @@ export default function MenuList() {
   return (
     <div className={style.list}>
       <MenuItem
-        color='user'
+        color='primary'
         name='search'
         icon={searchIcon}
         onClick={() => {}}

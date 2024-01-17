@@ -1,6 +1,5 @@
 import { useTranslation } from 'react-i18next';
-
-import Paragraph from '@/ui/paragraphs/Paragraph';
+import { Paragraph } from 'blossom-react-ui';
 
 import style from '../Message.module.scss';
 
@@ -9,7 +8,7 @@ export default function Info() {
 
   return (
     <div className={style.info}>
-      <Paragraph size='xs' color='message'>
+      <Paragraph size='m' weight='regular' color='dark'>
         {t('chat.edited')}
       </Paragraph>
     </div>

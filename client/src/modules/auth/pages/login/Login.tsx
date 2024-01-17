@@ -1,17 +1,15 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Navigate } from 'react-router-dom';
+import { PrimaryButton, PrimaryInput, useModal } from 'blossom-react-ui';
 
 import { useAppDispatch, useAppSelector } from '@/store';
 import { sendLoginCode } from '@/store/auth/authThunk';
 import { addDataOnLogin } from '@/store/auth/authSlice';
 
-import useModal from '@modal/hooks/useModal';
 import useCodeLoading from '@auth/hooks/useCodeLoading';
 
 import MyLink from '@/ui/link/MyLink';
-import MainInput from '@/ui/inputs/main-input/MainInput';
-import PrimaryButton from '@/ui/buttons/PrimaryButton/PrimaryButton';
 import PasswordInput from '@/modules/auth/components/password-input/PasswordInput';
 import ButtonsForm from '@auth/components/buttons-form/ButtonsForm';
 import Form from '@auth/components/form/Form';
@@ -62,7 +60,7 @@ export default function Login() {
       {isCodeAndLoaded && <Navigate to='/code' />}
       {isNotAuth && (
         <Form inputMode={passwordInputType}>
-          <MainInput
+          <PrimaryInput
             placeholder={t('auth.email')}
             type='text'
             value={email}
@@ -75,7 +73,7 @@ export default function Login() {
             setPassword={setPassword}
           />
           <ButtonsForm>
-            <PrimaryButton onClick={onSendCode}>
+            <PrimaryButton onClick={onSendCode} color='blue'>
               {t('auth.sendCode')}
             </PrimaryButton>
             <MyLink to='/forgot'>{t('auth.forgotPassword')}</MyLink>

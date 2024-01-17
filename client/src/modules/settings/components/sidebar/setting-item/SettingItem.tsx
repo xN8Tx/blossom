@@ -1,7 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
-
-import Heading from '@/ui/headings/Heading';
+import { Heading } from 'blossom-react-ui';
 
 import linkIcon from '@settings/assets/linkIcon.svg';
 
@@ -27,7 +26,9 @@ export default function SettingItem({ image, title, to }: SettingItemProps) {
     <NavLink to={to} className={className}>
       <div className={style.title}>
         <img src={image} alt='Icon' />
-        <Heading size='s'>{name}</Heading>
+        <Heading size='xs' weight='bold' color='primary'>
+          {name}
+        </Heading>
       </div>
       <img src={linkIcon} alt='Next icon' className={style.icon} />
     </NavLink>

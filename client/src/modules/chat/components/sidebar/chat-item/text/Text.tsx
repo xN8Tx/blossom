@@ -1,5 +1,5 @@
-import Paragraph from '@/ui/paragraphs/Paragraph';
 import { useTranslation } from 'react-i18next';
+import { Paragraph } from 'blossom-react-ui';
 
 import { useAppSelector } from '@/store';
 
@@ -42,12 +42,12 @@ export default function Text({ messages, notification }: TextProps) {
 
   return (
     <div className={style.text}>
-      <Paragraph size='m' color='message'>
+      <Paragraph size='l' weight='medium' color='dark'>
         {isImage ? <b>{t('chat.image')}</b> : messageText}
       </Paragraph>
       {isCompanionRead && (
         <div className={style.icon}>
-          <Paragraph size='s' color='user'>
+          <Paragraph size='m' weight='medium' color='primary'>
             {notification}
           </Paragraph>
         </div>

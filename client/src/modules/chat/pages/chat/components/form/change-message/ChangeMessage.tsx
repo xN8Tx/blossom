@@ -7,9 +7,8 @@ import selectMessageByMessageId from '@chat/store/selectors/selectMessageByMessa
 
 import MenuContext from '@chat/context/MenuContext';
 
-import Paragraph from '@/ui/paragraphs/Paragraph';
-
 import style from '../Form.module.scss';
+import { Paragraph } from 'blossom-react-ui';
 
 export default function ChangeMessage() {
   const { t } = useTranslation();
@@ -31,10 +30,10 @@ export default function ChangeMessage() {
   return (
     <div className={style.changeWrapper}>
       <div className={style.changeWrapperText}>
-        <Paragraph color='message' size='xs'>
+        <Paragraph color='dark' size='m' weight='regular'>
           {t('chat.editMessage')}
         </Paragraph>
-        <Paragraph color='user' size='x'>
+        <Paragraph color='primary' size='m' weight='medium'>
           {message.message}
         </Paragraph>
       </div>

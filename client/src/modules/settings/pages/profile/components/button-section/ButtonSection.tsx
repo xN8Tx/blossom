@@ -1,9 +1,8 @@
+import { PrimaryButton } from 'blossom-react-ui';
 import { useTranslation } from 'react-i18next';
 
 import { useAppDispatch } from '@/store';
 import { logout } from '@/store/auth/authThunk';
-
-import PrimaryButton from '@/ui/buttons/PrimaryButton/PrimaryButton';
 
 import style from './ButtonSection.module.scss';
 

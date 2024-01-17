@@ -1,7 +1,6 @@
 import { useTranslation } from 'react-i18next';
+import { SecondaryButton } from 'blossom-react-ui';
 import { useNavigate } from 'react-router-dom';
-
-import SecondaryButton from '@/ui/buttons/SecondaryButton/SecondaryButton';
 
 import BackIcon from '@/assets/svg/BackIcon';
 

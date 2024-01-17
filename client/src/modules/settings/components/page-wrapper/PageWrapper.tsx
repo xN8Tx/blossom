@@ -1,9 +1,9 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { Heading } from 'blossom-react-ui';
 
 import BackButton from '@/components/back-button/BackButton';
-import Heading from '@/ui/headings/Heading';
 
 import style from './PageWrapper.module.scss';
 
@@ -21,7 +21,9 @@ export default function PageWrapper({ children }: PageWrapperProps) {
     <section className={style.wrapper}>
       <div className={style.heading}>
         <BackButton />
-        <Heading size='s'>{t(`settingsName.${url}`)}</Heading>
+        <Heading size='xs' weight='bold' color='primary'>
+          {t(`settingsName.${url}`)}
+        </Heading>
         <div></div>
       </div>
       {children}
