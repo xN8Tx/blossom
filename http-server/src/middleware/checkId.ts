@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import { errorLogManager } from 'database';
 
 import type { NextFunction, Request, Response } from 'express';
 import type { JwtPayload } from 'jsonwebtoken';
@@ -14,6 +15,10 @@ const checkId = (req: Request, res: Response, next: NextFunction) => {
   const decodeId = (decodeToken as JwtPayload).id;
 
   if (decodeId !== id) {
+    errorLogManager.addToLogs(
+      'Error in middleware checkId. decodeId !== id',
+      `${JSON.stringify(req.params)}\n${JSON.stringify(req.body)}`,
+    );
     return res.status(403).json({ message: 'Invalid access' });
   }
 

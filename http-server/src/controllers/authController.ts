@@ -1,6 +1,6 @@
 import CryptoJS from 'crypto-js';
 import jwt from 'jsonwebtoken';
-import { usersAPI, codeAPI } from 'database';
+import { usersAPI, codeAPI, errorLogManager } from 'database';
 
 import jwtGenerate from '../utils/jwtGenerate';
 import checkEmailUnique from '../utils/checkEmailUnique';
@@ -18,6 +18,10 @@ class AuthController {
       // Check is email is registered
       const isEmailUnique = checkEmailUnique(email);
       if (!isEmailUnique) {
+        errorLogManager.addToLogs(
+          'Double email registration',
+          `Email: ${email}`,
+        );
         return res.status(400).json({ message: 'Email is registered!' });
       }
 
@@ -26,7 +30,11 @@ class AuthController {
 
       res.status(200).json({ message: 'Code send' });
     } catch (error) {
-      res.status(500).json({ message: (error as Error).message });
+      errorLogManager.addToLogs(
+        'Error in AuthController in registrationCode',
+        `${(error as Error).message}`,
+      );
+      return res.status(500).json({ message: (error as Error).message });
     }
   }
   async registration(req: Request, res: Response) {
@@ -54,6 +62,13 @@ class AuthController {
         email.toLowerCase(),
       );
 
+      if (!user) {
+        errorLogManager.addToLogs(
+          'Error in AuthController in registration. User === null',
+          `${JSON.stringify(req.body)}`,
+        );
+        return res.status(500).json({ message: 'Can not create user!' });
+      }
       // Generate tokens
       const { accessToken, refreshToken } = jwtGenerate(user!.id, user!.email);
 
@@ -64,7 +79,11 @@ class AuthController {
       });
       res.status(200).json({ message: accessToken });
     } catch (error) {
-      res.status(500).json({ message: (error as Error).message });
+      errorLogManager.addToLogs(
+        'Error in AuthController in registration',
+        `${(error as Error).message}`,
+      );
+      return res.status(500).json({ message: (error as Error).message });
     }
   }
   async login(req: Request, res: Response) {
@@ -82,6 +101,14 @@ class AuthController {
       }
 
       const users = await usersAPI.getAllByEmail(email);
+
+      if (!users) {
+        errorLogManager.addToLogs(
+          'Error in AuthController in login. Users === null',
+          `${JSON.stringify(req.body)}`,
+        );
+        return res.status(400).json({ message: 'Check your email/password' });
+      }
 
       if (users!.length === 0) {
         return res.status(400).json({ message: 'Check your email/password' });
@@ -113,6 +140,10 @@ class AuthController {
       });
       return res.status(200).json({ message: accessToken });
     } catch (error) {
+      errorLogManager.addToLogs(
+        'Error in AuthController in login',
+        `${(error as Error).message}`,
+      );
       return res.status(500).json({ message: (error as Error).message });
     }
   }
@@ -121,6 +152,14 @@ class AuthController {
       const { email, password } = req.body;
 
       const users = await usersAPI.getAllByEmail(email.toLowerCase());
+
+      if (!users) {
+        errorLogManager.addToLogs(
+          'Error in AuthController in loginCode. Users === null',
+          `${JSON.stringify(req.body)}`,
+        );
+        return res.status(400).json({ message: 'Check your email/password' });
+      }
 
       if (users!.length === 0) {
         return res.status(400).json({ message: 'Check your email/password' });
@@ -145,7 +184,11 @@ class AuthController {
 
       res.status(200).json({ message: 'Code send' });
     } catch (error) {
-      res.status(500).json({ message: (error as Error).message });
+      errorLogManager.addToLogs(
+        'Error in AuthController in loginCode',
+        `${(error as Error).message}`,
+      );
+      return res.status(500).json({ message: (error as Error).message });
     }
   }
   async refresh(req: Request, res: Response) {
@@ -176,6 +219,10 @@ class AuthController {
         },
       );
     } catch (error) {
+      errorLogManager.addToLogs(
+        'Error in AuthController in refresh',
+        `${(error as Error).message}`,
+      );
       return res.status(500).json({ message: (error as Error).message });
     }
   }
@@ -184,7 +231,11 @@ class AuthController {
       res.clearCookie('refreshToken');
       return res.status(200).json({ message: 'You logout' });
     } catch (error) {
-      res.status(401).json({ message: (error as Error).message });
+      errorLogManager.addToLogs(
+        'Error in AuthController in logout',
+        `${(error as Error).message}`,
+      );
+      return res.status(401).json({ message: (error as Error).message });
     }
   }
 }

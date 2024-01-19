@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import { errorLogManager } from 'database';
 
 import type { Response, NextFunction, Request } from 'express';
 import type { MyRequest } from '../typings/express';
@@ -17,6 +18,10 @@ const tokenVerify = (req: Request, res: Response, next: NextFunction) => {
     process.env.ACCESS_TOKEN_SECRET as Secret,
     (error, user) => {
       if (error) {
+        errorLogManager.addToLogs(
+          'Error in middleware tokenVerify.',
+          `REQ_PARAMS: ${JSON.stringify(req.params)}\nREQ_BODY:${JSON.stringify(req.body)}\nERROR:${JSON.stringify(error)}`,
+        );
         return res.status(401).json({ message: 'Invalid token' });
       }
 

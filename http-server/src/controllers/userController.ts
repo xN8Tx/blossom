@@ -1,5 +1,5 @@
 import imageAPI from '../services/images/images.api';
-import { messagesAPI, usersAPI } from 'database';
+import { errorLogManager, messagesAPI, usersAPI } from 'database';
 
 import type { Request, Response } from 'express';
 import type { UserProfileDB, MessagesDB } from 'database';
@@ -17,7 +17,11 @@ class UserController {
 
       res.status(200).json({ message: user });
     } catch (error) {
-      res.status(500).json({ message: (error as Error).message });
+      errorLogManager.addToLogs(
+        'Error in UserController in getById',
+        `${(error as Error).message}`,
+      );
+      return res.status(500).json({ message: (error as Error).message });
     }
   }
   async getAllById(req: Request, res: Response) {
@@ -28,7 +32,11 @@ class UserController {
 
       res.status(200).json({ message: user });
     } catch (error) {
-      res.status(500).json({ message: (error as Error).message });
+      errorLogManager.addToLogs(
+        'Error in UserController in getAllById',
+        `${(error as Error).message}`,
+      );
+      return res.status(500).json({ message: (error as Error).message });
     }
   }
   async getByUsername(req: Request, res: Response) {
@@ -39,7 +47,11 @@ class UserController {
 
       res.status(200).json({ message: users });
     } catch (error) {
-      res.status(500).json({ message: (error as Error).message });
+      errorLogManager.addToLogs(
+        'Error in UserController in getByUsername',
+        `${(error as Error).message}`,
+      );
+      return res.status(500).json({ message: (error as Error).message });
     }
   }
   async edit(req: Request, res: Response) {
@@ -49,7 +61,11 @@ class UserController {
       const user = await usersAPI.edit(firstName, lastName, username, id);
       res.status(200).json({ message: user });
     } catch (error) {
-      res.status(500).json({ message: (error as Error).message });
+      errorLogManager.addToLogs(
+        'Error in UserController in edit',
+        `${(error as Error).message}`,
+      );
+      return res.status(500).json({ message: (error as Error).message });
     }
   }
   async getByIdWithMessages(req: Request, res: Response) {
@@ -66,7 +82,11 @@ class UserController {
 
       res.status(200).json({ message: user });
     } catch (error) {
-      res.status(500).json({ message: (error as Error).message });
+      errorLogManager.addToLogs(
+        'Error in UserController in getByIdWithMessages',
+        `${(error as Error).message}`,
+      );
+      return res.status(500).json({ message: (error as Error).message });
     }
   }
   async setAvatar(req: Request, res: Response) {
@@ -79,9 +99,21 @@ class UserController {
 
       const user = await usersAPI.setAvatar(webpAvatar, id);
 
+      if (!user) {
+        errorLogManager.addToLogs(
+          'Error in UserController in setAvatar',
+          `user === null`,
+        );
+        return res.status(400).json({ message: 'Invalid access' });
+      }
+
       res.status(200).json({ message: user });
     } catch (error) {
-      res.status(500).json({ message: (error as Error).message });
+      errorLogManager.addToLogs(
+        'Error in UserController in setAvatar',
+        `${(error as Error).message}`,
+      );
+      return res.status(500).json({ message: (error as Error).message });
     }
   }
 }
