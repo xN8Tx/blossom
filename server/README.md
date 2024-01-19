@@ -1,2 +1,0 @@
-# Blossom
-Fullstack messenger app
