@@ -1,4 +1,5 @@
 import ws from 'ws';
+import { errorLogManager } from 'database';
 
 import type { Message, WebsocketType } from '../typings/socket';
 
@@ -8,10 +9,18 @@ const broadcastMessage = (
   companionId: string,
 ) => {
   wss.clients.forEach((client) => {
-    if (Number((client as WebsocketType).id) === Number(companionId)) {
-      const data = JSON.stringify(title);
+    try {
+      if (Number((client as WebsocketType).id) === Number(companionId)) {
+        const data = JSON.stringify(title);
 
-      client.send(data);
+        client.send(data);
+      }
+    } catch (error) {
+      errorLogManager.addToLogs(
+        'Error in broadcastMessage',
+        `${(error as Error).message}`,
+      );
+      client.close();
     }
   });
 };

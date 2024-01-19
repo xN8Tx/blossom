@@ -1,5 +1,5 @@
 import ws from 'ws';
-import { messagesAPI } from 'database';
+import { messagesAPI, errorLogManager } from 'database';
 
 import broadcastMessage from '../utils/broadcastMessage';
 import imageAPI from '../services/images/images.api';
@@ -46,8 +46,11 @@ const onMessage = async (
     broadcastMessage(wss, title, message.body.companionId);
     ws.send(data);
   } catch (error) {
+    errorLogManager.addToLogs(
+      'Error in handlers/onCreateChat.ts',
+      `${(error as Error).message}`,
+    );
     ws.close();
-    console.log('Error in onMessage.ts. Error: ' + error);
   }
 };
 

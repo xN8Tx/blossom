@@ -1,4 +1,4 @@
-import { messagesAPI, membersAPI } from 'database';
+import { messagesAPI, membersAPI, errorLogManager } from 'database';
 
 import type {
   GetChatMessagesBody,
@@ -35,7 +35,10 @@ const onGetMessage = async (
 
     ws.send(data);
   } catch (error) {
-    console.log('Error onGetMessage. Error: ' + error);
+    errorLogManager.addToLogs(
+      'Error in handlers/onCreateChat.ts',
+      `${(error as Error).message}`,
+    );
     ws.close();
   }
 };

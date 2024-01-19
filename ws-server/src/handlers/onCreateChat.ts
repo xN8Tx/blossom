@@ -24,26 +24,30 @@ const onCreateChat = async (
     const companionInformation = await usersAPI.getById(companionId);
     const userInformation = await usersAPI.getById(message.body.userId);
 
-    if (!newChat)
-      return errorLogManager.addToLogs(
+    if (!newChat) {
+      errorLogManager.addToLogs(
         'Error in handlers/onCreateChat.ts',
         'newChat is null',
       );
-    if (!companionInformation)
-      return errorLogManager.addToLogs(
+      return ws.close();
+    }
+    if (!companionInformation) {
+      errorLogManager.addToLogs(
         'Error in handlers/onCreateChat.ts',
         'companionInformation is null',
       );
-    if (!userInformation)
-      return errorLogManager.addToLogs(
+      return ws.close();
+    }
+    if (!userInformation) {
+      errorLogManager.addToLogs(
         'Error in handlers/onCreateChat.ts',
         'userInformation is null',
       );
+      return ws.close();
+    }
 
     await membersAPI.post(newChat.id, Number(userId));
     await membersAPI.post(newChat.id, Number(companionId));
-
-    if (companionInformation !== null) return null;
 
     const titleToUser: Message<CreateChatBodyRes> = {
       event: 'CREATE_CHAT',
@@ -80,8 +84,11 @@ const onCreateChat = async (
     broadcastMessage(wss, titleToCompanion, companionId);
     ws.send(data);
   } catch (error) {
+    errorLogManager.addToLogs(
+      'Error in handlers/onCreateChat.ts',
+      `${(error as Error).message}`,
+    );
     ws.close();
-    console.log('Error in onCreateChat.ts. Error: ' + error);
   }
 };
 

@@ -1,5 +1,5 @@
 import ws from 'ws';
-import { membersAPI, messagesAPI } from 'database';
+import { membersAPI, messagesAPI, errorLogManager } from 'database';
 
 import broadcastMessage from '../utils/broadcastMessage';
 
@@ -39,6 +39,10 @@ const onDelete = async (
 
     broadcastMessage(wss, title, companionId);
   } catch (error) {
+    errorLogManager.addToLogs(
+      'Error in handlers/onCreateChat.ts',
+      `${(error as Error).message}`,
+    );
     ws.close();
   }
 };

@@ -1,5 +1,5 @@
 import ws from 'ws';
-import { messagesAPI, membersAPI } from 'database';
+import { messagesAPI, membersAPI, errorLogManager } from 'database';
 
 import broadcastMessage from '../utils/broadcastMessage';
 
@@ -45,6 +45,10 @@ const onEdit = async (
 
     broadcastMessage(wss, title, companionId);
   } catch (error) {
+    errorLogManager.addToLogs(
+      'Error in handlers/onCreateChat.ts',
+      `${(error as Error).message}`,
+    );
     ws.close();
   }
 };
