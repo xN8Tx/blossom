@@ -34,7 +34,7 @@ export default function SearchInput({
       placeholder={placeholder}
       type='text'
       position='left'
-      color='first'
+      color='primary'
     >
       <SearchIcon />
     </ButtonInput>
