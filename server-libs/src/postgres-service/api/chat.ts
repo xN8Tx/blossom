@@ -1,7 +1,8 @@
 import databasePool from '../connector/connector';
 import { errorLogManager } from '../../logs-manager';
+import { decryptMessages } from '../utils/decryptMessages';
 
-import { ChatDB, ChatsWithInfoDB } from '../typings/typings';
+import type { ChatDB, ChatsWithInfoDB, MessagesDB } from '../typings/typings';
 
 class ChatAPI {
   async post(
@@ -31,13 +32,19 @@ class ChatAPI {
       ]);
 
       const result = chatsWithInfo.rows.map((chat) => {
-        if (chat.messages[0] === null) {
+        if (chat.messages[0] == null) {
           chat.messages = [];
+        } else {
+          chat.messages = decryptMessages(chat.messages) as Omit<
+            MessagesDB,
+            'chatId'
+          >[];
         }
+
         return chat;
       });
 
-      return result;
+      return result as ChatsWithInfoDB[];
     } catch (error) {
       errorLogManager.addToLogs(
         '⚠️ Error in ChatAPI getByUserId',

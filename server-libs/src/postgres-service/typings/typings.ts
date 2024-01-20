@@ -60,6 +60,16 @@ type ChatsWithInfoDB = ChatDB & {
   messages: Omit<MessagesDB, 'chatId'>[];
 };
 
+type EditMessageDB = {
+  id: string;
+  message: string;
+  isEdit: boolean;
+};
+
+type DeleteMessageDB = {
+  id: string;
+};
+
 export type {
   ChatDB,
   MembersDB,
@@ -69,4 +79,6 @@ export type {
   ContactUserDB,
   UserProfileDB,
   ChatsWithInfoDB,
+  EditMessageDB,
+  DeleteMessageDB,
 };

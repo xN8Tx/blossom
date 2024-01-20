@@ -1,17 +1,14 @@
-import { errorLogManager } from '../../logs-manager';
+import CryptoJS from 'crypto-js';
+
 import databasePool from '../connector/connector';
+import { errorLogManager } from '../../logs-manager';
+import { decryptMessages } from '../utils/decryptMessages';
 
-import type { MessagesDB } from '../typings/typings';
-
-type EditMessageDB = {
-  id: string;
-  message: string;
-  isEdit: boolean;
-};
-
-type DeleteMessageDB = {
-  id: string;
-};
+import type {
+  MessagesDB,
+  DeleteMessageDB,
+  EditMessageDB,
+} from '../typings/typings';
 
 class MessagesAPI {
   async getByChatId(chatId: string): Promise<MessagesDB[] | null> {
@@ -21,7 +18,10 @@ class MessagesAPI {
         [chatId],
       );
 
-      return messages.rows;
+      const decrypt = decryptMessages(messages.rows);
+      if (!decrypt) return null;
+
+      return decrypt as MessagesDB[];
     } catch (error) {
       errorLogManager.addToLogs(
         '⚠️ Error in MessagesAPI getByChatId',
@@ -38,9 +38,14 @@ class MessagesAPI {
     date: Date,
   ): Promise<MessagesDB | null> {
     try {
+      const cryptMessage = CryptoJS.AES.encrypt(
+        message,
+        process.env.MESSAGE_CRYPT!,
+      ).toString();
+
       const _message = await databasePool.query<MessagesDB>(
         'INSERT INTO messages ("chatId", "userId", message, status, date) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-        [chatId, userId, message, status, date],
+        [chatId, userId, cryptMessage, status, date],
       );
 
       return _message.rows[0];
@@ -54,12 +59,30 @@ class MessagesAPI {
   }
   async edit(message: string, id: number): Promise<EditMessageDB | null> {
     try {
-      const _message = await databasePool.query<EditMessageDB>(
+      if (!process.env.MESSAGE_CRYPT) {
+        errorLogManager.addToLogs(
+          'Error in MessagesAPI edit',
+          'process.env.MESSAGE_CRYPT === null',
+        );
+        return null;
+      }
+
+      const encryptMessage = CryptoJS.AES.encrypt(
+        message,
+        process.env.MESSAGE_CRYPT,
+      ).toString();
+
+      const messages = await databasePool.query<EditMessageDB>(
         'UPDATE messages SET message = $1, "isEdit" = $2 WHERE id = $3 RETURNING id, message, "isEdit"',
-        [message, true, id],
+        [encryptMessage, true, id],
       );
 
-      return _message.rows[0];
+      const decrypt: EditMessageDB = {
+        ...messages.rows[0],
+        message: message,
+      };
+
+      return decrypt;
     } catch (error) {
       errorLogManager.addToLogs(
         '⚠️ Error in MessagesAPI edit',
@@ -112,7 +135,10 @@ class MessagesAPI {
         secondUserId,
       ]);
 
-      return messages.rows;
+      const decrypt = decryptMessages(messages.rows);
+      if (!decrypt) return null;
+
+      return decrypt as MessagesDB[];
     } catch (error) {
       errorLogManager.addToLogs(
         '⚠️ Error in MessagesAPI getByUserId',
@@ -128,7 +154,10 @@ class MessagesAPI {
         [id],
       );
 
-      return messages.rows[0];
+      const decrypt = decryptMessages(messages.rows[0]);
+      if (!decrypt) return null;
+
+      return decrypt as MessagesDB;
     } catch (error) {
       errorLogManager.addToLogs(
         '⚠️ Error in MessagesAPI getById',
