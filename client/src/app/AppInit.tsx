@@ -6,12 +6,20 @@ import decodeJWT from '@/utils/decodeJwt';
 
 import { useAppDispatch, useAppSelector } from '@/store';
 import { getUser } from '@/store/user/userThunk';
-import { getChats, startWebsocket } from '@/modules/chat/store/chatThunk';
+import {
+  getChats,
+  setWebsocketHandler,
+  startWebsocket,
+} from '@/modules/chat/store/chatThunk';
 import { getContacts } from '@/modules/contact/store/contacts/contactThunk';
+import { useModal } from 'blossom-react-ui';
+import { useTranslation } from 'react-i18next';
 
 export default function AppInit() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const modal = useModal();
+  const { t } = useTranslation();
 
   const { isAuth } = useAppSelector((state) => state.auth);
 
@@ -55,13 +63,25 @@ export default function AppInit() {
     dispatch(getChats());
   }, [userLoading]);
 
+  // Websocket
+  const openWebsocketHandler = () => modal('success', t('ws.success'));
+  const closeWebsocketHandler = () => modal('error', t('ws.error'));
+
   const isAllFetchable =
     userLoading === 'success' &&
     chatLoading === 'success' &&
     contactLoading === 'success';
+
   useEffect(() => {
     if (!isAllFetchable) return () => {};
-    dispatch(startWebsocket());
+    dispatch(
+      setWebsocketHandler({
+        openCb: openWebsocketHandler,
+        closeCb: closeWebsocketHandler,
+      })
+    ).then(() => {
+      dispatch(startWebsocket());
+    });
   }, [isAllFetchable]);
 
   return <></>;

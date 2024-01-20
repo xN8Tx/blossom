@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import $http from '@/api/httpApi';
-import websocketAPI from '@/api/WebsocketAPI';
+import websocketAPI, { HandlerFunctionType } from '@/api/WebsocketAPI';
 
 import {
   addCompanionStatus,
@@ -50,6 +50,11 @@ type EditDeleteMessageMessage = {
   };
 };
 
+type setWebsocketHandlerData = {
+  openCb: HandlerFunctionType;
+  closeCb: HandlerFunctionType;
+};
+
 const getChats = createAsyncThunk(
   '@@chats/getChats',
   async (_, { getState }) => {
@@ -59,19 +64,6 @@ const getChats = createAsyncThunk(
     const chats = await $http.get(url);
 
     return chats.data.message;
-  }
-);
-const startWebsocket = createAsyncThunk(
-  '@@chats/startWebsocket',
-  async (_, { getState, dispatch }) => {
-    const userId = (getState() as RootState).user.data.id;
-
-    const url = `/ws/${userId}`;
-    const res = await $http.get(url);
-    const key = res.data.message;
-
-    websocketAPI.setConnector((data) => dispatch(websocketConnector(data)));
-    websocketAPI.start(key);
   }
 );
 const sendMessage = createAsyncThunk(
@@ -264,6 +256,25 @@ const deleteChat = createAsyncThunk(
   }
 );
 
+const startWebsocket = createAsyncThunk(
+  '@@chats/startWebsocket',
+  async (_, { getState }) => {
+    const userId = (getState() as RootState).user.data.id;
+
+    const url = `/ws/${userId}`;
+    const res = await $http.get(url);
+    const key = res.data.message;
+
+    websocketAPI.start(key);
+  }
+);
+const setWebsocketHandler = createAsyncThunk(
+  '@@chat/setWebsocketHandler',
+  ({ openCb, closeCb }: setWebsocketHandlerData, { dispatch }) => {
+    websocketAPI.setHandlerFunctions(openCb, closeCb);
+    websocketAPI.setConnector((data) => dispatch(websocketConnector(data)));
+  }
+);
 const websocketConnector = createAsyncThunk(
   '@@chat/connector',
   async (data: Message<unknown>, { dispatch }) => {
@@ -300,7 +311,6 @@ const websocketConnector = createAsyncThunk(
     }
   }
 );
-
 export {
   getChats,
   startWebsocket,
@@ -312,4 +322,5 @@ export {
   getChatMessages,
   createChat,
   deleteChat,
+  setWebsocketHandler,
 };

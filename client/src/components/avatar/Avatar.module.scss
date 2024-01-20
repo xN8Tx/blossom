@@ -8,6 +8,11 @@
   &[data-size='m'] {
     width: 60px;
     height: 60px;
+
+    @media (max-width: 546px) {
+      width: 45px;
+      height: 45px;
+    }
   }
   &[data-size='l'] {
     width: 150px;

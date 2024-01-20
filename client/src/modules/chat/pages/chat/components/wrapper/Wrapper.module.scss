@@ -10,4 +10,8 @@
   &::-webkit-scrollbar {
     width: 0;
   }
+
+  @media (max-width: 546px) {
+    height: calc(100% - 80px - 75px);
+  }
 }

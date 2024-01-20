@@ -7,7 +7,7 @@ import selectById from '@chat/store/selectors/selectById';
 
 import MenuProvider from '@chat/context/MenuProvider';
 
-import Header from './components/heading/Header';
+import Header from './components/header/Header';
 import Form from './components/form/Form';
 import Wrapper from './components/wrapper/Wrapper';
 import Menu from './components/menu/Menu';

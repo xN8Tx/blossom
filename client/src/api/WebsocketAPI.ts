@@ -1,15 +1,26 @@
 import { Message } from '@/models/socket';
 
+type ConnectorType = (message: Message<unknown>) => void;
+type HandlerFunctionType = () => void;
+
 class WebsocketAPI {
+  public isSocketRestart: boolean = true;
   private socket: WebSocket | null = null;
-  private connector: ((message: Message<unknown>) => void) | null = null;
+  private connector: ConnectorType | null = null;
+  private openHandlerFunction: HandlerFunctionType | null = null;
+  private closeHandlerFunction: HandlerFunctionType | null = null;
 
   private closeHandler() {
-    console.log('Socket closed');
+    if (this.closeHandlerFunction) {
+      return this.closeHandlerFunction();
+    }
+    return console.log('Connection closed!');
   }
 
   private openHandler() {
-    console.log('Connection open!');
+    this.isSocketRestart = false;
+    if (this.openHandlerFunction) return this.openHandlerFunction();
+    return console.log('Connection opened!');
   }
 
   private receiveMessage(event: MessageEvent) {
@@ -18,13 +29,21 @@ class WebsocketAPI {
     this.connector!(newMessage);
   }
 
+  setHandlerFunctions(
+    openCb: HandlerFunctionType,
+    closeCb: HandlerFunctionType
+  ) {
+    this.closeHandler = closeCb;
+    this.openHandler = openCb;
+  }
+
   isSocketOpen() {
     if (this.socket === null) return false;
     if (this.socket.readyState === this.socket.OPEN) return true;
     return false;
   }
 
-  setConnector(callback: (message: Message<unknown>) => void) {
+  setConnector(callback: ConnectorType) {
     this.connector = callback;
   }
 
@@ -35,6 +54,8 @@ class WebsocketAPI {
     const socketURL = `${import.meta.env.VITE_WS_SERVER_URL}${key}`;
 
     this.socket = new WebSocket(socketURL);
+    this.socket.addEventListener('error', () => console.log('error'));
+    this.socket.addEventListener('close', this.closeHandler.bind(websocketAPI));
     this.socket.addEventListener('open', this.openHandler.bind(websocketAPI));
     this.socket.addEventListener(
       'message',
@@ -57,3 +78,4 @@ class WebsocketAPI {
 const websocketAPI = new WebsocketAPI();
 
 export default websocketAPI;
+export type { HandlerFunctionType, ConnectorType };

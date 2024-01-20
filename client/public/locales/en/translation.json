@@ -112,5 +112,9 @@
   "theme": {
     "dark": "Dark mode",
     "light": "Light mode"
+  },
+  "ws": {
+    "error": "Connection close. Reload the page.",
+    "success": "Connection success."
   }
 }
