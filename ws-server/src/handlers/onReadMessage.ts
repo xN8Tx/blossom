@@ -22,7 +22,20 @@ const onReadMessage = async (
 
     const messages = await messagesAPI
       .changeMessagesStatus(userId, chatId)
-      .then(async () => await messagesAPI.getByChatId(chatId));
+      .then(async () => {
+        const messages = await messagesAPI.getByChatId(chatId);
+        if (messages === null) {
+          errorLogManager.addToLogs(
+            'Error in onReadMessage',
+            'messages === null',
+          );
+          return ws.close();
+        }
+        if (messages.length === 0) {
+          return [];
+        }
+        return messages;
+      });
 
     const title: Message<ReadMessageBodyRes> = {
       event: 'READ_MESSAGE',

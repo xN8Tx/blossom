@@ -20,9 +20,20 @@ const onGetMessage = async (
       Number(userId),
     );
 
-    if (members?.length === 0) return ws.close();
+    if (members?.length === 0) {
+      errorLogManager.addToLogs(
+        'Invalid access',
+        `Message: ${message}\nWS:${ws}`,
+      );
+      return ws.close();
+    }
 
     const messages = await messagesAPI.getByChatId(chatId);
+
+    // if (messages === null) {
+    //   errorLogManager.addToLogs('Error in onGetMessage', 'messages === null');
+    //   return ws.close();
+    // }
 
     const title: Message<GetChatMessagesBodyRes> = {
       event: 'GET_CHAT_MESSAGE',

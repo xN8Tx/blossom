@@ -5,6 +5,7 @@ import broadcastMessage from '../utils/broadcastMessage';
 import imageAPI from '../services/images/images.api';
 import isMessageImage from '../utils/isMessageImage';
 
+import type { MessagesDB } from 'database';
 import type {
   MessageBody,
   Message,
@@ -34,11 +35,21 @@ const onMessage = async (
       date,
     );
 
+    if (newMessage === null) {
+      errorLogManager.addToLogs('Error in onMessage', `newMessage === null`);
+      return ws.close();
+    }
+
+    const decryptMessage: MessagesDB = {
+      ...newMessage,
+      message: _mes,
+    };
+
     const title: Message<MessageBodyRes> = {
       event: 'MESSAGE',
       body: {
         chatId: chatId.toString(),
-        message: newMessage!,
+        message: decryptMessage,
       },
     };
     const data = JSON.stringify(title);
