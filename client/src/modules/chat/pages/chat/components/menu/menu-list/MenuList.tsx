@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from '@/store';
 import selectMessageByMessageId from '@chat/store/selectors/selectMessageByMessageId';
 import { deleteMessage } from '@chat/store/chatThunk';
 
-import MenuContext from '@chat/context/MenuContext';
+import MenuContext from '@/modules/chat/context/menu/MenuContext';
 import isMessageImage from '@chat/utils/isMessageImage';
 
 import MenuItem from '@chat/components/menu-item/MenuItem';

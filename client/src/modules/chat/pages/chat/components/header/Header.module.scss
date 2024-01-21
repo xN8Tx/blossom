@@ -1,5 +1,11 @@
 .header {
-  width: 100%;
+  width: calc(100% - 333px);
+  height: 90px;
+
+  position: fixed;
+  top: 0;
+  left: 333px;
+  z-index: 10;
 
   padding: 15px 35px;
 
@@ -9,9 +15,20 @@
   gap: 15px;
   align-items: center;
   justify-content: space-between;
+
+  &[is-modal-open='true'] {
+    top: 45px;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    left: 0;
+  }
 }
 
 .container {
+  width: 100%;
+
   display: flex;
   gap: 20px;
 

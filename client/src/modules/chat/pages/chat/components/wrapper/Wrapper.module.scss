@@ -1,6 +1,13 @@
 .wrapper {
-  width: 100%;
-  height: calc(100% - 90px - 80px);
+  width: calc(100% - 333px);
+  height: 100%;
+  /* height: calc(100vh - 90px - 80px); */
+  /* padding-bottom: 80px; */
+
+  position: fixed;
+  left: 333px;
+  bottom: 80px;
+  margin-top: 90px;
 
   overflow-y: scroll;
   overflow-x: hidden;
@@ -11,7 +18,18 @@
     width: 0;
   }
 
+  @media (max-width: 768px) {
+    width: 100%;
+    left: 0;
+  }
+
   @media (max-width: 546px) {
-    height: calc(100% - 80px - 75px);
+    /* height: 100vh; */
+    bottom: 75px;
+
+    &[is-emoji-open='true'] {
+      /* height: calc(100% - 80px - 75px - 250px); */
+      bottom: calc(75px + 250px);
+    }
   }
 }

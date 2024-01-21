@@ -1,49 +1,55 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Paragraph } from 'blossom-react-ui';
 import { useParams } from 'react-router-dom';
+
+import InputContext from '@chat/context/input/InputContext';
+import EmojiContext from '@chat/context/emoji/EmojiContext';
+import EmojiButton from '../emoji-button/EmojiButton';
+
+import MenuContext from '@chat/context/menu/MenuContext';
+import ButtonForm from '../button-form/ButtonForm';
 
 import selectMessageByMessageId from '@chat/store/selectors/selectMessageByMessageId';
 import { editMessage, sendMessage } from '@chat/store/chatThunk';
 import { useAppDispatch, useAppSelector } from '@/store';
-import MenuContext from '@chat/context/MenuContext';
 
 import isMessageEmpty from '@chat/utils/isMessageEmpty';
-
-import ButtonForm from '../button-form/ButtonForm';
 
 import type { KeyboardEvent, ChangeEvent, MouseEvent } from 'react';
 
 import style from '../Form.module.scss';
-import { Paragraph } from 'blossom-react-ui';
 
 export default function InputForm() {
+  const textboxRef = useRef<HTMLDivElement>(null);
   const { t } = useTranslation();
   const { id } = useParams();
+
   const dispatch = useAppDispatch();
-  const textboxRef = useRef<HTMLDivElement>(null);
+
   const { editMessageId, setEditMessageId } = useContext(MenuContext);
+  const { inputValue, setInputValue } = useContext(InputContext);
+  const { setIsEmojiOpen } = useContext(EmojiContext);
+
+  const isContent = `${inputValue.length > 0}`;
 
   const message = useAppSelector((state) =>
     selectMessageByMessageId(state, Number(editMessageId), Number(id))
   );
 
-  const [myMessage, setMyMessage] = useState<string>('');
-
-  const isContent = `${myMessage.length > 0}`;
-
   // HANDLER TO MY DIV INPUT
   const onMyMessageChange = (event: ChangeEvent<HTMLDivElement>) => {
-    setMyMessage(event.currentTarget.textContent!);
+    setInputValue(event.currentTarget.textContent!);
   };
 
   // SEND MESSAGE HANDLER
   const sendMyMessage = () => {
-    if (myMessage.length === 0) return 0;
-    if (isMessageEmpty(myMessage)) return 0;
+    if (inputValue.length === 0) return 0;
+    if (isMessageEmpty(inputValue)) return 0;
 
     if (editMessageId === '') {
       const title = {
-        message: myMessage,
+        message: inputValue,
         chatId: id!,
       };
 
@@ -53,14 +59,14 @@ export default function InputForm() {
         chatId: id!,
         message: {
           id: editMessageId,
-          message: myMessage,
+          message: inputValue,
         },
       };
 
       dispatch(editMessage(title));
       setEditMessageId('');
     }
-    setMyMessage('');
+    setInputValue('');
     textboxRef.current!.textContent = '';
   };
 
@@ -79,25 +85,43 @@ export default function InputForm() {
     }
   };
 
+  // TURN OFF EMOJI WHEN KEYBOARD
+  const onFocusHandler = () => {
+    setIsEmojiOpen(false);
+  };
+
   useEffect(() => {
-    setMyMessage('');
+    const isDifMessage =
+      typeof textboxRef.current!.textContent === 'string' &&
+      textboxRef.current!.textContent !== inputValue;
+
+    if (isDifMessage) {
+      textboxRef.current!.textContent = inputValue;
+    }
+  }, [inputValue]);
+
+  useEffect(() => {
+    setInputValue('');
     textboxRef.current!.textContent = '';
   }, [id]);
 
   useEffect(() => {
     if (message) {
-      setMyMessage(message.message);
+      setInputValue(message.message);
       textboxRef.current!.textContent = message.message;
     }
   }, [message]);
 
   return (
     <form className={style.form}>
+      <EmojiButton />
       <div
+        id='ChatInput'
         is-content={isContent}
         contentEditable
         role='textbox'
         onInput={onMyMessageChange}
+        onFocus={onFocusHandler}
         onKeyDown={onEnterClick}
         className={style.input}
         tabIndex={1}

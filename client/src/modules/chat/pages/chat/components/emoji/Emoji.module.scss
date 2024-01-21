@@ -1,0 +1,73 @@
+.EmojiWrapper {
+  position: absolute;
+
+  bottom: 90px;
+  left: 35px;
+
+  opacity: 1;
+  pointer-events: auto;
+
+  @media (max-width: 546px) {
+    width: 100%;
+
+    position: fixed;
+    left: 0;
+    bottom: 0;
+
+    opacity: 1;
+    border: 1px solid var(--blossom-ui-border-color);
+
+    transition: var(--blossom-ui-main-transition);
+    transform: translateY(100px);
+
+    &[is-open='true'] {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    & > aside {
+      width: 100% !important;
+      height: 250px !important;
+
+      border-radius: 0 !important;
+    }
+  }
+
+  &[is-open='false'] {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  & > aside {
+    height: 250px !important;
+
+    background-color: var(--blossom-ui-primary-background-color);
+    border: 1px solid var(--blossom-ui-primary-background-color);
+
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 15px;
+      background-color: var(--blossom-ui-primary-background-color);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: var(--blossom-ui-primary-text-color);
+      border-radius: 3px;
+    }
+
+    & > div {
+      & > ul > li > h2 {
+        background-color: var(--blossom-ui-primary-background-color);
+        color: var(--blossom-ui-primary-text-color);
+      }
+    }
+
+    /* & > div:first-child {
+      display: none;
+    } */
+
+    & > div:last-child {
+      display: none;
+    }
+  }
+}

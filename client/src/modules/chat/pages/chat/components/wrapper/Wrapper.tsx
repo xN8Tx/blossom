@@ -1,9 +1,11 @@
-import { useEffect, useRef } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '@/store';
 import { readMessage } from '@chat/store/chatThunk';
-import selectById from '@/modules/chat/store/selectors/selectById';
+import selectById from '@chat/store/selectors/selectById';
+
+import EmojiContext from '@chat/context/emoji/EmojiContext';
 
 import MessageList from './message-list/MessageList';
 import Empty from './empty/Empty';
@@ -11,12 +13,16 @@ import Empty from './empty/Empty';
 import style from './Wrapper.module.scss';
 
 export default function Wrapper() {
-  const { id } = useParams();
   const dispatch = useAppDispatch();
+
+  const { id } = useParams();
   const messages = useAppSelector((state) => selectById(state, Number(id)));
+  const { isEmojiOpen, setIsEmojiOpen } = useContext(EmojiContext);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
+
+  const closeEmojiHandler = () => setIsEmojiOpen(false);
 
   useEffect(() => {
     containerRef.current?.scrollTo({
@@ -34,7 +40,12 @@ export default function Wrapper() {
   const isNull = messages?.messages.length === 0;
 
   return (
-    <div className={style.wrapper} ref={containerRef}>
+    <div
+      className={style.wrapper}
+      ref={containerRef}
+      onClick={closeEmojiHandler}
+      is-emoji-open={`${isEmojiOpen}`}
+    >
       {isNull && <Empty />}
       {!isNull && <MessageList ref={listRef} />}
     </div>

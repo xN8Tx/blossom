@@ -32,4 +32,8 @@
   circle {
     stroke: var(--blossom-ui-primary-text-color);
   }
+  & > g > path,
+  circle {
+    stroke: var(--blossom-ui-primary-text-color);
+  }
 }

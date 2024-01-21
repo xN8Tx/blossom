@@ -5,12 +5,15 @@ import { useAppDispatch, useAppSelector } from '@/store';
 import { getChatMessages } from '@chat/store/chatThunk';
 import selectById from '@chat/store/selectors/selectById';
 
-import MenuProvider from '@chat/context/MenuProvider';
+import MenuProvider from '@/modules/chat/context/menu/MenuProvider';
+import EmojiProvider from '../../context/emoji/EmojiProvider';
+import InputProvider from '../../context/input/InputProvider';
 
 import Header from './components/header/Header';
 import Form from './components/form/Form';
 import Wrapper from './components/wrapper/Wrapper';
 import Menu from './components/menu/Menu';
+import Emoji from './components/emoji/Emoji';
 
 import style from './ChatPage.module.scss';
 
@@ -33,10 +36,15 @@ export default function ChatPage() {
   return (
     <section className={style.wrapper}>
       <MenuProvider>
-        <Header />
-        {isRender && <Wrapper />}
-        <Menu />
-        <Form />
+        <InputProvider>
+          <EmojiProvider>
+            <Header />
+            <Menu />
+            {isRender && <Wrapper />}
+            <Form />
+            <Emoji />
+          </EmojiProvider>
+        </InputProvider>
       </MenuProvider>
     </section>
   );

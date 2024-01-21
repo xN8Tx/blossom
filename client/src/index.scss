@@ -5,4 +5,11 @@
 
 body {
   background-color: var(--blossom-ui-dark-background-color);
+  max-height: 100vh;
+  /* overflow: hidden; */
+}
+
+[modal-state] {
+  z-index: 100;
+  position: relative;
 }

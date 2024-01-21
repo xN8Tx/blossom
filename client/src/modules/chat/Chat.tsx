@@ -7,6 +7,8 @@ import { changeIsLoaded } from './store/chatSlice';
 
 import Sidebar from './components/sidebar/Sidebar';
 
+import style from './Chat.module.scss';
+
 export default function Chat() {
   const modal = useModal();
   const dispatch = useAppDispatch();
@@ -37,7 +39,7 @@ export default function Chat() {
   return (
     <>
       {isShow && (
-        <main className='page-wrapper'>
+        <main className={`page-wrapper ${style.wrapper}`}>
           <Sidebar />
           <Outlet />
         </main>

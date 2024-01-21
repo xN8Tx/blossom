@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { useAppSelector } from '@/store';
 import selectById from '@/modules/chat/store/selectors/selectById';
 
-import MenuContext from '@chat/context/MenuContext';
+import MenuContext from '@/modules/chat/context/menu/MenuContext';
 
 import MessageWithDate from '../message-with-date/MessageWithDate';
 import Message from '../message/Message';

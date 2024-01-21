@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useAppSelector } from '@/store';
 import selectMessageByMessageId from '@chat/store/selectors/selectMessageByMessageId';
 
-import MenuContext from '@chat/context/MenuContext';
+import MenuContext from '@/modules/chat/context/menu/MenuContext';
 
 import style from '../Form.module.scss';
 import { Paragraph } from 'blossom-react-ui';

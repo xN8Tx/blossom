@@ -1,13 +1,29 @@
 .container {
-  width: 100%;
+  width: calc(100% - 333px);
+  height: 80px;
 
-  position: absolute;
+  position: fixed;
   bottom: 0;
-  left: 0;
+  left: 333px;
+  z-index: 10;
 
   display: flex;
   flex-direction: column;
   gap: 0px;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    left: 0;
+  }
+
+  @media (max-width: 546px) {
+    transition: var(--blossom-ui-main-transition);
+    transform: translateY(0);
+
+    &[is-emoji-open='true'] {
+      transform: translateY(-250px);
+    }
+  }
 }
 
 .wrapper {
@@ -36,7 +52,7 @@
 
   & > p {
     position: absolute;
-    left: 24px;
+    left: 70px;
     transform: translateX(0);
     opacity: 1;
     transition: all ease 0.3s;
@@ -44,12 +60,40 @@
     overflow: hidden;
     text-overflow: ellipsis;
     pointer-events: none;
+    line-height: 100%;
   }
 }
 
 .buttons {
   display: flex;
   gap: 20px;
+}
+
+.emojiButton {
+  background-color: transparent;
+  position: relative;
+  width: 30px;
+  height: 30px;
+
+  & > svg {
+    width: 30px;
+    height: 30px;
+
+    & > g > path,
+    circle {
+      transition: all ease-in 0.3s;
+      stroke: var(--blossom-ui-primary-text-color);
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        & > g > path,
+        circle {
+          stroke: var(--blossom-ui-dark-text-color);
+        }
+      }
+    }
+  }
 }
 
 .button {
@@ -89,7 +133,7 @@
   width: 100%;
   min-height: 50px;
 
-  padding: 15px 0;
+  padding: 19px 20px;
 
   white-space: pre-wrap;
 
