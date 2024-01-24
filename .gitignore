@@ -10,7 +10,7 @@ lerna-debug.log*
 
 redis
 */**/open.txt
-database/base
+databases/psql/base
 
 # Editor directories and files
 .vscode/*

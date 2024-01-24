@@ -6,7 +6,7 @@ services:
     container_name: redis
     restart: always
     volumes:
-      - ./redis/data:/data
+      - ./database/redis/data:/data
     ports:
       - 6379:6379
   redis_insight:
@@ -16,4 +16,4 @@ services:
     ports:
       - 8001:8001
     volumes:
-      - ./redis/insight:/db
+      - ./database/redis/insight:/db
