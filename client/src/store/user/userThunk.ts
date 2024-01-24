@@ -2,8 +2,14 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import $http from '../../api/httpApi';
 
-import type { EditUserTitle, GetUserTitle, User } from './index';
+import type {
+  EditAvatarTitle,
+  EditUserTitle,
+  GetUserTitle,
+  User,
+} from './index';
 import { RootState } from '..';
+import getAvatar from '@/utils/getAvatar';
 
 const getUser = createAsyncThunk(
   '@@user/getUser',
@@ -13,6 +19,9 @@ const getUser = createAsyncThunk(
 
     const res = await $http.get(url);
     const data: User = await res.data.message;
+
+    const newAvatar = await getAvatar(data);
+    if (newAvatar) data.avatar = newAvatar;
 
     return data;
   }
@@ -36,18 +45,21 @@ const editUser = createAsyncThunk(
 
 const editAvatar = createAsyncThunk(
   '@@user/editAvatar',
-  async (avatar: string, thunkAPI) => {
+  async (
+    { file, fileName, fileType, fileExtension }: EditAvatarTitle,
+    thunkAPI
+  ) => {
     const { getState } = thunkAPI;
     const userId = (getState() as RootState).user.data.id;
 
     const url = `/user/avatar`;
-    const title = {
-      avatar: avatar,
-      id: userId,
-    };
+    const title = { id: userId, file, fileName, fileType, fileExtension };
 
     const res = await $http.post(url, title);
     const data: User = await res.data.message;
+
+    const newAvatar = await getAvatar(data);
+    if (newAvatar) data.avatar = newAvatar;
 
     return data;
   }

@@ -103,14 +103,14 @@ export default function InputForm() {
   useEffect(() => {
     setInputValue('');
     textboxRef.current!.textContent = '';
-  }, [id]);
+  }, [id, setInputValue]);
 
   useEffect(() => {
     if (message) {
       setInputValue(message.message);
       textboxRef.current!.textContent = message.message;
     }
-  }, [message]);
+  }, [message, setInputValue]);
 
   return (
     <form className={style.form}>

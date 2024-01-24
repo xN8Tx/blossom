@@ -36,6 +36,8 @@ import type {
   WhoIsOnlineBodyRes,
 } from '@/models/socket';
 import { addContactStatus } from '@contact/store/contacts/contactSlice';
+import { ChatWithInfo } from '@/models/data';
+import getAvatar from '@/utils/getAvatar';
 
 type CreateMessageMessage = {
   chatId: string;
@@ -61,9 +63,20 @@ const getChats = createAsyncThunk(
     const userId = (getState() as RootState).user.data.id;
     const url = `/chats/${userId}`;
 
-    const chats = await $http.get(url);
+    const res = await $http.get(url);
+    const chats: ChatWithInfo[] = res.data.message;
 
-    return chats.data.message;
+    await new Promise((resolve) => {
+      const length = chats.length - 1;
+      chats.forEach(async (chat, index) => {
+        const avatarUrl = await getAvatar(chat.user);
+
+        if (avatarUrl) chat.user.avatar = avatarUrl;
+        if (length === index) resolve(true);
+      });
+    });
+
+    return chats;
   }
 );
 const sendMessage = createAsyncThunk(

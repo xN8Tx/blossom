@@ -25,4 +25,17 @@ type EditUserTitle = {
   username: string | null;
 };
 
-export type { User, InitialState, GetUserTitle, EditUserTitle };
+type EditAvatarTitle = {
+  file: string;
+  fileName: string;
+  fileType: string;
+  fileExtension: string;
+};
+
+export type {
+  User,
+  InitialState,
+  GetUserTitle,
+  EditUserTitle,
+  EditAvatarTitle,
+};

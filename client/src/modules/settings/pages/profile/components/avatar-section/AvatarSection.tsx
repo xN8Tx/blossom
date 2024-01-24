@@ -27,13 +27,28 @@ export default function AvatarSection({
   const { t } = useTranslation();
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files![0];
+    if (!event.target.files) return modal('error', 'Error', 2000);
+    if (event.target.files.length === 0) return modal('error', 'Error', 2000);
+
+    const file: File = event.target.files[0];
     const fileSize = file.size / Math.pow(10, 6);
     const isFileBigger = import.meta.env.VITE_MAX_FILE_SIZE < fileSize;
 
     const readerAvatar = new FileReader();
     readerAvatar.addEventListener('load', () => {
-      dispatch(editAvatar(readerAvatar.result!.toString()));
+      const fileExtension = file.name.split('.').pop();
+
+      if (!readerAvatar.result) return modal('error', 'Error', 2000);
+      if (!fileExtension) return modal('error', 'Error', 2000);
+
+      const title = {
+        file: readerAvatar.result.toString(),
+        fileName: file.name,
+        fileType: file.type,
+        fileExtension: fileExtension,
+      };
+
+      dispatch(editAvatar(title));
     });
 
     if (isFileBigger) modal('error', t('chat.fileBigger'), 2000);
