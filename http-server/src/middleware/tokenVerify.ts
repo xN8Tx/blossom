@@ -1,5 +1,4 @@
 import jwt from 'jsonwebtoken';
-import { errorLogManager } from 'database';
 
 import type { Response, NextFunction, Request } from 'express';
 import type { MyRequest } from '../typings/express';

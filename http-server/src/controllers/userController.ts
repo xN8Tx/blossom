@@ -1,4 +1,3 @@
-import imageAPI from '../services/images/images.api';
 import { errorLogManager, messagesAPI, usersAPI } from 'database';
 
 import type { Request, Response } from 'express';
@@ -91,13 +90,64 @@ class UserController {
   }
   async setAvatar(req: Request, res: Response) {
     try {
-      const { id, avatar } = req.body;
+      const { id, file, fileName, fileType, fileExtension } = req.body;
 
-      const webpAvatar = await imageAPI.madeWebpFromBase64(avatar);
-      if (typeof webpAvatar !== 'string')
-        return res.status(400).json({ message: 'Invalid image' });
+      const currentProfile = await usersAPI.getById(id);
 
-      const user = await usersAPI.setAvatar(webpAvatar, id);
+      if (!currentProfile) {
+        errorLogManager.addToLogs(
+          'Error in UserController in setAvatar',
+          `currentProfile === null`,
+        );
+        return res.status(400).json({ message: 'Invalid access' });
+      }
+      if (currentProfile.avatar) {
+        const avatar = currentProfile.avatar;
+
+        const response = await fetch(
+          `${process.env.FILE_SERVER_URL}/${avatar}`,
+          {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          },
+        );
+
+        if (!response.ok) {
+          errorLogManager.addToLogs(
+            'Error in UserController in setAvatar',
+            `avatar.response.status !== 200`,
+          );
+          return res.status(400).json({ message: 'Server error' });
+        }
+      }
+
+      const response = await fetch(`${process.env.FILE_SERVER_URL}/`, {
+        method: 'POST',
+        body: JSON.stringify({
+          file,
+          fileType,
+          fileExtension,
+          fileName,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.status !== 200) {
+        errorLogManager.addToLogs(
+          'Error in UserController in setAvatar',
+          `response.status !== 200`,
+        );
+        return res.status(400).json({ message: 'Server error' });
+      }
+
+      const data = await response.json();
+      const avatar = data.message;
+
+      const user = await usersAPI.setAvatar(avatar, id);
 
       if (!user) {
         errorLogManager.addToLogs(
