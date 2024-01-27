@@ -18,7 +18,7 @@ const corsConfig: CorsOptions = {
 const app = express();
 
 app.use(cors(corsConfig));
-app.use(json({ limit: '10mb' }));
+app.use(json({ limit: '15mb' }));
 
 const __filename = fileURLToPath(import.meta.url);
 const PROJECT_DIR = path.dirname(path.dirname(__filename));

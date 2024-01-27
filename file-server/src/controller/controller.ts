@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import * as mimeTypes from 'mime-types';
 import { errorLogManager } from '../../libs/database/dist';
 
 import { HTTP_URL, UPLOAD_FOLDER } from '../constant';
@@ -70,6 +71,11 @@ class Controller {
             resolve(filePath);
           });
         });
+
+        const contentType =
+          mimeTypes.lookup(filePath) || 'application/octet-stream';
+
+        res.setHeader('Content-Type', contentType);
 
         const stream = fs.createReadStream(filePath);
         stream.pipe(res);

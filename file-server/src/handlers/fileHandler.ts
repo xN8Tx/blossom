@@ -17,7 +17,11 @@ const saveFile = async (fileBase64: string, fileName: string) => {
 
   const pathToFile = `${UPLOAD_FOLDER}/${newFileName}`;
 
-  const file = Buffer.from(fileBase64, 'base64');
+  const base64Image = fileBase64.split(',').pop()?.toString();
+
+  if (!base64Image) return false;
+
+  const file = Buffer.from(base64Image, 'base64');
 
   await new Promise((resolve, reject) => {
     fs.writeFile(pathToFile, file, (err) => {
