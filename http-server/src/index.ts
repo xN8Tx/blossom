@@ -26,7 +26,7 @@ const httpStart = () => {
     origin: process.env.ORIGIN_URL,
   };
 
-  app.use(json({ limit: '10mb' }));
+  app.use(json({ limit: '15mb' }));
   app.use(cookieParser());
   app.use(cors(corsConfig));
 
