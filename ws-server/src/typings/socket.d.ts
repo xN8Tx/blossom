@@ -8,6 +8,7 @@ type WebsocketType = ws & {
 type Event =
   | 'READY'
   | 'MESSAGE'
+  | 'SEND_FILE'
   | 'GET_CHAT_MESSAGE'
   | 'READ_MESSAGE'
   | 'EDIT_MESSAGE'
@@ -118,6 +119,23 @@ type DeleteChatBodyRes = {
   chatId: string;
 };
 
+type SendFileBody = {
+  userId: string;
+  companionId: string;
+  message: MessagesDB;
+  file: {
+    file: string;
+    fileExtension: string;
+    fileName: string;
+    fileType: string;
+  };
+};
+
+type SendFileBodyRes = {
+  chatId: string;
+  message: MessagesDB;
+};
+
 type CreateChatBody = {
   userId: string;
   companionId: string;
@@ -149,4 +167,6 @@ export {
   DeleteChatBodyRes,
   CreateChatBody,
   CreateChatBodyRes,
+  SendFileBody,
+  SendFileBodyRes,
 };

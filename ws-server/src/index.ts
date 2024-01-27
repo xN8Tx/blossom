@@ -16,6 +16,7 @@ import onDeleteChat from './handlers/onDeleteChat';
 
 import type { WebsocketType, Event } from './typings/socket';
 import type { IncomingMessage } from 'http';
+import onSendFile from './handlers/onSendFile';
 
 const wssStart = () => {
   const __filename = fileURLToPath(import.meta.url);
@@ -45,6 +46,10 @@ const wssStart = () => {
         }
         case 'MESSAGE': {
           onMessage(message, ws, wss);
+          break;
+        }
+        case 'SEND_FILE': {
+          onSendFile(message, ws, wss);
           break;
         }
         case 'READ_MESSAGE': {
