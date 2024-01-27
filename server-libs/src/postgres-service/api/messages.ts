@@ -57,6 +57,33 @@ class MessagesAPI {
       return null;
     }
   }
+  async postFile(
+    chatId: number,
+    userId: number,
+    message: string,
+    status: boolean,
+    date: Date,
+  ): Promise<MessagesDB | null> {
+    try {
+      const cryptMessage = CryptoJS.AES.encrypt(
+        message,
+        process.env.MESSAGE_CRYPT!,
+      ).toString();
+
+      const _message = await databasePool.query<MessagesDB>(
+        'INSERT INTO messages ("chatId", "userId", message, status, date, type) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
+        [chatId, userId, cryptMessage, status, date, true],
+      );
+
+      return _message.rows[0];
+    } catch (error) {
+      errorLogManager.addToLogs(
+        '⚠️ Error in MessagesAPI postImage',
+        (error as Error)?.message,
+      );
+      return null;
+    }
+  }
   async edit(message: string, id: number): Promise<EditMessageDB | null> {
     try {
       if (!process.env.MESSAGE_CRYPT) {
