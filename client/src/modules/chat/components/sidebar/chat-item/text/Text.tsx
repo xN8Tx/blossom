@@ -3,8 +3,6 @@ import { Paragraph } from 'blossom-react-ui';
 
 import { useAppSelector } from '@/store';
 
-import isMessageImage from '@chat/utils/isMessageImage';
-
 import ReadIcon from '@chat/assets/ReadIcon.svg';
 import SendedIcon from '@chat/assets/SendedIcon.svg';
 
@@ -26,10 +24,9 @@ export default function Text({ messages, notification }: TextProps) {
   }
 
   const lastMessage = messages[messages.length - 1];
-  const isImage = isMessageImage(lastMessage.message);
 
   let messageText: string = lastMessage.message;
-  if (!isImage && lastMessage.message.length > 27) {
+  if (!lastMessage.type && lastMessage.message.length > 27) {
     const newMess = lastMessage.message.slice(0, 25);
     messageText = newMess + '...';
   }
@@ -43,7 +40,7 @@ export default function Text({ messages, notification }: TextProps) {
   return (
     <div className={style.text}>
       <Paragraph size='l' weight='medium' color='dark'>
-        {isImage ? <b>{t('chat.image')}</b> : messageText}
+        {lastMessage.type ? <b>{t('chat.image')}</b> : messageText}
       </Paragraph>
       {isCompanionRead && (
         <div className={style.icon}>

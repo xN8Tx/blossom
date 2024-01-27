@@ -2,10 +2,13 @@ import { memo } from 'react';
 
 import Wrapper from './wrapper/Wrapper';
 import Time from './time/Time';
+import File from './file/File';
+import Image from './image/Image';
 
 import type { Messages } from '@/models/data';
 
 import style from './Message.module.scss';
+import Video from './video/Video';
 
 type MessageProps = {
   isDate: boolean;
@@ -14,7 +17,7 @@ type MessageProps = {
 };
 
 const Message = memo(({ isDate, isUser, messageObj }: MessageProps) => {
-  const { id, message, date, status, isEdit } = messageObj;
+  const { id, message, date, status, isEdit, type } = messageObj;
 
   return (
     <div
@@ -24,13 +27,18 @@ const Message = memo(({ isDate, isUser, messageObj }: MessageProps) => {
       is-active='false'
     >
       {isDate && <Time date={date} />}
-      <Wrapper
-        isDate={isDate}
-        isEdit={isEdit}
-        isUser={isUser}
-        status={status}
-        message={message}
-      />
+      {type === 'image' && <Image message={message} />}
+      {type === 'video' && <Video messageObj={messageObj} />}
+      {type === 'file' && <File messageObj={messageObj} isUser={isUser} />}
+      {!type && (
+        <Wrapper
+          isDate={isDate}
+          isEdit={isEdit}
+          isUser={isUser}
+          status={status}
+          message={message}
+        />
+      )}
     </div>
   );
 });

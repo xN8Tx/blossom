@@ -21,7 +21,7 @@ type Messages = {
   date: string;
   status: boolean | 'loading';
   isEdit: boolean;
-  type: boolean;
+  type?: boolean | 'image' | 'video' | 'file';
 };
 
 type Chat = {

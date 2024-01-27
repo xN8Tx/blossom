@@ -2,6 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import reducers from './chatReducers';
 import {
+  addFileToChat,
+  addMessagesToChat,
   deleteChat,
   deleteMessage,
   editMessage,
@@ -69,6 +71,22 @@ const chatSlice = createSlice({
         );
         state.data![index].isLoaded = 'loading';
       })
+      .addCase(addFileToChat.fulfilled, (state, action) => {
+        const { chatId, message } = action.payload!;
+
+        console.log(message);
+
+        const index = state.data!.findIndex((chat) => `${chat.id}` === chatId);
+        state.data![index].messages.push(message);
+      })
+      .addCase(addMessagesToChat.fulfilled, (state, action) => {
+        const index = state.data!.findIndex(
+          (chat) => `${chat.id}` === action.payload.chatId
+        );
+
+        state.data![index].messages = action.payload.messages;
+        state.data![index].isLoaded = 'success';
+      })
       .addCase(deleteChat.pending, (state) => {
         state.isReRender = true;
       })
@@ -85,7 +103,6 @@ const chatSlice = createSlice({
 
 const chatReducer = chatSlice.reducer;
 const {
-  addMessagesToChat,
   addMessageToChat,
   addReadMessages,
   addEditMessage,

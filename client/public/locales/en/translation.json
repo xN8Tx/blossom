@@ -89,7 +89,7 @@
     "editMessage": "Edit message",
     "toStartChat": "To start chat\nContact -> User -> Message",
     "fileBigger": "File wouldn't be bigger than 10MB",
-    "image": "Image",
+    "image": "File",
     "justWrite": "Just write and send"
   },
   "users": {
@@ -101,7 +101,8 @@
     "select": "Select",
     "delete": "Delete",
     "copy": "Copy",
-    "search": "Search"
+    "search": "Search",
+    "download": "Download"
   },
   "etc": {
     "inDevelopment": "This feature will be soon!",

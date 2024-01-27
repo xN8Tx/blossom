@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useModal } from 'blossom-react-ui';
 
 import { useAppDispatch } from '@/store';
-import { sendMessage } from '@chat/store/chatThunk';
+import { sendFile } from '@chat/store/chatThunk';
 
 import SendIcon from '@chat/assets/SendIcon';
 import ClipIcon from '@chat/assets/ClipIcon';
@@ -30,13 +30,22 @@ export default function ButtonForm({ onMyMessageSend }: ButtonFormProps) {
 
     const reader = new FileReader();
     reader.addEventListener('load', () => {
-      // if (reader.result === null) return null;
+      const base64File = reader.result!.toString();
+      const fileType = file.type;
+      const fileName = file.name;
+      const fileExtension = file.name.split('.').pop();
+
       const title = {
         chatId: id!,
-        message: reader.result!.toString(),
+        file: {
+          fileExtension: fileExtension!,
+          file: base64File,
+          fileType,
+          fileName,
+        },
       };
 
-      dispatch(sendMessage(title));
+      dispatch(sendFile(title));
     });
 
     if (isFileBigger) modal('error', t('chat.fileBigger'), 2000);
@@ -46,7 +55,7 @@ export default function ButtonForm({ onMyMessageSend }: ButtonFormProps) {
   return (
     <div className={style.buttons}>
       <div className={style.button}>
-        <input type='file' onChange={onFileButtonChange} accept='image/*' />
+        <input type='file' onChange={onFileButtonChange} />
         <ClipIcon />
       </div>
       <button className={style.button} onClick={onMyMessageSend} type='submit'>

@@ -11,7 +11,8 @@
     align-items: flex-end;
     justify-content: flex-end;
 
-    & > .wrapper {
+    & > .wrapper,
+    .fileWrapper {
       border-radius: 10px 2px 10px 10px;
       background-color: var(--blossom-ui-accent-color);
 
@@ -33,7 +34,8 @@
     align-items: flex-start;
     justify-content: flex-start;
 
-    & > .wrapper {
+    & > .wrapper,
+    .fileWrapper {
       align-items: flex-end;
 
       border-radius: 2px 10px 10px 10px;
@@ -110,7 +112,7 @@
 .imageWrapper {
   max-width: 320px;
   width: 100%;
-  height: 344px;
+  height: 244px;
 
   border-radius: 10px;
   border: none;
@@ -163,5 +165,60 @@
   height: 100%;
   object-fit: cover;
   border: none;
-  pointer-events: none;
+  cursor: pointer;
+  pointer-events: stroke;
+}
+
+.fileWrapper {
+  max-width: 344px;
+
+  padding: 12px 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  align-items: center !important;
+
+  gap: 15px;
+
+  & > a {
+    min-width: 40px;
+    min-height: 40px;
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    background-color: var(--blossom-ui-light-blue-color);
+    transition: var(--blossom-ui-main-transition);
+
+    &:hover {
+      background-color: var(--blossom-ui-dark-blue-color);
+    }
+
+    & > svg {
+      width: 20px;
+      height: 20px;
+
+      & > path:first-child {
+        fill: var(--blossom-ui-primary-text-color);
+      }
+      & > path:last-child {
+        stroke: var(--blossom-ui-primary-text-color);
+      }
+    }
+  }
+}
+
+.fileTextWrapper {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }

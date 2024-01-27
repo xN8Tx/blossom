@@ -3,6 +3,7 @@ import { ChatWithInfo, Messages } from './data';
 type Event =
   | 'READY'
   | 'MESSAGE'
+  | 'SEND_FILE'
   | 'GET_CHAT_MESSAGE'
   | 'READ_MESSAGE'
   | 'EDIT_MESSAGE'
@@ -117,6 +118,23 @@ type CreateChatBodyRes = {
   chat: ChatWithInfo;
 };
 
+type SendFileBody = {
+  userId: string;
+  companionId: string;
+  message: Omit<Messages, 'id'>;
+  file: {
+    file: string;
+    fileExtension: string;
+    fileName: string;
+    fileType: string;
+  };
+};
+
+type SendFileBodyRes = {
+  chatId: string;
+  message: Messages;
+};
+
 export {
   Message,
   MessageBody,
@@ -136,4 +154,6 @@ export {
   DeleteChatBodyRes,
   CreateChatBody,
   CreateChatBodyRes,
+  SendFileBody,
+  SendFileBodyRes,
 };

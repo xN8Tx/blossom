@@ -8,7 +8,6 @@ import {
   addDeleteChat,
   addDeleteMessage,
   addEditMessage,
-  addMessagesToChat,
   addMessageToChat,
   addNewChat,
   addReadMessages,
@@ -32,16 +31,29 @@ import type {
   MessageBodyRes,
   ReadMessageBody,
   ReadMessageBodyRes,
+  SendFileBody,
+  SendFileBodyRes,
   WhoIsOnlineBody,
   WhoIsOnlineBodyRes,
 } from '@/models/socket';
 import { addContactStatus } from '@contact/store/contacts/contactSlice';
 import { ChatWithInfo } from '@/models/data';
 import getAvatar from '@/utils/getAvatar';
+import getFile from '../utils/getFile';
 
 type CreateMessageMessage = {
   chatId: string;
   message: string;
+};
+
+type CreateSendFile = {
+  chatId: string;
+  file: {
+    file: string;
+    fileType: string;
+    fileName: string;
+    fileExtension: string;
+  };
 };
 
 type EditDeleteMessageMessage = {
@@ -57,28 +69,7 @@ type setWebsocketHandlerData = {
   closeCb: HandlerFunctionType;
 };
 
-const getChats = createAsyncThunk(
-  '@@chats/getChats',
-  async (_, { getState }) => {
-    const userId = (getState() as RootState).user.data.id;
-    const url = `/chats/${userId}`;
-
-    const res = await $http.get(url);
-    const chats: ChatWithInfo[] = res.data.message;
-
-    await new Promise((resolve) => {
-      const length = chats.length - 1;
-      chats.forEach(async (chat, index) => {
-        const avatarUrl = await getAvatar(chat.user);
-
-        if (avatarUrl) chat.user.avatar = avatarUrl;
-        if (length === index) resolve(true);
-      });
-    });
-
-    return chats;
-  }
-);
+// SEND
 const sendMessage = createAsyncThunk(
   '@@chats/sendMessage',
   async (data: CreateMessageMessage, { getState }) => {
@@ -100,6 +91,34 @@ const sendMessage = createAsyncThunk(
           status: 'loading',
           isEdit: false,
         },
+      },
+    };
+
+    websocketAPI.sendMessage(title);
+  }
+);
+const sendFile = createAsyncThunk(
+  '@@chats/sendFile',
+  async (data: CreateSendFile, { getState }) => {
+    const userId = (getState() as RootState).user.data.id;
+    const chat = (getState() as RootState).chat.data?.find(
+      (chat) => Number(chat.id) === Number(data!.chatId)
+    );
+
+    const title: Message<SendFileBody> = {
+      event: 'SEND_FILE',
+      body: {
+        userId: userId!.toString(),
+        companionId: chat!.user.id.toString(),
+        message: {
+          chatId: data.chatId.toString(),
+          message: '',
+          userId: userId!,
+          date: new Date().toString(),
+          status: 'loading',
+          isEdit: false,
+        },
+        file: data.file,
       },
     };
 
@@ -187,6 +206,60 @@ const deleteMessage = createAsyncThunk(
     return result;
   }
 );
+
+// ADD
+const addFileToChat = createAsyncThunk(
+  '@@chat/addFileToChat',
+  async (data: Message<MessageBodyRes>) => {
+    const { chatId, message } = data.body;
+
+    const [fileUrl, fileType] = await getFile(message.message);
+    message.message = fileUrl;
+    message.type = fileType;
+
+    return { message, chatId };
+  }
+);
+const addMessagesToChat = createAsyncThunk(
+  '@@chat/addMessagesToChat',
+  async (action: Message<GetChatMessagesBodyRes>) => {
+    const modifiedMessages = await Promise.all(
+      action.body.messages.map(async (mes) => {
+        if (mes.type) {
+          const [fileUrl, fileType] = await getFile(mes.message);
+          return { ...mes, message: fileUrl, type: fileType };
+        }
+        return mes;
+      })
+    );
+
+    return { ...action.body, messages: modifiedMessages };
+  }
+);
+
+// GET
+const getChats = createAsyncThunk(
+  '@@chats/getChats',
+  async (_, { getState }) => {
+    const userId = (getState() as RootState).user.data.id;
+    const url = `/chats/${userId}`;
+
+    const res = await $http.get(url);
+    const chats: ChatWithInfo[] = res.data.message;
+
+    await new Promise((resolve) => {
+      const length = chats.length - 1;
+      chats.forEach(async (chat, index) => {
+        const avatarUrl = await getAvatar(chat.user);
+
+        if (avatarUrl) chat.user.avatar = avatarUrl;
+        if (length === index) resolve(true);
+      });
+    });
+
+    return chats;
+  }
+);
 const getOnlineContacts = createAsyncThunk(
   '@@chats/getOnlineContacts',
   async (_, { getState, dispatch }) => {
@@ -269,6 +342,7 @@ const deleteChat = createAsyncThunk(
   }
 );
 
+// START WEBSOCKET
 const startWebsocket = createAsyncThunk(
   '@@chats/startWebsocket',
   async (_, { getState }) => {
@@ -299,6 +373,10 @@ const websocketConnector = createAsyncThunk(
       case 'GET_CHAT_MESSAGE':
         dispatch(addMessagesToChat(data as Message<GetChatMessagesBodyRes>));
         break;
+      case 'SEND_FILE': {
+        dispatch(addFileToChat(data as Message<SendFileBodyRes>));
+        break;
+      }
       case 'MESSAGE':
         dispatch(addMessageToChat(data as Message<MessageBodyRes>));
         break;
@@ -324,6 +402,7 @@ const websocketConnector = createAsyncThunk(
     }
   }
 );
+
 export {
   getChats,
   startWebsocket,
@@ -336,4 +415,7 @@ export {
   createChat,
   deleteChat,
   setWebsocketHandler,
+  sendFile,
+  addFileToChat,
+  addMessagesToChat,
 };

@@ -6,16 +6,13 @@ import selectMessageByMessageId from '@chat/store/selectors/selectMessageByMessa
 import { deleteMessage } from '@chat/store/chatThunk';
 
 import MenuContext from '@/modules/chat/context/menu/MenuContext';
-import isMessageImage from '@chat/utils/isMessageImage';
 
 import MenuItem from '@chat/components/menu-item/MenuItem';
 
-import ForwardIcon from '@chat/assets/ForwardIcon';
 import CopyIcon from '@chat/assets/CopyIcon';
 import EditIcon from '@chat/assets/EditIcon';
 import DeleteIcon from '@chat/assets/DeleteIcon';
-
-import type { Messages } from '@/models/data';
+import DownloadIcon from '@chat/assets/DownloadIcon';
 
 import style from './MenuList.module.scss';
 
@@ -42,35 +39,19 @@ const MenuList = forwardRef<HTMLDivElement>((_, ref) => {
 
   const { id } = useParams(); // CHAT ID
 
+  // LAST MESSAGE ID MADE FRO DELETE ALLOCATION OF PREV MESSAGE
+  const lastMessageId = useRef<string>('');
+
+  /*
+    FROM STATE
+  */
   const userId = useAppSelector((state) => state.user.data.id); // USER ID
   const message = useAppSelector((state) =>
     selectMessageByMessageId(state, Number(selectedMessageId), Number(id))
   ); // MESSAGE FROM STATE
   const isMessageFromUser =
     message && Number(message.userId) === Number(userId);
-  const isImage = message && isMessageImage((message as Messages)!.message);
-
-  // CHANGE POSITION IF MENU GO OUT OF BOUNDS
-  useEffect(() => {
-    if (!ref) return () => {};
-
-    const containerWidth = (ref as RefObject<HTMLDivElement>).current!
-      .clientWidth;
-    const containerHeight = (ref as RefObject<HTMLDivElement>).current!
-      .clientHeight;
-
-    if (containerWidth - posX < 150) {
-      setPosX(containerWidth - 300);
-    }
-
-    if (containerHeight - posY < 185) {
-      setPosY(containerHeight - 185);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [posX, posY]);
-
-  // LAST MESSAGE ID MADE FRO DELETE ALLOCATION OF PREV MESSAGE
-  const lastMessageId = useRef<string>('');
+  const isImage = message?.type;
 
   // CHANGE COLOR MESSAGE FN
   const changeColorOfSelectedMessage = () => {
@@ -92,18 +73,40 @@ const MenuList = forwardRef<HTMLDivElement>((_, ref) => {
 
     lastMessageId.current = selectedMessageId;
   };
-  // CHANGE COLOR MESSAGE FN
 
+  /*
+    USE EFFECTS
+  */
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => changeColorOfSelectedMessage(), [selectedMessageId]);
 
-  // ITEMS HANDLERS
+  // CHANGE POSITION IF MENU GO OUT OF BOUNDS
+  useEffect(() => {
+    if (!ref) return () => {};
+
+    const containerWidth = (ref as RefObject<HTMLDivElement>).current!
+      .clientWidth;
+    const containerHeight = (ref as RefObject<HTMLDivElement>).current!
+      .clientHeight;
+
+    if (containerWidth - posX < 150) {
+      setPosX(containerWidth - 300);
+    }
+
+    if (containerHeight - posY < 185) {
+      setPosY(containerHeight - 185);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [posX, posY]);
+
+  /*
+    ITEMS HANDLERS
+  */
   const editMessageHandler = () => {
     setEditMessageId(selectedMessageId);
     setIsOpen(false);
     changeColorOfSelectedMessage();
   };
-
   const copyMessageHandler = async () => {
     try {
       const text = document.querySelector(
@@ -127,16 +130,15 @@ const MenuList = forwardRef<HTMLDivElement>((_, ref) => {
     setIsOpen(false);
     changeColorOfSelectedMessage();
   };
-  const forwardMessageHandler = () => {};
+  const downloadFile = () => {
+    const link = document.createElement('a');
+    link.href = message!.message;
+    link.download = 'blossom-file';
+    link.click();
+  };
 
   // ARRAY OF ITEMS
   const menuItemsList: MenuItemProps[] = [
-    {
-      name: 'forward',
-      icon: () => <ForwardIcon />,
-      onClick: forwardMessageHandler,
-      color: 'primary',
-    },
     {
       name: 'copy',
       icon: () => <CopyIcon />,
@@ -147,6 +149,12 @@ const MenuList = forwardRef<HTMLDivElement>((_, ref) => {
       name: 'edit',
       icon: () => <EditIcon />,
       onClick: editMessageHandler,
+      color: 'primary',
+    },
+    {
+      name: 'download',
+      icon: () => <DownloadIcon />,
+      onClick: downloadFile,
       color: 'primary',
     },
     {
@@ -164,7 +172,30 @@ const MenuList = forwardRef<HTMLDivElement>((_, ref) => {
       style={{ left: posX, top: posY }}
     >
       {menuItemsList.map((item, index) => {
-        if (isMessageFromUser && !isImage) {
+        if (isMessageFromUser && isImage) {
+          if (index === 1) return <></>;
+          return (
+            <MenuItem
+              key={index}
+              name={item.name}
+              icon={item.icon}
+              onClick={item.onClick}
+              color={item.color}
+            />
+          );
+        } else if (isMessageFromUser && !isImage) {
+          if (index === 2) return <></>;
+          return (
+            <MenuItem
+              key={index}
+              name={item.name}
+              icon={item.icon}
+              onClick={item.onClick}
+              color={item.color}
+            />
+          );
+        } else if (!isMessageFromUser && isImage) {
+          if (index === 1) return <></>;
           return (
             <MenuItem
               key={index}
@@ -175,6 +206,7 @@ const MenuList = forwardRef<HTMLDivElement>((_, ref) => {
             />
           );
         } else {
+          if (index === 1) return <></>;
           if (index === 2) return <></>;
           return (
             <MenuItem
