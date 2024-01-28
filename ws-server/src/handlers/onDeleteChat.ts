@@ -24,11 +24,38 @@ const onDeleteChat = async (
       Number(chatId),
       Number(userId),
     );
-    if (!isMember || isMember!.length === 0) return ws.close();
+    if (!isMember || isMember!.length === 0) {
+      errorLogManager.addToLogs(
+        `Error in handlers/onDeleteChat.ts. UserId: ${userId}, chatId: ${chatId}, companionId: ${companionId}`,
+        `chats === null`,
+      );
+      return ws.close();
+    }
 
-    await messagesAPI.deleteByChatId(Number(chatId));
+    const messagesWithMedia = await messagesAPI.deleteByChatId(Number(chatId));
     await membersAPI.deleteByChatId(Number(chatId));
     await chatAPI.deleteById(Number(chatId));
+
+    if (messagesWithMedia?.length !== 0) {
+      messagesWithMedia?.forEach(async (message) => {
+        const response = await fetch(
+          `${process.env.FILE_SERVER_URL}/${message.message}`,
+          {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          },
+        );
+
+        if (!response.ok) {
+          errorLogManager.addToLogs(
+            `Error in onDelete. File id === ${message.message}`,
+            `response.status !== 200`,
+          );
+        }
+      });
+    }
 
     const title: Message<DeleteChatBodyRes> = {
       event: 'DELETE_CHAT',
