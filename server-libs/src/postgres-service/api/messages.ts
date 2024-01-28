@@ -121,11 +121,20 @@ class MessagesAPI {
   async delete(id: number): Promise<DeleteMessageDB | null> {
     try {
       const message = await databasePool.query<DeleteMessageDB>(
-        'DELETE FROM messages WHERE id = $1 RETURNING id',
+        'DELETE FROM messages WHERE id = $1 RETURNING id, message, type',
         [id],
       );
 
-      return message.rows[0];
+      const decrypt = decryptMessages(message.rows[0]);
+      if (!decrypt) {
+        errorLogManager.addToLogs(
+          '⚠️ Error in MessagesAPI delete',
+          'decrypt === null',
+        );
+        return null;
+      }
+
+      return decrypt as DeleteMessageDB;
     } catch (error) {
       errorLogManager.addToLogs(
         '⚠️ Error in MessagesAPI delete',
@@ -134,14 +143,25 @@ class MessagesAPI {
       return null;
     }
   }
-  async deleteByChatId(chatId: number): Promise<DeleteMessageDB | null> {
+  async deleteByChatId(chatId: number): Promise<DeleteMessageDB[] | null> {
     try {
       const message = await databasePool.query<DeleteMessageDB>(
-        'DELETE FROM messages WHERE "chatId" = $1',
+        'DELETE FROM messages WHERE "chatId" = $1 RETURNING id, message, type',
         [chatId],
       );
 
-      return message.rows[0];
+      const messagesWithMedia = message.rows.filter((m) => m.type === true);
+
+      const decrypt = decryptMessages(messagesWithMedia);
+      if (!decrypt) {
+        errorLogManager.addToLogs(
+          '⚠️ Error in MessagesAPI delete',
+          'decrypt === null',
+        );
+        return null;
+      }
+
+      return decrypt as DeleteMessageDB[];
     } catch (error) {
       errorLogManager.addToLogs(
         '⚠️ Error in MessagesAPI deleteByChatId',

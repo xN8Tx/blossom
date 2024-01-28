@@ -68,6 +68,8 @@ type EditMessageDB = {
 
 type DeleteMessageDB = {
   id: string;
+  message: string;
+  type: boolean;
 };
 
 export type {

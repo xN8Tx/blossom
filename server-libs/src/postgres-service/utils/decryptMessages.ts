@@ -1,11 +1,19 @@
 import dotenv from 'dotenv';
 import CryptoJS from 'crypto-js';
 
-import type { MessagesDB, EditMessageDB } from '../typings/typings';
+import type {
+  MessagesDB,
+  EditMessageDB,
+  DeleteMessageDB,
+} from '../typings/typings';
 
 dotenv.config();
 
-type MessageType = EditMessageDB | MessagesDB | Omit<MessagesDB, 'chatId'>;
+type MessageType =
+  | EditMessageDB
+  | MessagesDB
+  | Omit<MessagesDB, 'chatId'>
+  | DeleteMessageDB;
 type MessagesType = MessageType[];
 type DecryptMessagesFunction = (
   messages: MessagesType | MessageType,
