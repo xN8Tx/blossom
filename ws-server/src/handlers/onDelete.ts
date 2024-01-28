@@ -43,7 +43,6 @@ const onDelete = async (
     }
 
     // DELETE FILE
-
     if (deleteMessage?.type === true) {
       const response = await fetch(
         `${process.env.FILE_SERVER_URL}/${deleteMessage.message}`,
@@ -54,8 +53,6 @@ const onDelete = async (
           },
         },
       );
-
-      console.log(response);
 
       if (!response.ok) {
         errorLogManager.addToLogs(
