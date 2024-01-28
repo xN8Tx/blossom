@@ -97,6 +97,8 @@ class Controller {
 
       const pathToFile = `${UPLOAD_FOLDER}/${fileId}`;
 
+      console.log(req.ip);
+
       if (req.ip === HTTP_URL) {
         return res.status(403).send({ message: 'Invalid access' });
       }
