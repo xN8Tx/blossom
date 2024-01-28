@@ -1,0 +1,42 @@
+.Video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.controlsWrapper {
+  width: 100%;
+  padding: 5px 10px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.playBtn,
+.muteBtn {
+  background-color: transparent;
+}
+
+.muteBtn {
+  & > svg > path,
+  rect {
+    fill: var(--blossom-ui-primary-text-color);
+  }
+}
+.playBtn {
+  & > svg > path:first-child {
+    fill: var(--blossom-ui-primary-text-color);
+  }
+  & > svg > path {
+    stroke: var(--blossom-ui-primary-text-color);
+  }
+}
+
+.range {
+  width: 100%;
+  height: 10px;
+
+  margin: 10px 0;
+}

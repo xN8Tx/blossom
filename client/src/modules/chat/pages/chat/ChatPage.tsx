@@ -5,15 +5,17 @@ import { useAppDispatch, useAppSelector } from '@/store';
 import { getChatMessages } from '@chat/store/chatThunk';
 import selectById from '@chat/store/selectors/selectById';
 
-import MenuProvider from '@/modules/chat/context/menu/MenuProvider';
-import EmojiProvider from '../../context/emoji/EmojiProvider';
-import InputProvider from '../../context/input/InputProvider';
+import MenuProvider from '@chat/context/menu/MenuProvider';
+import EmojiProvider from '@chat/context/emoji/EmojiProvider';
+import InputProvider from '@chat/context/input/InputProvider';
+import MediaWindowProvider from '@chat/context/media-window/MediaWindowProvider';
 
 import Header from './components/header/Header';
 import Form from './components/form/Form';
 import Wrapper from './components/wrapper/Wrapper';
 import Menu from './components/menu/Menu';
 import Emoji from './components/emoji/Emoji';
+import MediaWindow from '@chat/components/media-window/MediaWindow';
 
 import style from './ChatPage.module.scss';
 
@@ -38,11 +40,14 @@ export default function ChatPage() {
       <MenuProvider>
         <InputProvider>
           <EmojiProvider>
-            <Header />
-            <Menu />
-            {isRender && <Wrapper />}
-            <Form />
-            <Emoji />
+            <MediaWindowProvider>
+              <Header />
+              <Menu />
+              {isRender && <Wrapper />}
+              <Form />
+              <Emoji />
+              <MediaWindow />
+            </MediaWindowProvider>
           </EmojiProvider>
         </InputProvider>
       </MenuProvider>

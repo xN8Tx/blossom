@@ -1,13 +1,15 @@
 .EmojiWrapper {
   position: absolute;
 
+  z-index: 10;
+
   bottom: 90px;
   left: 35px;
 
   opacity: 1;
   pointer-events: auto;
 
-  @media (max-width: 546px) {
+  @media (max-width: 768px) {
     width: 100%;
 
     position: fixed;

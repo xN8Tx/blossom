@@ -62,6 +62,10 @@
 .playBtn,
 .muteBtn {
   background-color: transparent;
+
+  & > svg {
+    pointer-events: none;
+  }
 }
 
 .muteBtn {

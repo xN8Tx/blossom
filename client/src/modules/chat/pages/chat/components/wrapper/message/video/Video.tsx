@@ -1,6 +1,7 @@
-import { useRef, useState } from 'react';
+import { MouseEvent, useContext, useRef, useState } from 'react';
 
 import useOnScreen from '@chat/hooks/useOnScreen';
+import MediaWindowContext from '@chat/context/media-window/MediaWindowContext';
 
 import MuteIcon from '@chat/assets/player/MuteIcon';
 import SoundIcon from '@chat/assets/player/SoundIcon';
@@ -17,6 +18,8 @@ type VideoPropsType = {
 
 export default function Video({ messageObj }: VideoPropsType) {
   const { message } = messageObj;
+
+  const { setIsOpen, setMediaUrl, setType } = useContext(MediaWindowContext);
 
   const wrapperRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -50,19 +53,40 @@ export default function Video({ messageObj }: VideoPropsType) {
     setIsPlaying(false);
   };
 
+  // Media Window
+  const handleMediaWindow = (event: MouseEvent<HTMLDivElement>) => {
+    const isControls =
+      (event.target as HTMLElement)?.id === 'video-message-controls';
+
+    if (isControls) return false;
+
+    setMediaUrl(message);
+    setType('video');
+    setIsOpen(true);
+  };
+
   return (
     <div
       className={style.videoWrapper}
       ref={wrapperRef}
       is-loaded={isOnScreen.toString()}
+      onClick={handleMediaWindow}
     >
       {isOnScreen && (
         <>
           <div className={style.videoControls}>
-            <button onClick={handlePlayPause} className={style.muteBtn}>
+            <button
+              onClick={handlePlayPause}
+              className={style.muteBtn}
+              id='video-message-controls'
+            >
               {isPlaying ? <PauseIcon /> : <PlayIcon />}
             </button>
-            <button onClick={handleVolumeToggle} className={style.playBtn}>
+            <button
+              onClick={handleVolumeToggle}
+              className={style.playBtn}
+              id='video-message-controls'
+            >
               {isMuted ? <MuteIcon /> : <SoundIcon />}
             </button>
           </div>
