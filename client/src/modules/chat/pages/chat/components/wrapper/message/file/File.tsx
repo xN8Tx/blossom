@@ -2,13 +2,12 @@ import { useTranslation } from 'react-i18next';
 import { Paragraph } from 'blossom-react-ui';
 
 import DownloadIcon from '@chat/assets/DownloadIcon';
-
 import sendedIcon from '@chat/assets/SendedIcon.svg';
 import readIcon from '@chat/assets/ReadIcon.svg';
 
 import type { Messages } from '@/models/data';
 
-import style from '../Message.module.scss';
+import style from './File.module.scss';
 
 type FilePropsType = {
   messageObj: Messages;
@@ -17,10 +16,14 @@ type FilePropsType = {
 
 export default function File({ messageObj, isUser }: FilePropsType) {
   const { t } = useTranslation();
-  const statusUrl = status ? readIcon : sendedIcon;
+  const statusUrl = messageObj.status ? readIcon : sendedIcon;
 
   return (
-    <div className={style.fileWrapper} is-user={`${isUser}`}>
+    <div
+      className={style.fileWrapper}
+      data-id='message-file-wrapper'
+      is-user={`${isUser}`}
+    >
       <a href={messageObj.message} download>
         <DownloadIcon />
       </a>

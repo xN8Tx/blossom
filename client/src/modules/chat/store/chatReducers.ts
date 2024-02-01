@@ -7,7 +7,6 @@ import type {
   DeleteChatBodyRes,
   DeleteMessageBodyRes,
   EditMessageBodyRes,
-  // GetChatMessagesBodyRes,
   Message,
   MessageBodyRes,
   ReadMessageBodyRes,
@@ -15,17 +14,6 @@ import type {
 } from '@/models/socket';
 
 const reducers = {
-  // addMessagesToChat: (
-  //   state: ChatInitialState,
-  //   action: PayloadAction<Message<GetChatMessagesBodyRes>>
-  // ) => {
-  //   const index = state.data!.findIndex(
-  //     (chat) => `${chat.id}` === action.payload.body.chatId
-  //   );
-
-  //   state.data![index].messages = action.payload.body.messages;
-  //   state.data![index].isLoaded = 'success';
-  // },
   addMessageToChat: (
     state: ChatInitialState,
     action: PayloadAction<Message<MessageBodyRes>>
@@ -56,7 +44,16 @@ const reducers = {
     const indexOfChat = state.data!.findIndex(
       (chat) => Number(chat.id) === Number(action.payload.body.chatId)
     );
-    state.data![indexOfChat].messages = action.payload.body.messages;
+
+    const messages = state.data![indexOfChat].messages;
+
+    const indexOfMessage = messages.findIndex((m) => m.status === false);
+
+    if (indexOfMessage !== -1) {
+      for (let index = indexOfMessage; index < messages.length; index++) {
+        messages[index].status = true;
+      }
+    }
   },
   addEditMessage: (
     state: ChatInitialState,

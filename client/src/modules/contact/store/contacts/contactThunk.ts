@@ -4,6 +4,7 @@ import $http from '@/api/httpApi';
 
 import type { Contact } from '@/models/data';
 import type { RootState } from '@/store';
+import getAvatar from '@/utils/getAvatar';
 
 const getContacts = createAsyncThunk(
   '@@contact/getContact',
@@ -16,9 +17,21 @@ const getContacts = createAsyncThunk(
     const url = `/contacts/${id}`;
 
     const res = await $http.get(url);
-    const data: Contact[] = await res.data.message;
+    const users: Contact[] = await res.data.message;
 
-    return data;
+    let usersWithAvatar = users;
+
+    if (users.length > 0) {
+      usersWithAvatar = await Promise.all(
+        users.map(async (user) => {
+          const avatarUrl = await getAvatar(user);
+          if (avatarUrl) return { ...user, avatar: avatarUrl };
+          return user;
+        })
+      );
+    }
+
+    return usersWithAvatar;
   }
 );
 

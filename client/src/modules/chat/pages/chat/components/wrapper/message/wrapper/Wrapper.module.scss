@@ -1,0 +1,17 @@
+.wrapper {
+  max-width: 344px;
+
+  padding: 12px 10px;
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 5px;
+
+  & > p {
+    word-break: break-all;
+    white-space: pre-line;
+  }
+
+  pointer-events: none;
+}

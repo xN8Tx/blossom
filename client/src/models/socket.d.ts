@@ -44,7 +44,6 @@ type ReadMessageBody = {
 
 type ReadMessageBodyRes = {
   chatId: string;
-  messages: Messages[];
 };
 
 type EditMessageBody = {

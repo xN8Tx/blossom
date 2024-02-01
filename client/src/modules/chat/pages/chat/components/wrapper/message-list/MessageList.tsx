@@ -1,4 +1,11 @@
-import { MouseEvent, forwardRef, useContext } from 'react';
+import {
+  MouseEvent,
+  TouchEvent,
+  forwardRef,
+  useContext,
+  useEffect,
+  useRef,
+} from 'react';
 import { useParams } from 'react-router-dom';
 
 import { useAppSelector } from '@/store';
@@ -15,16 +22,46 @@ import style from './MessageList.module.scss';
 
 const MessageList = forwardRef<HTMLDivElement>((_, ref) => {
   const { id } = useParams();
+
+  const timeoutRef = useRef<number | null>(null);
+
+  const userId = useAppSelector((state) => state.user.data.id);
+  const data = useAppSelector((state) => selectById(state, Number(id!))!);
   const { setPosX, setPosY, isOpen, setIsOpen, setSelectedMessageId } =
     useContext(MenuContext);
 
-  const data = useAppSelector((state) => selectById(state, Number(id!))!);
-  const userId = useAppSelector((state) => state.user.data.id);
+  const getContainer = (target: HTMLElement): HTMLElement => {
+    if (!target.getAttribute('is-user'))
+      return getContainer(target.previousElementSibling as HTMLElement);
+    return target;
+  };
+
+  const startMenu = (
+    event: TouchEvent<HTMLDivElement> | MouseEvent<HTMLDivElement>
+  ) => {
+    const target = event.target as HTMLElement;
+    const targetTag = target.tagName;
+    let id;
+
+    if (targetTag === 'IMG' || targetTag === 'VIDEO') {
+      id = target.parentElement?.parentElement?.getAttribute('data-id');
+    } else if (target.getAttribute('data-id') === 'message-file-wrapper') {
+      id = target.parentElement?.getAttribute('data-id');
+    } else {
+      id = target.getAttribute('data-id');
+    }
+
+    if (id) {
+      setSelectedMessageId(id);
+      if (!isOpen) setIsOpen(true);
+    } else {
+      if (isOpen) setIsOpen(false);
+    }
+  };
 
   const onContextMenu = (event: MouseEvent<HTMLDivElement>) => {
+    if (document.body.clientWidth < 768) return event.preventDefault();
     event.preventDefault();
-
-    if (!isOpen) setIsOpen(true);
 
     if (document.documentElement.clientWidth > 768) {
       setPosX(event.clientX - 333 + 50);
@@ -34,10 +71,41 @@ const MessageList = forwardRef<HTMLDivElement>((_, ref) => {
       setPosY(event.clientY - 90 + 50);
     }
 
-    const id = (event.target as HTMLDivElement).getAttribute('data-id');
-    if (typeof id === 'string') {
-      setSelectedMessageId(id);
-    }
+    startMenu(event);
+  };
+
+  const onTouchStart = (event: TouchEvent<HTMLDivElement>) => {
+    timeoutRef.current = window.setTimeout(() => {
+      event.preventDefault();
+
+      const target = getContainer(event.target as HTMLElement);
+      let posX, posY;
+
+      if (target.getAttribute('is-user') === 'true') {
+        const { y, height } = target.getBoundingClientRect();
+
+        posX = document.body.clientWidth - 185;
+        posY = y + height;
+
+        setPosX(posX);
+        setPosY(posY);
+
+        startMenu(event);
+      } else {
+        const { y, height } = target.getBoundingClientRect();
+
+        posX = 35;
+        posY = y + height;
+
+        setPosX(posX);
+        setPosY(posY);
+
+        startMenu(event);
+      }
+    }, 800);
+  };
+  const onTouchEnd = () => {
+    if (timeoutRef.current) window.clearTimeout(timeoutRef.current);
   };
 
   const onClick = () => {
@@ -47,9 +115,17 @@ const MessageList = forwardRef<HTMLDivElement>((_, ref) => {
     }
   };
 
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) window.clearTimeout(timeoutRef.current);
+    };
+  }, []);
+
   return (
     <div
       onContextMenu={onContextMenu}
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
       className={style.list}
       onClick={onClick}
       ref={ref}

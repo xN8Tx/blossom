@@ -1,10 +1,7 @@
-import isMessageImage from '@chat/utils/isMessageImage';
-
 import Body from '../body/Body';
-import Image from '../image/Image';
 import Info from '../info/Info';
 
-import style from '../Message.module.scss';
+import style from './Wrapper.module.scss';
 
 type WrapperProps = {
   isDate: boolean;
@@ -21,14 +18,12 @@ export default function Wrapper({
   status,
   message,
 }: WrapperProps) {
-  const isImage = isMessageImage(message);
-
-  if (isImage) {
-    return <Image message={message} />;
-  }
-
   return (
-    <div className={style.wrapper} is-date={isDate.toString()}>
+    <div
+      className={style.wrapper}
+      data-id='message-wrapper'
+      is-date={isDate.toString()}
+    >
       <Body message={message} isUser={isUser} status={status} />
       {isEdit && <Info />}
     </div>

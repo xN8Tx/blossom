@@ -74,7 +74,7 @@ export default function Video({ messageObj }: VideoPropsType) {
     >
       {isOnScreen && (
         <>
-          <div className={style.videoControls}>
+          <div className={style.videoControls} data-id='message-video-controls'>
             <button
               onClick={handlePlayPause}
               className={style.muteBtn}

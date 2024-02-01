@@ -4,15 +4,18 @@ import reducers from './chatReducers';
 import {
   addFileToChat,
   addMessagesToChat,
+} from './thunk/ws/websocket-handlers';
+import {
   deleteChat,
   deleteMessage,
   editMessage,
   getChatMessages,
-  getChats,
   readMessage,
-} from './chatThunk';
+  sendFile,
+} from './thunk/chat-action/chatAction';
 
 import type { ChatInitialState } from '@/models/data';
+import { getChats } from './thunk/messenger-action/messengerAction';
 
 const initialState: ChatInitialState = {
   loading: 'idle',
@@ -72,12 +75,15 @@ const chatSlice = createSlice({
         state.data![index].isLoaded = 'loading';
       })
       .addCase(addFileToChat.fulfilled, (state, action) => {
-        const { chatId, message } = action.payload!;
-
-        console.log(message);
+        const { chatId, message, isUser } = action.payload!;
 
         const index = state.data!.findIndex((chat) => `${chat.id}` === chatId);
+
         state.data![index].messages.push(message);
+
+        if (state.data![index].isFileLoaded && isUser) {
+          state.data![index].isFileLoaded = false;
+        }
       })
       .addCase(addMessagesToChat.fulfilled, (state, action) => {
         const index = state.data!.findIndex(
@@ -97,6 +103,13 @@ const chatSlice = createSlice({
           ) || null;
 
         state.isReRender = false;
+      })
+      .addCase(sendFile.fulfilled, (state, action) => {
+        const index = state.data?.findIndex(
+          (chat) => Number(chat.id) === action.payload.chatId
+        );
+
+        state.data![index!].isFileLoaded = true;
       });
   },
 });

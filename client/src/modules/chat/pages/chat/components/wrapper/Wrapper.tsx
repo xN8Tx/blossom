@@ -2,7 +2,7 @@ import { useContext, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '@/store';
-import { readMessage } from '@chat/store/chatThunk';
+import { readMessage } from '@/modules/chat/store/thunk/chat-action/chatAction';
 import selectById from '@chat/store/selectors/selectById';
 
 import EmojiContext from '@chat/context/emoji/EmojiContext';
@@ -45,6 +45,7 @@ export default function Wrapper() {
       ref={containerRef}
       onClick={closeEmojiHandler}
       is-emoji-open={`${isEmojiOpen}`}
+      data-id='message-page-wrapper'
     >
       {isNull && <Empty />}
       {!isNull && <MessageList ref={listRef} />}

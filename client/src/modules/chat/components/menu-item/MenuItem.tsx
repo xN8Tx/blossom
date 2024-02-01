@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
+import { Paragraph } from 'blossom-react-ui';
 
 import style from './MenuItem.module.scss';
-import { Paragraph } from 'blossom-react-ui';
 
 type MenuItemProps = {
   name: string;

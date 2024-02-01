@@ -2,26 +2,32 @@ import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import { useModal } from 'blossom-react-ui';
 
-import { useAppDispatch } from '@/store';
-import { sendFile } from '@chat/store/chatThunk';
+import { useAppDispatch, useAppSelector } from '@/store';
+import { sendFile } from '@chat/store/thunk/chat-action/chatAction';
 
 import SendIcon from '@chat/assets/SendIcon';
 import ClipIcon from '@chat/assets/ClipIcon';
 
 import type { ChangeEvent, MouseEvent } from 'react';
 
-import style from '../Form.module.scss';
+import style from './ButtonForm.module.scss';
+import selectById from '@/modules/chat/store/selectors/selectById';
+import LoadingIcon from '@/modules/chat/assets/LoadingIcon';
 
 type ButtonFormProps = {
-  onMyMessageSend: (event: MouseEvent<HTMLButtonElement>) => void;
+  sendMyMessage: () => void;
 };
 
-export default function ButtonForm({ onMyMessageSend }: ButtonFormProps) {
+export default function ButtonForm({ sendMyMessage }: ButtonFormProps) {
   const { t } = useTranslation();
   const modal = useModal();
   const dispatch = useAppDispatch();
 
   const { id } = useParams();
+
+  const isFileLoaded = useAppSelector(
+    (state) => selectById(state, Number(id))?.isFileLoaded
+  );
 
   const onFileButtonChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files![0];
@@ -52,13 +58,24 @@ export default function ButtonForm({ onMyMessageSend }: ButtonFormProps) {
     if (!isFileBigger) reader.readAsDataURL(file);
   };
 
+  const onSendMessage = (event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+
+    sendMyMessage();
+  };
+
   return (
     <div className={style.buttons}>
       <div className={style.button}>
-        <input type='file' onChange={onFileButtonChange} />
-        <ClipIcon />
+        {!isFileLoaded && (
+          <>
+            <input type='file' onChange={onFileButtonChange} />
+            <ClipIcon />
+          </>
+        )}
+        {isFileLoaded && <LoadingIcon />}
       </div>
-      <button className={style.button} onClick={onMyMessageSend} type='submit'>
+      <button className={style.button} onClick={onSendMessage} type='submit'>
         <SendIcon />
       </button>
     </div>

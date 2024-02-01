@@ -2,7 +2,7 @@ import { Paragraph } from 'blossom-react-ui';
 
 import timeHandler from '@/modules/chat/utils/fromDateToTime';
 
-import style from '../Message.module.scss';
+import style from './Time.module.scss';
 
 type TimeProps = {
   date: string;

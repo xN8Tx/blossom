@@ -1,19 +1,20 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from 'react';
+import { useModal } from 'blossom-react-ui';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import decodeJWT from '@/utils/decodeJwt';
 
 import { useAppDispatch, useAppSelector } from '@/store';
 import { getUser } from '@/store/user/userThunk';
+
+import { getContacts } from '@contact/store/contacts/contactThunk';
+import { getChats } from '@chat/store/thunk/messenger-action/messengerAction';
 import {
-  getChats,
   setWebsocketHandler,
   startWebsocket,
-} from '@/modules/chat/store/chatThunk';
-import { getContacts } from '@/modules/contact/store/contacts/contactThunk';
-import { useModal } from 'blossom-react-ui';
-import { useTranslation } from 'react-i18next';
+} from '@chat/store/thunk/ws/websocket';
 
 export default function AppInit() {
   const dispatch = useAppDispatch();

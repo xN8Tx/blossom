@@ -1,0 +1,13 @@
+.body {
+  width: 100%;
+
+  display: flex;
+  gap: 5px;
+
+  & > p {
+    word-break: break-all;
+    white-space: pre-line;
+  }
+
+  pointer-events: none;
+}

@@ -51,18 +51,18 @@ export default function Video() {
     setCurrentTime(newTime);
   };
 
+  const handleOnLoadData = () => setDuration(videoRef.current!.duration);
+
   // USE EFFECT
   useEffect(() => {
     if (!videoRef.current) return () => {};
-
-    setDuration(Number(videoRef.current!.duration));
 
     const handleTimeUpdate = () => {
       setCurrentTime(Number(videoRef.current!.currentTime));
     };
 
     videoRef.current.addEventListener('timeupdate', handleTimeUpdate);
-  }, []);
+  }, [mediaUrl]);
 
   return (
     <div className={style.videoContainer}>
@@ -72,6 +72,7 @@ export default function Video() {
         muted={isMuted}
         ref={videoRef}
         onClick={handlePlayPause}
+        onLoadedData={handleOnLoadData}
       >
         <source src={mediaUrl} onEnded={handleEndVideo} />
         Your browser doesn't support video!
@@ -85,7 +86,7 @@ export default function Video() {
           className={style.range}
           value={currentTime}
           step='any'
-          max={duration.toString()}
+          max={duration}
           min='0'
           onChange={handleSeekBarChange}
         />

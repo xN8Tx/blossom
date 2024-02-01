@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '@/store';
-import { getChatMessages } from '@chat/store/chatThunk';
+import { getChatMessages } from '../../store/thunk/chat-action/chatAction';
 import selectById from '@chat/store/selectors/selectById';
 
 import MenuProvider from '@chat/context/menu/MenuProvider';
@@ -18,6 +18,8 @@ import Emoji from './components/emoji/Emoji';
 import MediaWindow from '@chat/components/media-window/MediaWindow';
 
 import style from './ChatPage.module.scss';
+import Error from '@/components/error/Error';
+import MessagesPreloader from './components/messages-preloader/MessagesPreloader';
 
 export default function ChatPage() {
   const { id } = useParams();
@@ -33,6 +35,8 @@ export default function ChatPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, isConnected, id]);
 
+  if (!data) return <Error />;
+
   const isRender = data!.isLoaded === 'success';
 
   return (
@@ -43,7 +47,8 @@ export default function ChatPage() {
             <MediaWindowProvider>
               <Header />
               <Menu />
-              {isRender && <Wrapper />}
+              <Wrapper />
+              {!isRender && <MessagesPreloader />}
               <Form />
               <Emoji />
               <MediaWindow />

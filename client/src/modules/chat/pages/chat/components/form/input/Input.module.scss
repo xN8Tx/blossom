@@ -1,0 +1,33 @@
+.input {
+  width: 100%;
+  height: 52px;
+
+  overflow-y: scroll;
+
+  padding: 19px 20px;
+
+  white-space: pre-wrap;
+
+  background-color: transparent;
+
+  font-family: 'DM Sans', sans-serif;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  color: var(--blossom-ui-primary-text-color);
+
+  resize: none;
+
+  &::-webkit-scrollbar {
+    width: 0;
+  }
+
+  &:focus,
+  &[is-content='true'] {
+    & ~ p {
+      transform: translateX(10px);
+      opacity: 0;
+    }
+  }
+}

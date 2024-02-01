@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { useParams } from 'react-router-dom';
+import { Paragraph } from 'blossom-react-ui';
 import { useTranslation } from 'react-i18next';
 
 import { useAppSelector } from '@/store';
@@ -7,8 +8,7 @@ import selectMessageByMessageId from '@chat/store/selectors/selectMessageByMessa
 
 import MenuContext from '@/modules/chat/context/menu/MenuContext';
 
-import style from '../Form.module.scss';
-import { Paragraph } from 'blossom-react-ui';
+import style from './ChangeMessage.module.scss';
 
 export default function ChangeMessage() {
   const { t } = useTranslation();

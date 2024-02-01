@@ -1,11 +1,10 @@
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { useAppDispatch } from '@/store';
-import { deleteChat } from '@chat/store/chatThunk';
+import { deleteChat } from '@chat/store/thunk/chat-action/chatAction';
 
 import MenuItem from '@chat/components/menu-item/MenuItem';
 
-import SearchIcon from '@/assets/svg/SearchIcon';
 import DeleteIcon from '@chat/assets/DeleteIcon';
 
 import style from './MenuList.module.scss';
@@ -16,7 +15,6 @@ export default function MenuList() {
 
   const { id } = useParams();
 
-  const searchIcon = () => <SearchIcon />;
   const deleteIcon = () => <DeleteIcon />;
 
   const onDeleteClick = () => {
@@ -26,12 +24,6 @@ export default function MenuList() {
 
   return (
     <div className={style.list}>
-      <MenuItem
-        color='primary'
-        name='search'
-        icon={searchIcon}
-        onClick={() => {}}
-      />
       <MenuItem
         color='red'
         name='delete'

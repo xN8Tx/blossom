@@ -1,0 +1,33 @@
+.wrapper {
+  width: calc(100% - 333px);
+  height: 100%;
+
+  margin-top: 90px;
+
+  position: fixed;
+  left: 333px;
+  bottom: 80px;
+  z-index: 5;
+
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+  background-color: var(--blossom-ui-dark-background-color);
+
+  &::-webkit-scrollbar {
+    width: 0;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    left: 0;
+  }
+
+  @media (max-width: 768px) {
+    bottom: 75px;
+
+    &[is-emoji-open='true'] {
+      bottom: calc(75px + 250px);
+    }
+  }
+}

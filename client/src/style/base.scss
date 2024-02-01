@@ -37,12 +37,28 @@
     stroke: var(--blossom-ui-primary-text-color);
   }
 }
-
 .svg-stroke-fill-color {
   & > path {
     stroke: var(--blossom-ui-primary-text-color);
   }
   & > path:first-child {
     fill: var(--blossom-ui-primary-text-color);
+  }
+}
+.svg-g-path-fill-color {
+  & > g > path,
+  circle {
+    fill: var(--blossom-ui-primary-text-color);
+  }
+
+  animation: loadingIcon 1s linear infinite;
+
+  @keyframes loadingIcon {
+    0% {
+      transform: rotate(0);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
 }

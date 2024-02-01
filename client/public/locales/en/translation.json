@@ -108,7 +108,10 @@
     "inDevelopment": "This feature will be soon!",
     "search": "Search",
     "loading": "Loading",
-    "close": "Close"
+    "close": "Close",
+    "errorTitle": "Oops, there was an error :(",
+    "errorText": "Perhaps such a page does not exist. Click the button below to return to the main page. If the error persists, contact technical support.",
+    "errorButton": "Main page"
   },
   "theme": {
     "dark": "Dark mode",

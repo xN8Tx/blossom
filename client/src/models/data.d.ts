@@ -35,8 +35,9 @@ type Profile = User & {
 };
 
 type ChatWithInfo = Chat & {
-  isLoaded: LoadingType;
   notification: number;
+  isLoaded: LoadingType;
+  isFileLoaded: boolean;
   user: User;
   messages: Messages[];
 };

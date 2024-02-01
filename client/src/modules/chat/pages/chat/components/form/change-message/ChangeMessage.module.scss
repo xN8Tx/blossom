@@ -1,0 +1,59 @@
+.changeWrapper {
+  width: 100%;
+
+  padding: 15px 35px;
+
+  position: absolute;
+  bottom: 80px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background-color: var(--blossom-ui-primary-background-color);
+}
+
+.changeWrapperText {
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid var(--blossom-ui-dark-text-color);
+  padding-left: 10px;
+  gap: 5px;
+  max-width: 50%;
+}
+
+.changeClose {
+  width: 20px;
+  height: 20px;
+
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-right: 10px;
+
+  & > span {
+    width: 20px;
+    height: 2px;
+
+    display: block;
+
+    background-color: var(--blossom-ui-dark-text-color);
+    transform: rotate(45deg);
+
+    &::after {
+      content: '';
+      display: block;
+
+      position: absolute;
+
+      width: 20px;
+      height: 2px;
+      background-color: var(--blossom-ui-dark-text-color);
+
+      transform: rotate(-90deg);
+    }
+  }
+}

@@ -3,7 +3,7 @@ import { MouseEvent, useContext } from 'react';
 import EmojiContext from '@chat/context/emoji/EmojiContext';
 import EmojiIcon from '@chat/assets/EmojiIcon';
 
-import style from '../Form.module.scss';
+import style from './EmojiButton.module.scss';
 
 const EmojiButton = () => {
   const { isEmojiOpen, setIsEmojiOpen } = useContext(EmojiContext);

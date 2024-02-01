@@ -34,6 +34,7 @@ export default function PasswordInput({
 
   return (
     <ButtonInput
+      color='light'
       placeholder={t('auth.password')}
       type={passwordInputType}
       value={password}

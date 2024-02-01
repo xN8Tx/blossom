@@ -9,6 +9,11 @@
 
   pointer-events: none;
   overflow: hidden;
+
+  @media (max-width: 767px) {
+    position: static;
+    height: 100vh;
+  }
 }
 
 .wrapper {

@@ -1,24 +1,24 @@
-import { useContext, useEffect, useRef } from 'react';
+import { useContext, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Paragraph } from 'blossom-react-ui';
 import { useParams } from 'react-router-dom';
 
+import {
+  editMessage,
+  sendMessage,
+} from '@chat/store/thunk/chat-action/chatAction';
+import { useAppDispatch } from '@/store';
+
 import InputContext from '@chat/context/input/InputContext';
-import EmojiContext from '@chat/context/emoji/EmojiContext';
-import EmojiButton from '../emoji-button/EmojiButton';
-
 import MenuContext from '@chat/context/menu/MenuContext';
-import ButtonForm from '../button-form/ButtonForm';
-
-import selectMessageByMessageId from '@chat/store/selectors/selectMessageByMessageId';
-import { editMessage, sendMessage } from '@chat/store/chatThunk';
-import { useAppDispatch, useAppSelector } from '@/store';
 
 import isMessageEmpty from '@chat/utils/isMessageEmpty';
 
-import type { KeyboardEvent, ChangeEvent, MouseEvent } from 'react';
+import EmojiButton from '../emoji-button/EmojiButton';
+import ButtonForm from '../button-form/ButtonForm';
+import Input from '../input/Input';
 
-import style from '../Form.module.scss';
+import style from './InputForm.module.scss';
 
 export default function InputForm() {
   const textboxRef = useRef<HTMLDivElement>(null);
@@ -29,18 +29,6 @@ export default function InputForm() {
 
   const { editMessageId, setEditMessageId } = useContext(MenuContext);
   const { inputValue, setInputValue } = useContext(InputContext);
-  const { setIsEmojiOpen } = useContext(EmojiContext);
-
-  const isContent = `${inputValue.length > 0}`;
-
-  const message = useAppSelector((state) =>
-    selectMessageByMessageId(state, Number(editMessageId), Number(id))
-  );
-
-  // HANDLER TO MY DIV INPUT
-  const onMyMessageChange = (event: ChangeEvent<HTMLDivElement>) => {
-    setInputValue(event.currentTarget.textContent!);
-  };
 
   // SEND MESSAGE HANDLER
   const sendMyMessage = () => {
@@ -70,67 +58,14 @@ export default function InputForm() {
     textboxRef.current!.textContent = '';
   };
 
-  // BUTTON HANDLER
-  const onMyMessageSend = (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-
-    sendMyMessage();
-  };
-
-  // ENTER TO SAND MESSAGE
-  const onEnterClick = (event: KeyboardEvent<HTMLDivElement>) => {
-    if (event.key === 'Enter' && !event.shiftKey) {
-      event.preventDefault();
-      sendMyMessage();
-    }
-  };
-
-  // TURN OFF EMOJI WHEN KEYBOARD
-  const onFocusHandler = () => {
-    setIsEmojiOpen(false);
-  };
-
-  useEffect(() => {
-    const isDifMessage =
-      typeof textboxRef.current!.textContent === 'string' &&
-      textboxRef.current!.textContent !== inputValue;
-
-    if (isDifMessage) {
-      textboxRef.current!.textContent = inputValue;
-    }
-  }, [inputValue]);
-
-  useEffect(() => {
-    setInputValue('');
-    textboxRef.current!.textContent = '';
-  }, [id, setInputValue]);
-
-  useEffect(() => {
-    if (message) {
-      setInputValue(message.message);
-      textboxRef.current!.textContent = message.message;
-    }
-  }, [message, setInputValue]);
-
   return (
     <form className={style.form}>
       <EmojiButton />
-      <div
-        id='ChatInput'
-        is-content={isContent}
-        contentEditable
-        role='textbox'
-        onInput={onMyMessageChange}
-        onFocus={onFocusHandler}
-        onKeyDown={onEnterClick}
-        className={style.input}
-        tabIndex={1}
-        ref={textboxRef}
-      ></div>
+      <Input sendMyMessage={sendMyMessage} />
       <Paragraph color='dark' size='l' weight='medium'>
         {t('chat.writeMessage')}
       </Paragraph>
-      <ButtonForm onMyMessageSend={onMyMessageSend} />
+      <ButtonForm sendMyMessage={sendMyMessage} />
     </form>
   );
 }

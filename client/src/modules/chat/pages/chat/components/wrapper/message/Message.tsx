@@ -7,8 +7,9 @@ import Image from './image/Image';
 
 import type { Messages } from '@/models/data';
 
-import style from './Message.module.scss';
 import Video from './video/Video';
+
+import style from './Message.module.scss';
 
 type MessageProps = {
   isDate: boolean;

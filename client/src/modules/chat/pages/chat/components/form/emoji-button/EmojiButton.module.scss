@@ -1,0 +1,26 @@
+.emojiButton {
+  background-color: transparent;
+  position: relative;
+  width: 30px;
+  height: 30px;
+
+  & > svg {
+    width: 30px;
+    height: 30px;
+
+    & > g > path,
+    circle {
+      transition: all ease-in 0.3s;
+      stroke: var(--blossom-ui-primary-text-color);
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        & > g > path,
+        circle {
+          stroke: var(--blossom-ui-dark-text-color);
+        }
+      }
+    }
+  }
+}

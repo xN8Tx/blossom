@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '@/store';
 import { selectById } from '@contact/store/contacts/contactSelector';
 import selectByCompanionId from '@chat/store/selectors/selectByCompanionId';
-import { createChat } from '@chat/store/chatThunk';
+import { createChat } from '@chat/store/thunk/chat-action/chatAction';
 import {
   deleteContact,
   postContact,

@@ -3,7 +3,7 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import useOnScreen from '@chat/hooks/useOnScreen';
 import MediaWindowContext from '@chat/context/media-window/MediaWindowContext';
 
-import style from '../Message.module.scss';
+import style from './Image.module.scss';
 
 type ImageProps = {
   message: string;

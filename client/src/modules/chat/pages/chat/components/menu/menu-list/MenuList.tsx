@@ -1,9 +1,16 @@
-import { RefObject, forwardRef, useContext, useEffect, useRef } from 'react';
+import {
+  Fragment,
+  RefObject,
+  forwardRef,
+  useContext,
+  useEffect,
+  useRef,
+} from 'react';
 import { useParams } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '@/store';
 import selectMessageByMessageId from '@chat/store/selectors/selectMessageByMessageId';
-import { deleteMessage } from '@chat/store/chatThunk';
+import { deleteMessage } from '@chat/store/thunk/chat-action/chatAction';
 
 import MenuContext from '@/modules/chat/context/menu/MenuContext';
 
@@ -83,21 +90,24 @@ const MenuList = forwardRef<HTMLDivElement>((_, ref) => {
   // CHANGE POSITION IF MENU GO OUT OF BOUNDS
   useEffect(() => {
     if (!ref) return () => {};
+    if (!isOpen) return () => {};
 
     const containerWidth = (ref as RefObject<HTMLDivElement>).current!
       .clientWidth;
     const containerHeight = (ref as RefObject<HTMLDivElement>).current!
       .clientHeight;
 
-    if (containerWidth - posX < 150) {
-      setPosX(containerWidth - 300);
+    if (document.body.clientWidth > 768) {
+      if (containerWidth - posX < 150) {
+        setPosX(containerWidth - 300);
+      }
+      if (containerHeight - posY < 185) {
+        setPosY(containerHeight - 185);
+      }
     }
 
-    if (containerHeight - posY < 185) {
-      setPosY(containerHeight - 185);
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [posX, posY]);
+  }, [posX, posY, isOpen]);
 
   /*
     ITEMS HANDLERS
@@ -173,10 +183,10 @@ const MenuList = forwardRef<HTMLDivElement>((_, ref) => {
     >
       {menuItemsList.map((item, index) => {
         if (isMessageFromUser && isImage) {
-          if (index === 1) return <></>;
+          if (index === 1) return <Fragment key={item.name} />;
           return (
             <MenuItem
-              key={index}
+              key={item.name}
               name={item.name}
               icon={item.icon}
               onClick={item.onClick}
@@ -184,10 +194,10 @@ const MenuList = forwardRef<HTMLDivElement>((_, ref) => {
             />
           );
         } else if (isMessageFromUser && !isImage) {
-          if (index === 2) return <></>;
+          if (index === 2) return <Fragment key={item.name} />;
           return (
             <MenuItem
-              key={index}
+              key={item.name}
               name={item.name}
               icon={item.icon}
               onClick={item.onClick}
@@ -195,10 +205,10 @@ const MenuList = forwardRef<HTMLDivElement>((_, ref) => {
             />
           );
         } else if (!isMessageFromUser && isImage) {
-          if (index === 1) return <></>;
+          if (index === 1) return <Fragment key={item.name} />;
           return (
             <MenuItem
-              key={index}
+              key={item.name}
               name={item.name}
               icon={item.icon}
               onClick={item.onClick}
@@ -206,11 +216,11 @@ const MenuList = forwardRef<HTMLDivElement>((_, ref) => {
             />
           );
         } else {
-          if (index === 1) return <></>;
-          if (index === 2) return <></>;
+          if (index === 1) return <Fragment key={item.name} />;
+          if (index === 2) return <Fragment key={item.name} />;
           return (
             <MenuItem
-              key={index}
+              key={item.name}
               name={item.name}
               icon={item.icon}
               onClick={item.onClick}
