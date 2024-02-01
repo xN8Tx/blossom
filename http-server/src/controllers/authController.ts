@@ -204,6 +204,7 @@ class AuthController {
         process.env.REFRESH_TOKEN_SECRET as Secret,
         (error, user) => {
           if (error) {
+            res.clearCookie('refreshToken');
             return res.status(400).json({ message: 'Log in again' });
           }
 
