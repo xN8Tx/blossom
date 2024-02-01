@@ -2,8 +2,6 @@ import ws from 'ws';
 import { messagesAPI, errorLogManager } from 'database';
 
 import broadcastMessage from '../utils/broadcastMessage';
-import imageAPI from '../services/images/images.api';
-import isMessageImage from '../utils/isMessageImage';
 
 import type { MessagesDB } from 'database';
 import type {
@@ -22,15 +20,10 @@ const onMessage = async (
     if (Number(ws.id) !== Number(message.body.userId)) return ws.close();
     const { chatId, userId, message: _mes, date } = message.body.message;
 
-    let messageText = _mes;
-    if (isMessageImage(_mes)) {
-      messageText = (await imageAPI.madeWebpFromBase64(_mes)) as string;
-    }
-
     const newMessage = await messagesAPI.post(
       chatId,
       userId,
-      messageText,
+      _mes,
       false,
       date,
     );

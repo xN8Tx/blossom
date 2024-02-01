@@ -20,28 +20,12 @@ const onReadMessage = async (
 
     const { userId, chatId, companionId } = message.body;
 
-    const messages = await messagesAPI
-      .changeMessagesStatus(userId, chatId)
-      .then(async () => {
-        const messages = await messagesAPI.getByChatId(chatId);
-        if (messages === null) {
-          errorLogManager.addToLogs(
-            'Error in onReadMessage',
-            'messages === null',
-          );
-          return ws.close();
-        }
-        if (messages.length === 0) {
-          return [];
-        }
-        return messages;
-      });
+    await messagesAPI.changeMessagesStatus(userId, chatId);
 
     const title: Message<ReadMessageBodyRes> = {
       event: 'READ_MESSAGE',
       body: {
         chatId: chatId,
-        messages: messages!,
       },
     };
 
