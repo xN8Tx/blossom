@@ -57,6 +57,8 @@ type ChatsWithInfoDB = ChatDB & {
   isLoaded: 'idle';
   isFileLoaded: boolean;
   notification: string | null;
+  pages: number;
+  maxPages: number;
   user: UserProfileDB;
   messages: Omit<MessagesDB, 'chatId'>[];
 };

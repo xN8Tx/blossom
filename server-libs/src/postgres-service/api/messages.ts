@@ -11,17 +11,21 @@ import type {
 } from '../typings/typings';
 
 class MessagesAPI {
-  async getByChatId(chatId: string): Promise<MessagesDB[] | null> {
+  async getByChatId(
+    chatId: string,
+    page: number,
+  ): Promise<MessagesDB[] | null> {
     try {
       const messages = await databasePool.query<MessagesDB>(
-        'SELECT * FROM messages WHERE "chatId" = $1 ORDER BY id ASC',
-        [chatId],
+        'SELECT * FROM messages WHERE messages."chatId" = $1 ORDER BY id DESC LIMIT 20 OFFSET $2 * 20;',
+        [chatId, page],
       );
 
       const decrypt = decryptMessages(messages.rows);
       if (!decrypt) return null;
 
-      return decrypt as MessagesDB[];
+      const reverse = (decrypt as MessagesDB[]).reverse();
+      return reverse;
     } catch (error) {
       errorLogManager.addToLogs(
         '⚠️ Error in MessagesAPI getByChatId',
