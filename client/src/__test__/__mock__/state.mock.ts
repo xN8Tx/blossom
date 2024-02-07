@@ -30,6 +30,9 @@ const chat: ChatInitialState = {
       isLoaded: 'success',
       avatar: null,
       notification: 0,
+      isFileLoaded: false,
+      pages: 0,
+      maxPages: 1,
       user: {
         id: 2,
         firstName: 'Hello2',
@@ -101,6 +104,9 @@ const chat: ChatInitialState = {
       isLoaded: 'success',
       avatar: null,
       notification: 0,
+      isFileLoaded: false,
+      pages: 0,
+      maxPages: 1,
       user: {
         id: 3,
         firstName: 'Hello3',
@@ -172,6 +178,9 @@ const chat: ChatInitialState = {
       isLoaded: 'success',
       avatar: null,
       notification: 0,
+      isFileLoaded: false,
+      pages: 0,
+      maxPages: 1,
       user: {
         id: 4,
         firstName: 'Hello4',

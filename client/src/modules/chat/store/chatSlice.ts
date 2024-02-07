@@ -72,7 +72,11 @@ const chatSlice = createSlice({
         const index = state.data!.findIndex(
           (chat) => `${chat.id}` === action.payload
         );
-        state.data![index].isLoaded = 'loading';
+
+        const { maxPages, pages } = state.data![index];
+
+        if (pages === 0) state.data![index].isLoaded = 'loading';
+        if (pages < Number(maxPages)) state.data![index].pages++;
       })
       .addCase(addFileToChat.fulfilled, (state, action) => {
         const { chatId, message, isUser } = action.payload!;
@@ -80,6 +84,8 @@ const chatSlice = createSlice({
         const index = state.data!.findIndex((chat) => `${chat.id}` === chatId);
 
         state.data![index].messages.push(message);
+
+        state.data![index].notification++;
 
         if (state.data![index].isFileLoaded && isUser) {
           state.data![index].isFileLoaded = false;
@@ -90,7 +96,15 @@ const chatSlice = createSlice({
           (chat) => `${chat.id}` === action.payload.chatId
         );
 
-        state.data![index].messages = action.payload.messages;
+        if (state.data![index].pages === 1) {
+          state.data![index].messages = action.payload.messages;
+        } else {
+          state.data![index].messages = [
+            ...action.payload.messages,
+            ...state.data![index].messages,
+          ];
+        }
+
         state.data![index].isLoaded = 'success';
       })
       .addCase(deleteChat.pending, (state) => {

@@ -36,7 +36,7 @@ export default function Buttons() {
 
   const onMessageClick = async () => {
     if (chat !== null) {
-      navigate('/chat/' + chat!.id);
+    navigate('/chat/' + chat!.id);
     } else {
       await dispatch(createChat(id!));
       navigate('/chat/');

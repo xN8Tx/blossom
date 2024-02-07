@@ -35,6 +35,8 @@ type Profile = User & {
 };
 
 type ChatWithInfo = Chat & {
+  pages: number;
+  maxPages: number;
   notification: number;
   isLoaded: LoadingType;
   isFileLoaded: boolean;

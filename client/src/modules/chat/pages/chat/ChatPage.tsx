@@ -47,7 +47,7 @@ export default function ChatPage() {
             <MediaWindowProvider>
               <Header />
               <Menu />
-              <Wrapper />
+              {isRender && <Wrapper />}
               {!isRender && <MessagesPreloader />}
               <Form />
               <Emoji />

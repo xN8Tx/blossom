@@ -172,11 +172,18 @@ const deleteMessage = createAsyncThunk(
 // Get messages from chat
 const getChatMessages = createAsyncThunk(
   '@@chats/getChatMessages',
-  async (chatId: string) => {
+  async (chatId: string, { getState }) => {
+    const chat = (getState() as RootState).chat.data?.filter(
+      (ch) => Number(ch.id) === Number(chatId)
+    );
+
+    if (!chat) return Error();
+
     const title: Message<GetChatMessagesBody> = {
       event: 'GET_CHAT_MESSAGE',
       body: {
         chatId: chatId,
+        page: chat[0].pages,
       },
     };
 
