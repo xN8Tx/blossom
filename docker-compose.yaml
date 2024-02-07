@@ -17,33 +17,7 @@ services:
       - 8001:8001
     volumes:
       - ./redis/insight:/db
-  client:
-    container_name: client
-    restart: always
-    build:
-      context: ./client
-      dockerfile: Dockerfile
-    ports: 
-      - 80:80
-    depends_on:
-      - redis
-      - db
-      - api
-  api:
-    container_name: api
-    restart: always
-    build:
-      context: ./server
-      dockerfile: Dockerfile
-    ports: 
-      - 8080:8080 
-      - 8888:8888
-    depends_on:
-      - redis
-      - db
-    environment:
-      - NODE_ENV=production
-  db:
+  psql_db:
     container_name: db
     image: postgres:15-alpine
     restart: always
@@ -64,3 +38,130 @@ services:
       PGADMIN_LISTEN_PORT: 5050
     ports:
       - 5050:5050
+  client:
+    container_name: client
+    restart: always
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    environment:
+      VITE_WS_SERVER_URL: ws://192.168.0.27:8888/
+      VITE_SERVER_URL: http://192.168.0.27:8080/api
+      VITE_FILE_SERVER_URL: http://192.168.0.27:6060/
+      VITE_FRONTEND_SERVER_URL: http://192.168.0.27:5173/
+    ports: 
+      - 80:80
+    depends_on:
+      - redis
+      - db
+      - api
+  lib:
+    container_name: libServer
+    restart: always
+    build:
+      context: ./file-server
+      dockerfile: Dockerfile
+    ports: 
+      - 6060:6060 
+    depends_on:
+      - redis
+      - psql_db
+    environment: 
+      # DB
+      DATABASE_URL: postgres://postgres:root@db:5432/Messenger
+      REDIS_URL: redis://redis:6379
+      # DB
+      MESSAGE_CRYPT: 
+  file:
+    container_name: fileServer
+    restart: always
+    build:
+      context: ./file-server
+      dockerfile: Dockerfile
+    ports: 
+      - 6060:6060 
+    depends_on:
+      - libServer
+      - redis
+      - psql_db
+    environment: 
+      # MAIN
+      PORT: 6060
+      ORIGIN_URL: http://192.168.0.27:5173
+      HTTP_SERVER: 192.168.0.27
+      WS_SERVER: http://192.168.0.27:8888
+      # JWT
+      ACCESS_TOKEN_SECRET: "OdIznkaKgzhwjh*8dTMYmYosqygk$H3{%l*Vf~#HwmsneRb6$u"
+      REFRESH_TOKEN_SECRET: "5%He7wqV8${68f$gH4YzM}YT7WTJA%DSvDbZsH*?PWbjmA?huk"
+  http:
+    container_name: httpServer
+    restart: always
+    build:
+      context: ./http-server
+      dockerfile: Dockerfile
+    ports: 
+      - 8080:8080 
+    depends_on:
+      - redis
+      - psql_db
+      - libServer
+      - fileServer
+    environment:
+      NODE_ENV: production
+      PORT:  8080
+      ORIGIN_URL:  http://192.168.0.27:5173
+      FILE_SERVER_URL:  http://192.168.0.27:6060
+      # DB
+      DATABASE_URL: postgres://postgres:root@db:5432/Messenger
+      REDIS_URL: redis://redis:6379
+      # CRYPTING
+      WS_CRYPT: ""
+      PASSWORD_CRYPT: ""
+      MESSAGE_CRYPT: "" 
+      # JWT
+      ACCESS_TOKEN_SECRET: ""
+      REFRESH_TOKEN_SECRET: ""
+      # EMAIL
+      SMTP_HOST: 'smtp.gmail.com'
+      SMTP_PORT: 587
+      SMTP_USER: ""
+      SMTP_PASSWORD: ""
+      SMTP_CLIENT_ID: ""
+      SMTP_CLIENT_SECRET: ""
+      SMTP_REFRESH_TOKEN: ""
+  ws:
+    container_name: wsServer
+    restart: always
+    build:
+      context: ./ws-server
+      dockerfile: Dockerfile
+    ports: 
+      - 8888:8888 
+    depends_on:
+      - redis
+      - psql_db
+      - libServer
+      - fileServer
+    environment:
+      NODE_ENV: production
+      WSS_PORT: 8888
+      ORIGIN_URL: http://192.168.0.27:5173
+      FILE_SERVER_URL: http://192.168.0.27:6060
+      # DB
+      DATABASE_URL: postgres://postgres:root@db:5432/Messenger
+      REDIS_URL: redis://redis:6379
+      # CRYPTING
+      WS_CRYPT:  
+      PASSWORD_CRYPT:
+      MESSAGE_CRYPT:  
+      # JWT
+      ACCESS_TOKEN_SECRET:  
+      REFRESH_TOKEN_SECRET:
+      # EMAIL
+      SMTP_HOST: 'smtp.gmail.com'
+      SMTP_PORT: 587
+      SMTP_USER: 
+      SMTP_PASSWORD:
+      SMTP_CLIENT_ID:
+      SMTP_CLIENT_SECRET:
+      SMTP_REFRESH_TOKEN:
