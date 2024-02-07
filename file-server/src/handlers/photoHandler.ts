@@ -11,7 +11,11 @@ const compressImage = async (fileBase64: string) => {
   const base64Image = fileBase64.replace(/^data:image\/\w+;base64,/, '');
   const buffer = Buffer.from(base64Image, 'base64');
 
-  await sharp(buffer, { animated: true }).webp().toFile(pathToFile);
+  await sharp(buffer, { animated: true })
+    .withMetadata()
+    .rotate()
+    .toFormat('webp')
+    .toFile(pathToFile);
 
   return `${fileName}.webp`;
 };
