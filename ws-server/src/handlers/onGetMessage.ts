@@ -13,6 +13,7 @@ const onGetMessage = async (
 ) => {
   try {
     const chatId = message.body.chatId;
+    const page = message.body.page;
     const userId = ws.id;
 
     const members = await membersAPI.getByChatIdAndUserId(
@@ -28,7 +29,7 @@ const onGetMessage = async (
       return ws.close();
     }
 
-    const messages = await messagesAPI.getByChatId(chatId);
+    const messages = await messagesAPI.getByChatId(chatId, page);
 
     // if (messages === null) {
     //   errorLogManager.addToLogs('Error in onGetMessage', 'messages === null');

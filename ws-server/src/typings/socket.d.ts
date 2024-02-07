@@ -24,9 +24,11 @@ type Message<T> = {
 
 type GetChatMessagesBody = {
   chatId: string;
+  page: number;
 };
 
-type GetChatMessagesBodyRes = GetChatMessagesBody & {
+type GetChatMessagesBodyRes = {
+  chatId: string;
   messages: MessagesDB[];
 };
 
