@@ -60,6 +60,9 @@ const onCreateChat = async (
           user: companionInformation!,
           notification: null,
           messages: [],
+          maxPages: 0,
+          pages: 0,
+          isFileLoaded: true,
         },
       },
     };
@@ -75,6 +78,9 @@ const onCreateChat = async (
           user: userInformation!,
           notification: null,
           messages: [],
+          maxPages: 1,
+          pages: 0,
+          isFileLoaded: true,
         },
       },
     };
