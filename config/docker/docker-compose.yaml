@@ -1,0 +1,131 @@
+version: "3.8"
+
+services:
+  client:
+    container_name: blossom-client
+    restart: unless-stopped
+    build:
+      context: ../../app/client
+      dockerfile: Dockerfile
+    volumes:
+      - /app/node_modules
+    depends_on:
+      - http-server
+    ports:
+      - 4173:4173
+    networks:
+      - blossom
+
+  # =============
+  #
+  #   SERVERS
+  #
+  # =============
+  http-server:
+    container_name: blossom-http-server
+    restart: unless-stopped
+    build:
+      context: ../../app/http-server
+      dockerfile: Dockerfile
+    volumes:
+      - ../../app/http-server/logs:/app/logs
+      - /app/node_modules
+    env_file:
+      - ../env/prod/http-server.env
+    depends_on:
+      - ws-server
+      - redis
+    ports:
+      - 8080:8080
+    networks:
+      - blossom
+
+  ws-server:
+    container_name: blossom-ws-server
+    restart: unless-stopped
+    build:
+      context: ../../app/ws-server
+      dockerfile: Dockerfile
+    env_file:
+      - ../env/prod/ws-server.env
+    volumes:
+      - ../../app/ws-server/logs/:/app/logs/
+      - /app/node_modules
+    depends_on:
+      - database-server
+      - file-server
+    ports:
+      - 8888:8888
+    networks:
+      - blossom
+
+  file-server:
+    container_name: blossom-file-server
+    restart: unless-stopped
+    build:
+      context: ../../app/file-server
+      dockerfile: Dockerfile
+    env_file:
+      - ../env/prod/file-server.env
+    volumes:
+      - ../../app/file-server/temp:/app/temp
+      - ../../app/file-server/logs:/app/logs
+      - /app/node_modules
+    ports:
+      - 6060:6060
+    networks:
+      - blossom
+
+  database-server:
+    container_name: blossom-database-server
+    restart: unless-stopped
+    build:
+      context: ../../app/database-server
+      dockerfile: Dockerfile
+    env_file:
+      - ../env/prod/database-server.env
+    volumes:
+      - ../../app/database-server/logs:/app/logs/
+      - /app/node_modules
+    depends_on:
+      - psql_database
+    ports:
+      - 3030:3030
+    networks:
+      - blossom
+
+  # ================
+  #
+  #     DATABASES
+  #
+  # ================
+  psql_database:
+    container_name: blossom-database
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - 5432:5432
+    volumes:
+      - ../../database/psql/data:/var/lib/postgresql/data/
+    networks:
+      - blossom
+
+  redis:
+    image: redis:7.2.0
+    container_name: redis
+    restart: always
+    volumes:
+      - ../../database/redis/data:/data
+    ports:
+      - 6379:6379
+    networks:
+      - blossom
+
+networks:
+  blossom:
+    name: blossom
+    driver: bridge

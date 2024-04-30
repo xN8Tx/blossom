@@ -1,0 +1,16 @@
+{
+  "name": "blossom-messenger",
+  "version": "1.0.0",
+  "description": "🌸 Fullstack messenger app based on TypeScript & React & Express & PostgreSQL",
+  "main": "index.js",
+  "scripts": {
+    "clear": "docker rm $(docker ps -qa)",
+    "stop": "docker stop $(docker ps -qa)",
+    "dev": "docker compose -f ./config/docker/docker-compose.dev.yaml build &&  docker compose -f ./config/docker/docker-compose.dev.yaml up",
+    "start": "docker compose -f ./config/docker/docker-compose.yaml build &&  docker compose -f ./config/docker/docker-compose.yaml up"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {}
+}
