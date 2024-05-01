@@ -1,4 +1,4 @@
-<h1 align="center">Blossom</h1>
+<h1 align="center">Blossom messenger</h1>
 <p align="center">🌸 Fullstack messenger app based on TypeScript & React & Express & PostgreSQL</p>
 
 
